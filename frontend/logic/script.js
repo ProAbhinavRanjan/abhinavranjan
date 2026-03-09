@@ -218,6 +218,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
+
+            // Hide loader after a short delay for smooth transition
+            setTimeout(() => {
+                const loader = document.getElementById('loader-wrapper');
+                if (loader) {
+                    loader.classList.add('fade-out');
+                    setTimeout(() => loader.remove(), 600);
+                }
+            }, 500);
         })
         .catch(err => {
             if (window.location.protocol === 'file:') {
@@ -463,4 +472,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Fallback: hide loader on window load in case fetch fails
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader-wrapper');
+        if (loader && !loader.classList.contains('fade-out')) {
+            loader.classList.add('fade-out');
+            setTimeout(() => loader.remove(), 600);
+        }
+    });
 });
