@@ -445,4 +445,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 300);
         });
     }
+
+    // About Page "Read More" Toggle Logic
+    const readMoreBtn = document.getElementById('aboutReadMoreBtn');
+    const moreContent = document.getElementById('aboutMoreContent');
+
+    if (readMoreBtn && moreContent) {
+        readMoreBtn.addEventListener('click', () => {
+            const isActive = moreContent.classList.toggle('active');
+            readMoreBtn.classList.toggle('active');
+
+            if (isActive) {
+                readMoreBtn.innerHTML = `Read Less <i class="fas fa-chevron-up"></i>`;
+            } else {
+                readMoreBtn.innerHTML = `Read More <i class="fas fa-chevron-down"></i>`;
+                readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
 });
