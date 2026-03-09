@@ -811,6 +811,71 @@ main {
         padding: 3rem 0;
         /* Standard mobile padding */
     }
+
+    /* About "Read More" Toggle for Mobile */
+    .about-read-more-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 1.5rem auto 0;
+        padding: 0.8rem 2rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        color: var(--primary);
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 5;
+        position: relative;
+    }
+
+    .about-read-more-btn:hover {
+        border-color: var(--primary);
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    }
+
+    .about-read-more-btn.active i {
+        transform: rotate(180deg);
+    }
+
+    .about-more-content {
+        display: none;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .about-more-content.active {
+        display: flex;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Desktop override for Read More button */
+@media (min-width: 769px) {
+    .about-read-more-btn {
+        display: none !important;
+    }
+
+    .about-more-content {
+        display: flex !important;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 }
 
 /* =========================================
