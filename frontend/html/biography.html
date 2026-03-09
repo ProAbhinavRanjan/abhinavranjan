@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biography | Abhinav Ranjan</title>
+    <link rel="icon" type="image/png" href="../../images/arlogo.png">
+    <link rel="apple-touch-icon" href="../../images/arlogo.png">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">AR<span class="dot">.</span></a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../../index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="biography.html" class="nav-link active">Biography</a></li>
+                    <li><a href="socials.html" class="nav-link">Socials</a></li>
+                    <li><a href="winnings.html" class="nav-link">Winnings</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="biography" class="section biography">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Abhinav's Journey</h2>
+                <p class="section-subtitle fade-in-up delay-100">A timeline of his growth, innovation, and creation.</p>
+
+
+                <div class="timeline flowchart fade-in-up delay-200">
+                    <div class="timeline-item">
+                        <div class="timeline-date">1</div>
+                        <div class="timeline-content">
+                            <h3>1. Idea of AR Tech (2019)</h3>
+                            <p>The spark began—ideating augmented reality technologies and future tech concepts.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2</div>
+                        <div class="timeline-content">
+                            <h3>2. Idea of Luminary Technicals (2021)</h3>
+                            <p>The foundation of a bigger vision was formed—Luminary Technicals as a futuristic tech
+                                brand.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">3</div>
+                        <div class="timeline-content">
+                            <h3>3. Founded Luminary Servers & Luminary Technicals (2022)</h3>
+                            <p>Set up private Luminary servers and officially structured Luminary Technicals.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">4</div>
+                        <div class="timeline-content">
+                            <h3>4. Expanding Systems & Ideas (2024)</h3>
+                            <p>Growth phase—expansion of systems, innovation pipelines, and collaborative technologies.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">5</div>
+                        <div class="timeline-content">
+                            <h3>5. Launching Luminary Technicals (2025)</h3>
+                            <p>The official launch—finally bringing the full vision of Luminary Technicals to the world.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podcast Section -->
+        <section class="section podcast-section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">The Podcast</h2>
+                <p class="section-subtitle fade-in-up delay-100" id="podcastDescription">Listen to Abhinav's thoughts on
+                    tech, cybersecurity, and everything in between.</p>
+
+                <div class="podcast-player-wrapper fade-in-up delay-200">
+                    <div class="podcast-cover">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <div class="podcast-info">
+                        <h3 id="podcastTitle">Tech Talks with Abhinav</h3>
+                        <div class="podcast-links" style="margin-bottom: 1.5rem;">
+                            <a href="#" id="podcastSpotifyLink" class="btn-text"><i class="fab fa-spotify"></i> Listen
+                                on Spotify</a>
+                            <a href="#" id="podcastAppleLink" class="btn-text"><i class="fab fa-apple"></i> Apple
+                                Podcasts</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Episodes rendered by JS from biography_page.json -->
+                <div id="podcastEpisodes" class="podcast-episodes-list"></div>
+            </div>
+        </section>
+
+        <!-- Books Library Section -->
+        <section class="section books-showcase">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Books Library</h2>
+                <p class="section-subtitle fade-in-up delay-100">Explore his publications and writings</p>
+
+                <div class="library-card fade-in-up delay-200">
+                    <div class="library-icon">
+                        <i class="fas fa-book-open"></i>
+                        <div class="books-count">6 Books</div>
+                    </div>
+                    <div class="library-content">
+                        <h3>Explore My Books</h3>
+                        <p>Browse through his collection of books covering technology, innovation, and personal growth
+                        </p>
+                        <button class="btn btn-primary" id="openBooksLibrary">
+                            <i class="fas fa-book-reader"></i> Browse Library
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Books Side Panel -->
+    <div class="side-panel" id="sidePanel">
+        <div class="panel-overlay" id="panelOverlay"></div>
+        <div class="panel-content">
+            <!-- Panel Header: Title + Buttons -->
+            <div class="panel-header">
+                <h3 id="panelBookTitle" class="panel-title">Select a book to preview</h3>
+                <div class="panel-actions">
+                    <button class="btn-icon btn-download" id="panelDownloadBtn" style="display: none;">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="btn-icon btn-close" id="panelCloseBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel Body: Sidebar + PDF Viewer -->
+            <div class="panel-body">
+                <!-- Left Sidebar: Search + Book List (hidden on mobile) -->
+                <aside class="books-sidebar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="bookSearch" placeholder="Search books..." autocomplete="off">
+                    </div>
+                    <div class="books-list" id="booksList"></div>
+                </aside>
+
+                <!-- Right: PDF Viewer -->
+                <main class="pdf-viewer">
+                    <!-- Mobile Dropdown (shown only on mobile) -->
+                    <div class="mobile-dropdown" id="mobileDropdown"></div>
+
+                    <!-- PDF Container -->
+                    <div class="pdf-container" id="pdfContainer">
+                        <div class="pdf-placeholder">
+                            <i class="fas fa-book-open"></i>
+                            <p>Select a book from the list to preview</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer id="siteFooter" class="footer"></footer>
+
+    <script src="../logic/script.js"></script>
+    <script src="../logic/biography_library.js"></script>
+</body>
+
+</html>

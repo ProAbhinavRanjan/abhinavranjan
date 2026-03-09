@@ -1,0 +1,47 @@
+[
+    {
+        "id": "guinness",
+        "title": "Guinness World Records Recognition",
+        "description": "Recognized for outstanding contributions to cybersecurity education and technology awareness at a young age. Noted internationally for work in ethical hacking education and digital security awareness.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-trophy",
+        "url": "#"
+    },
+    {
+        "id": "golden-book",
+        "title": "Golden Book of World Records",
+        "description": "Honored by the Golden Book of World Records for achievements in cybersecurity education and for being recognized as one of the youngest ethical hacking educators promoting responsible digital security practices.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-award",
+        "url": "#"
+    },
+    {
+        "id": "national-science",
+        "title": "National Science Championship – All India Rank 7",
+        "description": "Secured All India Rank 7 in the National Science Championship, demonstrating strong academic excellence and deep interest in scientific research, technology, and innovation.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-flask",
+        "url": "#"
+    },
+    {
+        "id": "vvm",
+        "title": "Vidyarthi Vigyan Manthan (VVM) – State Rank 4",
+        "description": "Achieved State Rank 4 in the Vidyarthi Vigyan Manthan (VVM) 2025 examination, a national science talent search that promotes scientific curiosity, innovation, and research among students.",
+        "date": "2025-2026",
+        "image": "#",
+        "icon": "fas fa-medal",
+        "url": "#"
+    },
+    {
+        "id": "cyber-award",
+        "title": "Excellence in Cybersecurity Awareness",
+        "description": "Recognized for promoting cybersecurity awareness, ethical hacking education, and safe digital practices among students and young technology learners.",
+        "date": "2025",
+        "image": "#",
+        "icon": "fas fa-shield-halved",
+        "url": "#"
+    }
+]

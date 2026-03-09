@@ -1,0 +1,37 @@
+[
+    {
+        "platform": "Website",
+        "handle": "Personal Portfolio",
+        "icon": "fas fa-globe",
+        "url": "https://abhinavranjan.netlify.app",
+        "colorClass": "website"
+    },
+    {
+        "platform": "Twitter",
+        "handle": "@abhinav_vyom",
+        "icon": "fab fa-twitter",
+        "url": "https://twitter.com/abhinav_vyom",
+        "colorClass": "twitter"
+    },
+    {
+        "platform": "LinkedIn",
+        "handle": "@itzmeabhinavranjan",
+        "icon": "fab fa-linkedin-in",
+        "url": "https://linkedin.com/in/itzmeabhinavranjan",
+        "colorClass": "linkedin"
+    },
+    {
+        "platform": "GitHub",
+        "handle": "@ProAbhinavRanjan",
+        "icon": "fab fa-github",
+        "url": "https://github.com/ProAbhinavRanjan",
+        "colorClass": "github"
+    },
+    {
+        "platform": "Instagram",
+        "handle": "@itzmeabhinavranjan",
+        "icon": "fab fa-instagram",
+        "url": "https://instagram.com/itzmeabhinavranjan",
+        "colorClass": "instagram"
+    }
+]

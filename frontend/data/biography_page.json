@@ -1,0 +1,96 @@
+{
+    "books": [
+        {
+            "id": "book1",
+            "title": "AR. BIOGRAPHY",
+            "subtitle": "The Complete Story",
+            "description": "A comprehensive journey through my life, experiences, and the evolution of Luminary Technicals.",
+            "year": "2025",
+            "pages": "250",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        },
+        {
+            "id": "book2",
+            "title": "Ethical Hacking Basics",
+            "subtitle": "A Beginner's Guide",
+            "description": "An introductory guide to ethical hacking, cybersecurity awareness, and responsible digital security practices for students and beginners.",
+            "year": "2025",
+            "pages": "180",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+        },
+        {
+            "id": "book3",
+            "title": "Cybersecurity Fundamentals",
+            "subtitle": "Protect the Digital World",
+            "description": "A practical guide covering network security, vulnerability awareness, encryption techniques, and safe internet practices.",
+            "year": "2025",
+            "pages": "220",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+        },
+        {
+            "id": "book4",
+            "title": "The Developer's Mindset",
+            "subtitle": "Think Like a Programmer",
+            "description": "Essential thinking patterns and problem-solving strategies for modern developers building digital solutions.",
+            "year": "2024",
+            "pages": "320",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+        },
+        {
+            "id": "book5",
+            "title": "Luminary Vision",
+            "subtitle": "Technology & Innovation",
+            "description": "Insights into building the Luminary Technicals ecosystem — from concept to digital infrastructure and collaborative technology projects.",
+            "year": "2024",
+            "pages": "210",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+        },
+        {
+            "id": "book6",
+            "title": "Innovation Handbook",
+            "subtitle": "From Idea to Reality",
+            "description": "A practical guide to bringing innovative technology ideas to life — from ideation and prototyping to launching digital solutions.",
+            "year": "2023",
+            "pages": "275",
+            "pdfUrl": "#",
+            "gradient": "linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
+        }
+    ],
+    "podcast": {
+        "title": "Tech Talks with Abhinav",
+        "description": "Discussions on cybersecurity, technology, innovation, and the digital world — for students, enthusiasts, and builders.",
+        "spotifyUrl": "#",
+        "applePodcastsUrl": "#",
+        "episodes": [
+            {
+                "id": "ep1",
+                "title": "Episode 1: What is Ethical Hacking?",
+                "description": "An introduction to ethical hacking, how it differs from malicious hacking, and why it matters for the digital world.",
+                "audioUrl": "#",
+                "duration": "18:32",
+                "date": "2025"
+            },
+            {
+                "id": "ep2",
+                "title": "Episode 2: Cybersecurity for Students",
+                "description": "Practical cybersecurity tips, safe internet habits, and how young students can protect themselves online.",
+                "audioUrl": "#",
+                "duration": "22:10",
+                "date": "2025"
+            },
+            {
+                "id": "ep3",
+                "title": "Episode 3: Building the Luminary Ecosystem",
+                "description": "The story behind Luminary Technicals — how it started, what it does, and where it is headed.",
+                "audioUrl": "#",
+                "duration": "25:45",
+                "date": "2025"
+            }
+        ]
+    }
+}

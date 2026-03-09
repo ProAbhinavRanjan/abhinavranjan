@@ -1,0 +1,54 @@
+[
+    {
+        "id": "portfolio",
+        "name": "Personal Portfolio Website",
+        "description": "A modern personal portfolio website showcasing projects, achievements, cybersecurity interests, and the Luminary Technicals ecosystem.",
+        "tags": [
+            "Web Development",
+            "Frontend",
+            "Portfolio"
+        ],
+        "icon": "fas fa-code",
+        "image": "#",
+        "url": "https://abhinavranjan.netlify.app"
+    },
+    {
+        "id": "luminary",
+        "name": "Luminary Technicals",
+        "description": "A futuristic technology ecosystem focused on digital infrastructure, hosting services, AI projects, and collaborative technology development.",
+        "tags": [
+            "Technology Ecosystem",
+            "Systems",
+            "Cloud Infrastructure"
+        ],
+        "icon": "fas fa-bolt",
+        "image": "#",
+        "url": "#"
+    },
+    {
+        "id": "luminary-servers",
+        "name": "Luminary Servers",
+        "description": "A web platform managing server infrastructure, hosting environments, and deployment systems for projects within the Luminary Technicals ecosystem.",
+        "tags": [
+            "Server Systems",
+            "Hosting",
+            "Cloud"
+        ],
+        "icon": "fas fa-server",
+        "image": "#",
+        "url": "https://luminaryservers.netlify.app"
+    },
+    {
+        "id": "agroscan",
+        "name": "AgroScan",
+        "description": "An AI-powered agricultural analysis web application designed to help farmers and researchers analyze crop conditions using machine learning and computer vision.",
+        "tags": [
+            "AI / ML",
+            "Computer Vision",
+            "Web Application"
+        ],
+        "icon": "fas fa-leaf",
+        "image": "#",
+        "url": "https://agroscan-lumitech.netlify.app"
+    }
+]
