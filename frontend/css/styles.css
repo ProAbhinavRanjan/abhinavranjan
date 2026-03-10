@@ -3634,6 +3634,7 @@ main {
     .about-image-container {
         width: 200px;
         height: 200px;
+        flex: 0 0 200px;
     }
 }
 
