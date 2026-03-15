@@ -1,0 +1,17 @@
+[
+    {
+        "id": "PODCAST-IIT-01",
+        "title": "Cybersecurity & Young Innovators",
+        "host": "Abhinav Ranjan",
+        "description": "A special podcast session at IIT Madras discussing cybersecurity, innovation, and the future of young tech entrepreneurs.",
+        "date": "7 April 2026",
+        "time": "10:00 AM IST",
+        "thumbnail": "",
+        "type": "public",
+        "password": "",
+        "status": "upcoming",
+        "attendement": true,
+        "maxParticipants": 15000,
+        "chatEnabled": true
+    }
+]

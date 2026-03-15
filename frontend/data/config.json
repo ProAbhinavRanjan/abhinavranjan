@@ -64,21 +64,24 @@
       "title": "Guinness World Records Recognition",
       "description": "Recognized for achievements in cybersecurity education and technology awareness at a young age.",
       "date": "2026",
-      "icon": "fas fa-trophy"
+      "icon": "fas fa-trophy",
+      "image": "#"
     },
     {
       "id": "golden",
       "title": "Golden Book of World Records",
       "description": "Honored for contributions to ethical hacking awareness and technology education.",
       "date": "2026",
-      "icon": "fas fa-award"
+      "icon": "fas fa-award",
+      "image": "#"
     },
     {
       "id": "vvm",
       "title": "Vidyarthi Vigyan Manthan – State Rank 4",
       "description": "Secured State Rank 4 in VVM 2025, a national science talent search promoting scientific research and innovation.",
       "date": "2025-2026",
-      "icon": "fas fa-medal"
+      "icon": "fas fa-medal",
+      "image": "#"
     }
   ],
   "socials": [

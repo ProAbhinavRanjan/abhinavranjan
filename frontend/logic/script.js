@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 script.js v1.0.3 loaded');
+    console.log('🚀 script.js v1.0.4 loaded');
     // Fetch Configuration Data
     let baseDir = '';
     if (window.location.pathname.includes('/moredetails/')) {
@@ -72,13 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.projects.forEach((proj, index) => {
                     const delay = 200 + (index * 100);
                     let imageHTML = '';
-                    if (proj.image === '#') {
-                        const patternClass = `gradient-pattern-${(index % 3) + 1}`;
-                        imageHTML = `<div class="placeholder-img ${patternClass}"><i class="${proj.icon} project-icon-overlay"></i></div>`;
-                    } else if (proj.image) {
-                        imageHTML = `<img src="${proj.image}" alt="${proj.name}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    if (proj.image === '#' || !proj.image) {
+                        const gradients = [
+                            'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)',
+                            'linear-gradient(135deg, #d946ef 0%, #f43f5e 50%, #f97316 100%)',
+                            'linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #6366f1 100%)'
+                        ];
+                        const selectedGradient = gradients[index % gradients.length];
+                        imageHTML = `<div class="placeholder-img" style="background: ${selectedGradient}; display: flex; align-items: center; justify-content: center;"><i class="${proj.icon} project-icon-overlay" style="font-size: 3rem; opacity: 0.2; color: #fff;"></i></div>`;
                     } else {
-                        imageHTML = `<div class="placeholder-img gradient-agroscan"><i class="${proj.icon} project-icon-overlay"></i></div>`;
+                        imageHTML = `<img src="${proj.image}" alt="${proj.name}" style="width: 100%; height: 100%; object-fit: cover;">`;
                     }
 
                     const tagsHTML = (proj.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
@@ -113,13 +116,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.winnings.forEach((win, index) => {
                     const delay = 200 + (index * 100);
                     let imageHTML = '';
-                    if (win.image === '#') {
-                        const patternClass = `gradient-pattern-${(index % 3) + 1}`;
-                        imageHTML = `<div class="placeholder-img ${patternClass}"></div>`;
-                    } else if (win.image) {
-                        imageHTML = `<img src="${win.image}" alt="${win.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    if (win.image === '#' || !win.image) {
+                        const gradients = [
+                            'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)',
+                            'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
+                            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                        ];
+                        const selectedGradient = gradients[index % gradients.length];
+                        imageHTML = `<div class="placeholder-img" style="background: ${selectedGradient}"></div>`;
                     } else {
-                        imageHTML = `<div class="placeholder-img gradient-1"></div>`;
+                        imageHTML = `<img src="${win.image}" alt="${win.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
                     }
 
                     const card = document.createElement('div');

@@ -1,110 +1,19 @@
-/**
- * popup_index.js — Popup Section Control Panel for index.html
- * ============================================================
- * Edit this file to control the popup notification section on the homepage.
- *
- * HOW TO USE:
- *  - Set active: true/false to show or hide each popup section.
- *  - Edit name, date, paragraph to change the content.
- *  - Add/remove items in the images[] array to change carousel images.
- *  - imageSize: "small" | "medium" | "large" | "full"
- *  - autoplay: true/false — whether carousel auto-advances
- *  - autoplayInterval: milliseconds between slides (e.g. 3000 = 3 seconds)
- *  - buttons[]: list of { label, url } for action buttons inside the popup
- */
-
-const POPUP_CONFIG = {
-
-    // ─────────────────────────────────────────────
-    //  GLOBAL POPUP SWITCH — set false to disable entirely
-    // ─────────────────────────────────────────────
-    enabled: true,
-
-    // Delay before popup appears (milliseconds)
-    showDelay: 1500,
-
-    // ─────────────────────────────────────────────
-    //  SECTIONS (cards inside the popup)
-    //  Each section can be independently toggled
-    // ─────────────────────────────────────────────
-    sections: [
-        {
-            id: "podcast-iitm",
-            active: true,
-            name: "🎙 Podcast at IIT Madras",
-            date: "7 April 2026",
-            paragraph: "Abhinav Ranjan will be featured in a special podcast session at IIT Madras, Chennai, discussing cybersecurity, innovation, and the future of young tech entrepreneurs.",
-
-            images: [
-                "https://img.freepik.com/free-vector/hand-drawn-flat-podcast-cover-design_23-2149435765.jpg?semt=ais_hybrid&w=740&q=80",
-                "https://www.learningroutes.in/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fweb_cms_content%2Fiit_madras_online_bsc_37b5bfb9f6%2Fiit_madras_online_bsc_37b5bfb9f6.webp&w=1920&q=75",
-                "https://mbagate.in/storage/upload-images/vO9AU8UB0PB8RSQBu69Vl4YHURPcv6fJQs1Rw0Cf.jpg"
-            ],
-            imageSize: "medium",
-            autoplay: false,
-            autoplayInterval: 3000,
-
-            buttons: [
-                {
-                    label: "View Podcast - LTS",
-                    url: "#"
-                }
-            ]
-        },
-
-        {
-            id: "guinness-record",
-            active: true,
-            name: "🏆 Guinness World Record",
-            date: "2026",
-            paragraph: "Abhinav Ranjan has been recognized by the Guinness World Records for remarkable achievements in cybersecurity education and technology leadership at a young age.",
-
-            images: [
-                "https://observervoice.com/wp-content/uploads/2021/11/Guinness-World-Records-1.png",
-                "https://i.ytimg.com/vi/Cl6EWqx5xZI/maxresdefault.jpg"
-            ],
-            imageSize: "medium",
-            autoplay: true,
-            autoplayInterval: 3000,
-
-            buttons: [
-                {
-                    label: "Learn More",
-                    url: "frontend/html/winnings.html"
-                }
-            ]
-        },
-
-        {
-            id: "golden-book-record",
-            active: true,
-            name: "🥇 Golden Book of World Records",
-            date: "2026",
-            paragraph: "Abhinav Ranjan has also been honored by the Golden Book of World Records for contributions to technology innovation, cybersecurity awareness, and youth leadership.",
-
-            images: [
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYay48ZoNXVstwNBXC-WU9jZGwFT9-VEQQvQ&s",
-                "https://blog.bookswagon.com/wp-content/uploads/2025/02/Golden-book-awards-2025.jpg"
-            ],
-            imageSize: "medium",
-            autoplay: true,
-            autoplayInterval: 3000,
-
-            buttons: [
-                {
-                    label: "Learn More",
-                    url: "frontend/html/winnings.html"
-                }
-            ]
-        }
-    ]
-};
-
 // ─────────────────────────────────────────────────────────────────────────────
-//  POPUP RENDERER — Do NOT edit below this line unless you know JavaScript
+//  POPUP RENDERER — Fetches data from popup_index.json
 // ─────────────────────────────────────────────────────────────────────────────
 
-(function () {
+(async function () {
+    let POPUP_CONFIG;
+
+    try {
+        const response = await fetch('frontend/data/popup_index.json');
+        if (!response.ok) throw new Error('Failed to load popup config');
+        POPUP_CONFIG = await response.json();
+    } catch (error) {
+        console.error('🔴 Popup Error:', error);
+        return;
+    }
+
     if (!POPUP_CONFIG.enabled) return;
 
     const activeSections = POPUP_CONFIG.sections.filter(s => s.active);
