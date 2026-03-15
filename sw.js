@@ -1,11 +1,11 @@
-const CACHE_VERSION = 'v1.0.8';
+const CACHE_VERSION = 'v1.0.9';
 const CACHE_NAME = `ar-portfolio-${CACHE_VERSION}`;
 
 const ASSETS_TO_CACHE = [
     '/',
     '/offline.html',
     '/frontend/css/styles.css',
-    '/frontend/logic/script.js',
+    '/frontend/logic/script_v105.js',
     '/frontend/logic/biography_library.js',
     '/manifest.json',
     '/images/arlogo.png',

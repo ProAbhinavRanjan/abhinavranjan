@@ -72,6 +72,13 @@
                 <h2 class="section-title fade-in-up">Frequently Asked Questions</h2>
                 <p class="section-subtitle fade-in-up delay-100">Click a question to view its detailed answer.</p>
 
+                <div class="faq-search-container fade-in-up delay-150">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="faqSearchInput" placeholder="Search questions or keywords...">
+                    </div>
+                </div>
+
                 <div class="faq-accordion fade-in-up delay-200" id="dynamicFaqAccordion">
                     <!-- Dynamic FAQs will be loaded here -->
                 </div>
@@ -122,7 +129,7 @@
 
     <footer id="siteFooter" class="footer"></footer>
 
-    <script src="../../logic/script.js"></script>
+    <script src="../../logic/script_v105.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

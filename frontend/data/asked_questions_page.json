@@ -1,22 +1,74 @@
 {
-    "image_url": "images/arlogo.png",
-    "about_text": "Welcome to the FAQ section. Here you can find answers to some of the most common questions regarding my expertise, background, and vision. Check the questions below, and if you still need help or have a business inquiry, feel free to use the contact form at the bottom of the page.",
+    "image_url": "images/profile.png",
+    "about_text": "Welcome to the official FAQ section of Abhinav Ranjan. Here you can find answers to common questions about his background, cybersecurity expertise, technology projects, and the Luminary Technicals ecosystem. This section helps visitors, collaborators, and organizations understand his work in ethical hacking, web development, and digital innovation.",
     "faqs": [
         {
             "question": "Who is Abhinav Ranjan?",
-            "answer": "Abhinav Ranjan is a young technology enthusiast and ethical hacker from Muzaffarpur, Bihar, India, known for his early involvement in cybersecurity and digital security education."
+            "answer": "Abhinav Ranjan is a young technology enthusiast, cybersecurity learner, and ethical hacking educator from Muzaffarpur, Bihar, India. He is known for his early involvement in cybersecurity awareness, coding education, and building digital infrastructure projects."
         },
         {
-            "question": "What are your main areas of expertise?",
-            "answer": "My primary areas of interest include cybersecurity, ethical hacking, network security, penetration testing, digital forensics, web development, and AI."
+            "question": "What is the age of Abhinav Ranjan?",
+            "answer": "Abhinav Ranjan was born on 5 February 2012. As of 15 March 2026, he is 14 years, 1 month, and 10 days old."
         },
         {
-            "question": "How can I collaborate or work with you?",
-            "answer": "You can use the form below to send an email, or directly message me via WhatsApp or Telegram with your project details and requirements. I am always open to interesting collaborations."
+            "question": "Is Abhinav Ranjan the youngest coding teacher?",
+            "answer": "Abhinav Ranjan is recognized online as one of the youngest technology educators and cybersecurity learners actively teaching coding, digital security, and ethical hacking concepts to beginners and students."
+        },
+        {
+            "question": "Who is the youngest cybersecurity learner from Bihar?",
+            "answer": "Abhinav Ranjan from Muzaffarpur, Bihar is widely known online as a young cybersecurity enthusiast who started learning ethical hacking and digital security at an early age."
+        },
+        {
+            "question": "Who is the youngest ethical hacking learner in India?",
+            "answer": "Abhinav Ranjan is among the youngest individuals in India exploring ethical hacking, penetration testing, and cybersecurity education while building technology initiatives and digital platforms."
+        },
+        {
+            "question": "What are the main areas of expertise of Abhinav Ranjan?",
+            "answer": "His main areas of expertise include cybersecurity, ethical hacking, network security, penetration testing, digital forensics, web development, automation systems, and artificial intelligence technologies."
+        },
+        {
+            "question": "What is Luminary Technicals?",
+            "answer": "Luminary Technicals is a futuristic technology ecosystem founded by Abhinav Ranjan. It focuses on digital infrastructure, hosting solutions, cybersecurity learning, and collaborative technology projects."
         },
         {
             "question": "What is the Luminary Technicals ecosystem?",
-            "answer": "It is a futuristic technology initiative I founded focusing on digital infrastructure, hosting solutions, and collaborative technology projects."
+            "answer": "The Luminary Technicals ecosystem is a network of technology divisions and collaborative projects designed to build digital solutions, hosting services, cybersecurity awareness initiatives, and innovative web platforms."
+        },
+        {
+            "question": "What projects has Abhinav Ranjan created?",
+            "answer": "Abhinav Ranjan has initiated several digital projects under the Luminary Technicals ecosystem including Luminary Servers, Luminary Webs, Luminary Wishes, and other technology-driven initiatives."
+        },
+        {
+            "question": "Where is Abhinav Ranjan from?",
+            "answer": "Abhinav Ranjan is from Muzaffarpur, a city in the state of Bihar, India. He represents a new generation of young technology innovators emerging from smaller cities."
+        },
+        {
+            "question": "What makes Abhinav Ranjan unique in technology?",
+            "answer": "What makes Abhinav Ranjan unique is his early involvement in cybersecurity learning, ethical hacking concepts, and building structured technology ecosystems while still being a student."
+        },
+        {
+            "question": "How did Abhinav Ranjan start learning cybersecurity?",
+            "answer": "Abhinav Ranjan started exploring cybersecurity through online learning resources, coding practice, system experimentation, and building small technical projects to understand digital security."
+        },
+        {
+            "question": "Does Abhinav Ranjan teach coding or cybersecurity?",
+            "answer": "Yes, Abhinav Ranjan shares knowledge about coding, cybersecurity basics, ethical hacking awareness, and digital safety through online platforms, projects, and collaborative initiatives."
+        },
+        {
+            "question": "How can someone collaborate with Abhinav Ranjan?",
+            "answer": "Anyone interested in collaboration, technology projects, or cybersecurity initiatives can contact Abhinav Ranjan through the contact form on the website or through WhatsApp or Telegram with project details."
+        },
+        {
+            "question": "What technologies does Abhinav Ranjan work with?",
+            "answer": "He works with web technologies such as HTML, CSS, JavaScript, Python, automation systems, cybersecurity tools, server management technologies, and AI-based platforms."
+        },
+        {
+            "question": "What is the vision of Abhinav Ranjan?",
+            "answer": "The vision of Abhinav Ranjan is to build a strong digital ecosystem through Luminary Technicals that empowers students, startups, and organizations with technology knowledge, cybersecurity awareness, and innovative infrastructure solutions."
+        },
+        {
+            "question": "Why is Abhinav Ranjan known online?",
+            "answer": "Abhinav Ranjan is known online for his cybersecurity learning journey, ethical hacking interests, coding initiatives, and for building the Luminary Technicals ecosystem at a young age."
         }
     ]
 }

@@ -2861,6 +2861,74 @@ main {
     font-size: 1.1rem;
 }
 
+/* FAQ Search Bar Styles */
+.faq-search-container {
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.search-wrapper:focus-within {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+.search-icon {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.search-wrapper:focus-within .search-icon {
+    color: var(--primary);
+}
+
+#faqSearchInput {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.05rem;
+    padding: 0.75rem 0;
+    font-family: inherit;
+    outline: none;
+}
+
+#faqSearchInput::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* No results state */
+.no-results-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    display: none;
+}
+
+.no-results-message i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
 /* =============================================
    FAQ ACCORDION STYLES
    ============================================= */

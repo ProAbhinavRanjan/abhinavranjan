@@ -189,28 +189,62 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         `;
                         faqAccordion.appendChild(item);
+                    });
 
-                        // Attach accordion toggle logic for newly created items
-                        const questionBtn = item.querySelector('.faq-question');
-                        if (questionBtn) {
-                            questionBtn.addEventListener('click', () => {
-                                const isActive = item.classList.contains('active');
+                    // Add "No results" message element
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results-message';
+                    noResults.id = 'faqNoResults';
+                    noResults.innerHTML = `
+                        <i class="fas fa-search"></i>
+                        <p>No questions found matching your search.</p>
+                    `;
+                    faqAccordion.parentNode.insertBefore(noResults, faqAccordion.nextSibling);
 
-                                // Close all items
-                                document.querySelectorAll('.faq-item').forEach(f => {
-                                    f.classList.remove('active');
-                                    const answer = f.querySelector('.faq-answer');
-                                    if (answer) answer.style.maxHeight = null;
-                                });
+                    // Search Filtering Logic
+                    const searchInput = document.getElementById('faqSearchInput');
+                    if (searchInput) {
+                        searchInput.addEventListener('input', (e) => {
+                            const term = e.target.value.toLowerCase().trim();
+                            const items = faqAccordion.querySelectorAll('.faq-item');
+                            let hasResults = false;
 
-                                // Open clicked item if it wasn't active
-                                if (!isActive) {
-                                    item.classList.add('active');
-                                    const answer = item.querySelector('.faq-answer');
-                                    if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+                            items.forEach(item => {
+                                const question = item.querySelector('.faq-question span').innerText.toLowerCase();
+                                const answer = item.querySelector('.faq-answer p').innerText.toLowerCase();
+
+                                if (question.includes(term) || answer.includes(term)) {
+                                    item.style.display = 'block';
+                                    hasResults = true;
+                                } else {
+                                    item.style.display = 'none';
                                 }
                             });
-                        }
+
+                            noResults.style.display = hasResults ? 'none' : 'block';
+                        });
+                    }
+
+                    // Attach accordion toggle logic for newly created items
+                    document.querySelectorAll('.faq-question').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const item = btn.parentElement;
+                            const isActive = item.classList.contains('active');
+
+                            // Close all items
+                            document.querySelectorAll('.faq-item').forEach(f => {
+                                f.classList.remove('active');
+                                const answer = f.querySelector('.faq-answer');
+                                if (answer) answer.style.maxHeight = null;
+                            });
+
+                            // Open clicked item if it wasn't active
+                            if (!isActive) {
+                                item.classList.add('active');
+                                const answer = item.querySelector('.faq-answer');
+                                if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+                            }
+                        });
                     });
                 }
 
