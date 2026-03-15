@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let configPromise = fetch(dataDir + 'config.json').then(r => r.json());
     let pageDataPromise = Promise.resolve(null);
 
+    const path = window.location.pathname;
+    const isFAQ = path.includes('asked-questions.html');
+
     if (currentPage === 'socials.html') {
         pageDataPromise = fetch(dataDir + 'socials_page.json').then(r => r.json());
     } else if (currentPage === 'projects.html') {
@@ -22,12 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         pageDataPromise = fetch(dataDir + 'winnings_page.json').then(r => r.json());
     } else if (currentPage === 'biography.html') {
         pageDataPromise = fetch(dataDir + 'biography_page.json').then(r => r.json());
-    } else if (currentPage === 'asked-questions.html') {
+    } else if (isFAQ) {
+        console.log('🔍 [Debug] FAQ Page Detected. Fetching asked_questions_page.json...');
         pageDataPromise = fetch(dataDir + 'asked_questions_page.json').then(r => r.json());
     }
 
     Promise.all([configPromise, pageDataPromise])
         .then(([config, pageData]) => {
+            console.log('✅ [Debug] Config and PageData loaded');
             // Merge pageData if it exists
             const data = { ...config };
             if (pageData) {
@@ -35,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (currentPage === 'projects.html') data.projects = pageData;
                 else if (currentPage === 'winnings.html') data.winnings = pageData;
                 else if (currentPage === 'biography.html') data.biography = pageData;
-                else if (currentPage === 'asked-questions.html') data.asked_questions = pageData;
+                else if (isFAQ) data.asked_questions = pageData;
             }
             window.siteConfig = data;
 
@@ -161,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Render Asked Questions Configuration
-            if (currentPage === 'asked-questions.html' && data.asked_questions) {
+            if (isFAQ && data.asked_questions) {
+                console.log(`📦 [Debug] Rendering ${data.asked_questions.faqs ? data.asked_questions.faqs.length : 0} FAQ items`);
                 const aboutTextEl = document.getElementById('faqAboutText');
                 if (aboutTextEl && data.asked_questions.about_text) {
                     aboutTextEl.innerText = data.asked_questions.about_text;
