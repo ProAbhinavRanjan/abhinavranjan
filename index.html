@@ -57,7 +57,9 @@
                     </p>
                     <div class="hero-btns">
                         <a href="frontend/html/contact.html" class="btn btn-primary">Let's Talk</a>
-                        <a href="frontend/html/socials.html" class="btn btn-secondary">His Handles</a>
+                        <a href="#explore-more" class="btn btn-secondary">Explore Services</a>
+                        <a href="frontend/html/socials.html" class="btn btn-secondary" style="opacity: 0.7;">His
+                            Handles</a>
                     </div>
                 </div>
                 <div class="hero-visual fade-in-up delay-200">
@@ -177,6 +179,52 @@
             </div>
         </section>
 
+        <!-- Explore More Section -->
+        <section id="explore-more" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Explore More</h2>
+                <p class="section-subtitle fade-in-up delay-100">Deeper dive into his ecosystem & services.</p>
+
+                <div class="grid socials-grid" style="justify-content: center;">
+                    <!-- LTS Card -->
+                    <a href="frontend/view/lts-index.html" class="card tilt-card fade-in-up delay-200"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="tilt-content">
+                            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
+                                <div class="card-icon" style="color: var(--primary);"><i
+                                        class="fas fa-broadcast-tower"></i></div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0;">LTS Platform</h3>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">Join live
+                                podcast sessions, Q&A rooms, and exclusive tech discussions.</p>
+                            <span
+                                style="color: var(--primary); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+                                Visit Server <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Asked Questions Card -->
+                    <a href="frontend/html/moredetails/asked-questions.html" class="card tilt-card fade-in-up delay-300"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="tilt-content">
+                            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
+                                <div class="card-icon" style="color: var(--accent);"><i
+                                        class="fas fa-question-circle"></i></div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0;">Asked Questions</h3>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">Browse
+                                through frequently asked questions and technical insights.</p>
+                            <span
+                                style="color: var(--accent); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+                                View FAQs <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact" class="section contact">
             <div class="container">
@@ -213,6 +261,7 @@
     <footer id="siteFooter" class="footer"></footer>
 
     <script src="frontend/logic/script.js"></script>
+    <script src="frontend/logic/popup_index.js"></script>
     <script>
         // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {

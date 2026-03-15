@@ -1,8 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 script.js v1.0.3 loaded');
     // Fetch Configuration Data
-    const isRoot = window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html') || window.location.pathname === '';
-    const dataDir = isRoot ? 'frontend/data/' : '../data/';
+    let baseDir = '';
+    if (window.location.pathname.includes('/moredetails/')) {
+        baseDir = '../../../';
+    } else if (window.location.pathname.includes('/html/')) {
+        baseDir = '../../';
+    }
+    const dataDir = baseDir + 'frontend/data/';
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
     // Decide which data to fetch based on the current page
@@ -17,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pageDataPromise = fetch(dataDir + 'winnings_page.json').then(r => r.json());
     } else if (currentPage === 'biography.html') {
         pageDataPromise = fetch(dataDir + 'biography_page.json').then(r => r.json());
+    } else if (currentPage === 'asked-questions.html') {
+        pageDataPromise = fetch(dataDir + 'asked_questions_page.json').then(r => r.json());
     }
 
     Promise.all([configPromise, pageDataPromise])
@@ -28,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (currentPage === 'projects.html') data.projects = pageData;
                 else if (currentPage === 'winnings.html') data.winnings = pageData;
                 else if (currentPage === 'biography.html') data.biography = pageData;
+                else if (currentPage === 'asked-questions.html') data.asked_questions = pageData;
             }
             window.siteConfig = data;
 
@@ -53,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Update document title if we are on root
-            if (isRoot && data.meta && data.meta.title) {
+            if (baseDir === '' && data.meta && data.meta.title) {
                 document.title = data.meta.title;
             }
 
@@ -146,6 +154,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.observeNewCards) window.observeNewCards();
             }
 
+            // Render Asked Questions Configuration
+            if (currentPage === 'asked-questions.html' && data.asked_questions) {
+                const aboutTextEl = document.getElementById('faqAboutText');
+                if (aboutTextEl && data.asked_questions.about_text) {
+                    aboutTextEl.innerText = data.asked_questions.about_text;
+                }
+
+                const faqAccordion = document.getElementById('dynamicFaqAccordion');
+                if (faqAccordion && data.asked_questions.faqs) {
+                    faqAccordion.innerHTML = '';
+                    data.asked_questions.faqs.forEach(faq => {
+                        const item = document.createElement('div');
+                        item.className = 'faq-item';
+                        item.innerHTML = `
+                            <button class="faq-question">
+                                <span>${faq.question}</span>
+                                <i class="fas fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>${faq.answer}</p>
+                            </div>
+                        `;
+                        faqAccordion.appendChild(item);
+
+                        // Attach accordion toggle logic for newly created items
+                        const questionBtn = item.querySelector('.faq-question');
+                        if (questionBtn) {
+                            questionBtn.addEventListener('click', () => {
+                                const isActive = item.classList.contains('active');
+
+                                // Close all items
+                                document.querySelectorAll('.faq-item').forEach(f => {
+                                    f.classList.remove('active');
+                                    const answer = f.querySelector('.faq-answer');
+                                    if (answer) answer.style.maxHeight = null;
+                                });
+
+                                // Open clicked item if it wasn't active
+                                if (!isActive) {
+                                    item.classList.add('active');
+                                    const answer = item.querySelector('.faq-answer');
+                                    if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+                                }
+                            });
+                        }
+                    });
+                }
+
+                const faqProfileImg = document.getElementById('faqProfileImg');
+                if (faqProfileImg && data.asked_questions) {
+                    const imgPath = data.asked_questions.image_url;
+
+                    if (imgPath && imgPath !== '#') {
+                        faqProfileImg.src = baseDir + imgPath;
+                    } else {
+                        faqProfileImg.src = baseDir + 'images/arlogo.png';
+                    }
+
+                    faqProfileImg.onerror = () => {
+                        faqProfileImg.src = baseDir + 'images/arlogo.png';
+                    };
+                }
+            }
+
             // Render Socials
             const socialsGrid = document.getElementById('dynamicSocialsGrid');
             if (socialsGrid && data.socials) {
@@ -177,9 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const siteFooter = document.getElementById('siteFooter');
             if (siteFooter && data.footer) {
                 const f = data.footer;
-                const linksHTML = (f.links || []).map(l =>
-                    `<a href="${l.url}">${l.label}</a>`
-                ).join('');
+                const linksHTML = (f.links || []).map(l => {
+                    let url = l.url;
+                    if (url !== '#' && !url.startsWith('http') && !url.startsWith('/')) {
+                        url = baseDir + url;
+                    }
+                    return `<a href="${url}">${l.label}</a>`;
+                }).join('');
                 siteFooter.innerHTML = `
                     <div class="container footer-container">
                         <p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p>
@@ -192,16 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const profileImg = document.getElementById('profileImg');
             if (profileImg && data.personal) {
                 const imgPath = data.personal.profile_image;
-                const base = isRoot ? '' : '../../';
 
                 if (imgPath && imgPath !== '#') {
-                    profileImg.src = base + imgPath;
+                    profileImg.src = baseDir + imgPath;
                 } else {
-                    profileImg.src = base + 'images/arlogo.png';
+                    profileImg.src = baseDir + 'images/arlogo.png';
                 }
 
                 profileImg.onerror = () => {
-                    profileImg.src = base + 'images/arlogo.png';
+                    profileImg.src = baseDir + 'images/arlogo.png';
                 };
             }
 
@@ -312,10 +387,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm');
     if (form) {
         const getFormData = () => {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            return { name, email, message };
+            const nameEl = document.getElementById('name');
+            const emailEl = document.getElementById('email');
+            const contactNoEl = document.getElementById('contactNo');
+            const messageEl = document.getElementById('message');
+
+            return {
+                name: nameEl ? nameEl.value : '',
+                email: emailEl ? emailEl.value : '',
+                contactNo: contactNoEl ? contactNoEl.value : '',
+                message: messageEl ? messageEl.value : ''
+            };
         };
 
         const sendWhatsappBtn = document.getElementById('sendWhatsapp');
@@ -325,11 +407,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sendWhatsappBtn) {
             sendWhatsappBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const { name, email, message } = getFormData();
+                const { name, email, contactNo, message } = getFormData();
                 if (!name || !message) { showToast('Please fill in Name and Message'); return; }
 
-                const phoneNumber = window.siteConfig ? window.siteConfig.contact.whatsapp_number : "8294721929";
-                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}%0AuserMessage: ${message}`;
+                const phoneNumber = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.whatsapp_number : "8294721929";
+                const cNoText = contactNo ? `%0AuserContactNo: ${contactNo}` : '';
+                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}${cNoText}%0AuserMessage: ${message}`;
                 window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
             });
         }
@@ -337,12 +420,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sendEmailBtn) {
             sendEmailBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const { name, email, message } = getFormData();
+                const { name, email, contactNo, message } = getFormData();
                 if (!name || !message) { showToast('Please fill in Name and Message'); return; }
 
-                const emailTo = window.siteConfig ? window.siteConfig.contact.email : "abhinavranjanmit@gmail.com";
+                const emailTo = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.email : "abhinavranjanmit@gmail.com";
                 const subject = `New Contact from ${name}`;
-                const body = `userName: ${name}%0D%0AuserEmail: ${email || 'Not provided'}%0D%0AuserMessage: ${message}`;
+                const cNoText = contactNo ? `%0D%0AuserContactNo: ${contactNo}` : '';
+                const body = `userName: ${name}%0D%0AuserEmail: ${email || 'Not provided'}${cNoText}%0D%0AuserMessage: ${message}`;
                 window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
             });
         }
@@ -350,11 +434,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sendTelegramBtn) {
             sendTelegramBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const { name, email, message } = getFormData();
+                const { name, email, contactNo, message } = getFormData();
                 if (!name || !message) { showToast('Please fill in Name and Message'); return; }
 
-                const username = window.siteConfig ? window.siteConfig.contact.telegram_username : "abhinav_ranjan";
-                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}%0AuserMessage: ${message}`;
+                const username = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.telegram_username : "abhinav_ranjan";
+                const cNoText = contactNo ? `%0AuserContactNo: ${contactNo}` : '';
+                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}${cNoText}%0AuserMessage: ${message}`;
                 window.open(`https://t.me/${username}?text=${text}`, '_blank');
             });
         }

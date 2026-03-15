@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Abhinav Ranjan</title>
+    <meta name="description" content="Privacy Policy detailing how information is collected, used, and protected.">
+    <link rel="icon" type="image/png" href="../../../images/arlogo.png">
+    <link rel="apple-touch-icon" href="../../../images/arlogo.png">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="../../../manifest.json">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            color: var(--text-muted);
+        }
+
+        .legal-content h3 {
+            color: var(--text-main);
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.25rem;
+        }
+
+        .legal-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .legal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Excellence...</div>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="../../../index.html" class="logo">AR<span class="dot">.</span></a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../../../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../about.html" class="nav-link">About</a></li>
+                    <li><a href="../projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="../biography.html" class="nav-link">Biography</a></li>
+                    <li><a href="../socials.html" class="nav-link">Socials</a></li>
+                    <li><a href="../winnings.html" class="nav-link">Winnings</a></li>
+                    <li><a href="../contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="privacy" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Privacy Policy</h2>
+                <p class="section-subtitle fade-in-up delay-100">How your information is collected, used, and protected.
+                </p>
+
+                <div class="legal-content fade-in-up delay-200">
+                    <span class="last-updated">Last Updated: March 2026</span>
+
+                    <p>This Privacy Policy explains how information may be collected, used, and protected when visitors
+                        use this website.</p>
+
+                    <h3>1. Information Collection</h3>
+                    <p>This website may collect basic information such as name, email address, or messages submitted
+                        through contact forms. No sensitive personal information is intentionally collected.</p>
+
+                    <h3>2. Usage of Information</h3>
+                    <p>Any information collected is used only for communication, responding to inquiries, improving the
+                        website, or providing requested services.</p>
+
+                    <h3>3. Cookies and Analytics</h3>
+                    <p>The website may use basic cookies or analytics tools to understand visitor activity and improve
+                        user experience. These tools collect non-personal information such as browser type, device
+                        information, and pages visited.</p>
+
+                    <h3>4. Data Protection</h3>
+                    <p>Reasonable measures are taken to protect user information from unauthorized access, misuse, or
+                        disclosure.</p>
+
+                    <h3>5. Third-Party Services</h3>
+                    <p>Some features of the website may rely on third-party services such as hosting providers,
+                        analytics platforms, or social media integrations. These services may have their own privacy
+                        policies.</p>
+
+                    <h3>6. Children's Information</h3>
+                    <p>This website does not knowingly collect personal information from children under the age of 13.
+                    </p>
+
+                    <h3>7. Policy Updates</h3>
+                    <p>This Privacy Policy may be updated from time to time. Updates will be posted on this page with
+                        the revised date.</p>
+
+                    <h3>8. Contact</h3>
+                    <p>If you have questions about this Privacy Policy, you may contact the website owner through the <a
+                            href="../contact.html" style="color: var(--primary);">contact details</a> available on the
+                        website.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="siteFooter" class="footer"></footer>
+
+    <script src="../../logic/script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('✅ SW registered:', registration))
+                    .catch(error => console.log('❌ SW registration failed:', error));
+            });
+        }
+    </script>
+</body>
+
+</html>

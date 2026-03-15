@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast Room — LTS</title>
+    <link rel="icon" type="image/png" href="../../images/arlogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --room-bg: #070712;
+            --sidebar-bg: #0d0d1e;
+            --bar-bg: #0a0a1a;
+            --primary: #6366f1;
+            --accent: #8b5cf6;
+            --card: #141424;
+            --border: rgba(255, 255, 255, .07);
+            --text: #fff;
+            --muted: rgba(255, 255, 255, .45);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--room-bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ── TOP BAR ───────────────────────────── */
+        .room-bar {
+            height: 56px;
+            background: var(--bar-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            gap: .8rem;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+
+        .room-bar .lts-badge {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            padding: .22rem .6rem;
+            border-radius: 7px;
+            font-weight: 700;
+            font-size: .8rem;
+            letter-spacing: 1px;
+        }
+
+        .room-title {
+            font-weight: 700;
+            font-size: .95rem;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .room-status-dot {
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .78rem;
+            padding: .2rem .7rem;
+            border-radius: 50px;
+            flex-shrink: 0;
+        }
+
+        .dot-live {
+            background: rgba(239, 68, 68, .15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, .3);
+        }
+
+        .dot-upcoming {
+            background: rgba(245, 158, 11, .12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .25);
+        }
+
+        .dot-ended {
+            background: rgba(107, 114, 128, .12);
+            color: #9ca3af;
+            border: 1px solid rgba(107, 114, 128, .2);
+        }
+
+        .pulse {
+            animation: blink 1.2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        .room-capacity {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        /* ── MAIN LAYOUT ─────────────────────── */
+        .room-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ── VIDEO AREA ──────────────────────── */
+        .video-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            gap: .8rem;
+            overflow-y: auto;
+        }
+
+        /* Attention OFF overlay */
+        .attention-off-overlay {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+
+        .attention-off-overlay .ao-icon {
+            font-size: 3.5rem;
+            color: #f87171;
+        }
+
+        .attention-off-overlay h2 {
+            font-size: 1.3rem;
+        }
+
+        .attention-off-overlay p {
+            font-size: .9rem;
+            color: var(--muted);
+            max-width: 360px;
+            line-height: 1.6;
+        }
+
+        .ts-list {
+            background: rgba(239, 68, 68, .07);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 10px;
+            padding: 1rem 1.1rem;
+            text-align: left;
+            max-width: 340px;
+        }
+
+        .ts-list li {
+            font-size: .83rem;
+            color: var(--muted);
+            padding: .3rem 0;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .ts-list li i {
+            color: #fbbf24;
+        }
+
+        /* Video grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: .8rem;
+            flex: 1;
+            align-content: start;
+        }
+
+        .video-tile {
+            background: linear-gradient(135deg, #1a1a30, #0d0d20);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            aspect-ratio: 16/9;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-tile video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .video-tile .participant-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 0 24px rgba(99, 102, 241, .4);
+        }
+
+        .video-tile .participant-name {
+            position: absolute;
+            bottom: .6rem;
+            left: .7rem;
+            right: .7rem;
+            background: rgba(0, 0, 0, .5);
+            backdrop-filter: blur(6px);
+            border-radius: 8px;
+            padding: .25rem .6rem;
+            font-size: .78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .video-tile .mute-indicator {
+            width: 16px;
+            height: 16px;
+            background: rgba(239, 68, 68, .8);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+        }
+
+        .video-tile .host-badge {
+            position: absolute;
+            top: .6rem;
+            left: .7rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 6px;
+            padding: .15rem .5rem;
+            font-size: .7rem;
+            font-weight: 700;
+        }
+
+        /* You tile (camera) */
+        .video-tile.you-tile {
+            border-color: rgba(99, 102, 241, .5);
+        }
+
+        .video-tile.you-tile .participant-name {
+            background: rgba(99, 102, 241, .4);
+        }
+
+        /* ── CONTROLS BAR ───────────────────── */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .8rem;
+            padding: .8rem;
+            background: rgba(13, 13, 30, .9);
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .ctrl-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, border-color .2s, transform .15s;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(255, 255, 255, .1);
+            transform: scale(1.08);
+        }
+
+        .ctrl-btn.active {
+            background: rgba(239, 68, 68, .15);
+            border-color: rgba(239, 68, 68, .5);
+            color: #f87171;
+        }
+
+        .ctrl-btn.leave {
+            background: rgba(239, 68, 68, .15);
+            border-color: rgba(239, 68, 68, .4);
+            color: #f87171;
+            width: auto;
+            padding: 0 1.2rem;
+            border-radius: 24px;
+            height: 40px;
+            font-size: .88rem;
+            font-family: inherit;
+            font-weight: 700;
+        }
+
+        .ctrl-btn.leave:hover {
+            background: rgba(239, 68, 68, .3);
+        }
+
+        .ctrl-label {
+            font-size: .65rem;
+            color: var(--muted);
+            display: block;
+            margin-top: .2rem;
+        }
+
+        .ctrl-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── CHAT SIDEBAR ─────────────────── */
+        .chat-sidebar {
+            width: 300px;
+            background: var(--sidebar-bg);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: transform .25s;
+        }
+
+        .chat-sidebar.hidden {
+            transform: translateX(100%);
+            position: absolute;
+            right: 0;
+            height: 100%;
+        }
+
+        .chat-header {
+            padding: .9rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: .92rem;
+            flex-shrink: 0;
+        }
+
+        .chat-header .close-chat-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: .2rem .4rem;
+            border-radius: 6px;
+            transition: color .2s;
+        }
+
+        .chat-header .close-chat-btn:hover {
+            color: #fff;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: .8rem;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, .4);
+            border-radius: 4px;
+        }
+
+        .chat-msg {
+            display: flex;
+            flex-direction: column;
+            gap: .15rem;
+        }
+
+        .chat-msg .msg-name {
+            font-size: .72rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .chat-msg .msg-name.you {
+            color: #a5b4fc;
+        }
+
+        .chat-msg .msg-bubble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0 10px 10px 10px;
+            padding: .5rem .9rem;
+            font-size: .88rem;
+            line-height: 1.5;
+            word-break: break-word;
+            max-width: 100%;
+            display: inline-block;
+        }
+
+        .chat-msg.you-msg .msg-bubble {
+            background: rgba(99, 102, 241, .18);
+            border-color: rgba(99, 102, 241, .3);
+            border-radius: 10px 0 10px 10px;
+            align-self: flex-end;
+        }
+
+        .chat-msg.you-msg {
+            align-items: flex-end;
+        }
+
+        .chat-msg.you-msg .msg-name {
+            text-align: right;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: .5rem;
+            padding: .8rem;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: .6rem .9rem;
+            color: #fff;
+            font-family: inherit;
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .chat-input:focus {
+            border-color: rgba(99, 102, 241, .5);
+        }
+
+        .chat-input::placeholder {
+            color: var(--muted);
+        }
+
+        .chat-send-btn {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 10px;
+            padding: .6rem .9rem;
+            color: #fff;
+            cursor: pointer;
+            font-size: .95rem;
+            transition: opacity .2s;
+        }
+
+        .chat-send-btn:hover {
+            opacity: .85;
+        }
+
+        /* ── INFO PANEL ─────────────────────── */
+        .info-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 30;
+            background: rgba(0, 0, 0, .6);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-overlay.show {
+            display: flex;
+        }
+
+        .info-box {
+            background: #0d0d1e;
+            border: 1px solid rgba(99, 102, 241, .3);
+            border-radius: 18px;
+            padding: 1.8rem;
+            max-width: 380px;
+            width: 100%;
+            margin: 1rem;
+        }
+
+        .info-box h3 {
+            font-size: 1.15rem;
+            margin-bottom: .5rem;
+        }
+
+        .info-box p {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: .8rem;
+        }
+
+        .info-box .info-meta {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .info-box .info-meta span {
+            font-size: .83rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .info-box .close-info {
+            width: 100%;
+            padding: .7rem;
+            border: 1px solid rgba(99, 102, 241, .3);
+            border-radius: 10px;
+            background: none;
+            color: #a5b4fc;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: .9rem;
+        }
+
+        .info-box .close-info:hover {
+            background: rgba(99, 102, 241, .1);
+        }
+
+        /* ── RESPONSIVE ─────────────────────── */
+        @media(max-width:768px) {
+            .chat-sidebar {
+                position: fixed;
+                right: 0;
+                top: 56px;
+                bottom: 0;
+                z-index: 50;
+                width: 100%;
+                max-width: 320px;
+                transform: translateX(100%);
+            }
+
+            .chat-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:480px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .room-capacity {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TOP BAR -->
+    <div class="room-bar">
+        <span class="lts-badge">LTS</span>
+        <span class="room-title" id="roomTitle">Loading...</span>
+        <span class="room-status-dot dot-live" id="roomStatusDot"><i class="fas fa-circle pulse"></i> <span
+                id="roomStatusText">Live</span></span>
+        <span class="room-capacity"><i class="fas fa-users"></i> <span id="roomCount">1</span></span>
+    </div>
+
+    <!-- MAIN BODY -->
+    <div class="room-body" id="roomBody">
+
+        <!-- VIDEO AREA -->
+        <div class="video-area" id="videoArea">
+
+            <!-- Attention OFF — shown instead of video grid -->
+            <div class="attention-off-overlay" id="attentionOff" style="display:none;">
+                <div class="ao-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <h2>Device Not Connected</h2>
+                <p>The host has suspended this session. Your device cannot enter the room at this time.</p>
+                <ul class="ts-list">
+                    <li><i class="fas fa-wifi"></i> Check your internet connection</li>
+                    <li><i class="fas fa-camera"></i> Allow camera &amp; microphone permissions</li>
+                    <li><i class="fas fa-browser"></i> Use Chrome, Edge, or Firefox</li>
+                    <li><i class="fas fa-sync"></i> Refresh and try again later</li>
+                </ul>
+                <a href="lts-index.html"
+                    style="margin-top:.5rem;padding:.7rem 1.5rem;border:1px solid rgba(99,102,241,.3);border-radius:10px;color:#a5b4fc;text-decoration:none;font-weight:600;font-size:.9rem;display:inline-block;">
+                    <i class="fas fa-arrow-left"></i> Back to Podcasts
+                </a>
+            </div>
+
+            <!-- Video grid (shown when attention: true) -->
+            <div class="video-grid" id="videoGrid"></div>
+
+        </div>
+
+        <!-- CHAT SIDEBAR -->
+        <div class="chat-sidebar" id="chatSidebar">
+            <div class="chat-header">
+                <span><i class="fas fa-comments" style="color:#6366f1;margin-right:.4rem;"></i> Live Chat</span>
+                <button class="close-chat-btn" id="closeChatBtn" title="Close Chat"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-row" id="chatInputRow">
+                <input class="chat-input" id="chatInput" placeholder="Type a message..." maxlength="200">
+                <button class="chat-send-btn" onclick="sendMessage()" title="Send"><i
+                        class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTROLS BAR -->
+    <div class="controls-bar" id="controlsBar">
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn" id="btnMic" onclick="toggleMic()" title="Mute/Unmute"><i
+                    class="fas fa-microphone"></i></button>
+            <span class="ctrl-label">Mic</span>
+        </div>
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn" id="btnCam" onclick="toggleCam()" title="Camera On/Off"><i
+                    class="fas fa-video"></i></button>
+            <span class="ctrl-label">Camera</span>
+        </div>
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn" id="btnHand" onclick="toggleHand()" title="Raise Hand"><i
+                    class="fas fa-hand-paper"></i></button>
+            <span class="ctrl-label">Hand</span>
+        </div>
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn" id="btnChat" onclick="toggleChat()" title="Toggle Chat"><i
+                    class="fas fa-comments"></i></button>
+            <span class="ctrl-label">Chat</span>
+        </div>
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn" id="btnInfo" onclick="toggleInfo()" title="Podcast Info"><i
+                    class="fas fa-info-circle"></i></button>
+            <span class="ctrl-label">Info</span>
+        </div>
+        <div class="ctrl-wrap">
+            <button class="ctrl-btn leave" onclick="leaveRoom()"><i class="fas fa-phone-slash"></i> Leave</button>
+            <span class="ctrl-label"></span>
+        </div>
+    </div>
+
+    <!-- INFO OVERLAY -->
+    <div class="info-overlay" id="infoOverlay">
+        <div class="info-box" id="infoBox">
+            <h3 id="infoPodcastTitle">Podcast Info</h3>
+            <div class="info-meta" id="infoMeta"></div>
+            <p id="infoDesc"></p>
+            <button class="close-info" onclick="toggleInfo()">Close</button>
+        </div>
+    </div>
+
+    <script src="lts-podcasts.js"></script>
+    <script>
+        // ── State ──────────────────────────────────────────────────────────────
+        let podcast = null;
+        let myName = 'You';
+        let micOn = true;
+        let camOn = true;
+        let handUp = false;
+        let chatOpen = true;
+
+        // Simulated participants
+        const simParticipants = [
+            { name: 'Host (Abhinav)', isHost: true, micOn: true, camOn: true },
+            { name: 'Priya M.', isHost: false, micOn: false, camOn: true },
+            { name: 'Rahul S.', isHost: false, micOn: true, camOn: false },
+        ];
+
+        // Simulated chat messages
+        const chatSeed = [
+            { who: 'Host (Abhinav)', text: 'Welcome everyone! 👋', you: false },
+            { who: 'Priya M.', text: 'Excited to be here!', you: false },
+            { who: 'Rahul S.', text: 'Great session!', you: false },
+        ];
+
+        // ── Init ───────────────────────────────────────────────────────────────
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id') || sessionStorage.getItem('lts_podcast_id') || '';
+            myName = params.get('name') || sessionStorage.getItem('lts_name') || 'You';
+
+            podcast = (window.LTS_PODCASTS || []).find(p => p.id === id);
+
+            if (!podcast) {
+                document.getElementById('roomTitle').textContent = 'Unknown Podcast';
+                return;
+            }
+
+            document.title = podcast.title + ' — LTS';
+            document.getElementById('roomTitle').textContent = podcast.title;
+            renderStatus();
+
+            // Attention check
+            if (!podcast.attention) {
+                document.getElementById('attentionOff').style.display = 'flex';
+                document.getElementById('videoGrid').style.display = 'none';
+                document.getElementById('controlsBar').style.display = 'none';
+                document.getElementById('chatSidebar').style.display = 'none';
+                return;
+            }
+
+            // Chat: hide if disabled
+            if (!podcast.chatEnabled) {
+                document.getElementById('chatSidebar').style.display = 'none';
+                document.getElementById('btnChat').style.display = 'none';
+            }
+
+            // Render video tiles
+            renderVideoGrid();
+
+            // Render initial chat
+            chatSeed.forEach(m => appendChatMessage(m.who, m.text, m.you));
+
+            // Simulate participant count
+            document.getElementById('roomCount').textContent = simParticipants.length + 1;
+
+            // Chat enter key
+            document.getElementById('chatInput').addEventListener('keydown', e => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Close chat btn
+            document.getElementById('closeChatBtn').addEventListener('click', () => toggleChat());
+        });
+
+        function renderStatus() {
+            const dotEl = document.getElementById('roomStatusDot');
+            const textEl = document.getElementById('roomStatusText');
+            const map = {
+                live: { cls: 'dot-live', txt: 'Live' },
+                upcoming: { cls: 'dot-upcoming', txt: 'Upcoming' },
+                ended: { cls: 'dot-ended', txt: 'Ended' },
+            };
+            const s = map[podcast.status] || map.live;
+            dotEl.className = 'room-status-dot ' + s.cls;
+            textEl.textContent = s.txt;
+        }
+
+        function renderVideoGrid() {
+            const grid = document.getElementById('videoGrid');
+            grid.innerHTML = '';
+
+            // You tile
+            const youTile = makeTile({
+                name: myName + ' (You)', isHost: false, micOn, camOn, isYou: true
+            });
+            grid.appendChild(youTile);
+
+            // Simulated participants
+            simParticipants.forEach(p => {
+                grid.appendChild(makeTile(p));
+            });
+        }
+
+        function makeTile({ name, isHost, micOn, camOn, isYou }) {
+            const div = document.createElement('div');
+            div.className = 'video-tile' + (isYou ? ' you-tile' : '');
+
+            const initial = name.charAt(0).toUpperCase();
+            const avatarGrad = isHost
+                ? 'linear-gradient(135deg,#6366f1,#8b5cf6)'
+                : 'linear-gradient(135deg,#312e81,#4c1d95)';
+
+            div.innerHTML = `
+            ${isHost ? `<div class="host-badge">HOST</div>` : ''}
+            ${camOn
+                    ? `<div class="participant-avatar" style="background:${avatarGrad}">${initial}</div>`
+                    : `<div class="participant-avatar" style="background:${avatarGrad}">${initial}</div>`
+                }
+            <div class="participant-name">
+                <span>${name}</span>
+                ${!micOn ? `<span class="mute-indicator"><i class="fas fa-microphone-slash"></i></span>` : ''}
+            </div>
+        `;
+            return div;
+        }
+
+        // ── Controls ────────────────────────────────────────────────────────────
+        function toggleMic() {
+            micOn = !micOn;
+            const btn = document.getElementById('btnMic');
+            btn.innerHTML = micOn ? '<i class="fas fa-microphone"></i>' : '<i class="fas fa-microphone-slash"></i>';
+            btn.classList.toggle('active', !micOn);
+            renderVideoGrid();
+        }
+
+        function toggleCam() {
+            camOn = !camOn;
+            const btn = document.getElementById('btnCam');
+            btn.innerHTML = camOn ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
+            btn.classList.toggle('active', !camOn);
+            renderVideoGrid();
+        }
+
+        function toggleHand() {
+            handUp = !handUp;
+            const btn = document.getElementById('btnHand');
+            btn.classList.toggle('active', handUp);
+            if (handUp) appendChatMessage('System', `✋ ${myName} raised their hand.`, false, true);
+        }
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            const sidebar = document.getElementById('chatSidebar');
+            sidebar.classList.toggle('open', chatOpen);
+            // On desktop toggle with width
+            sidebar.style.display = chatOpen ? '' : 'none';
+            document.getElementById('btnChat').classList.toggle('active', chatOpen);
+        }
+
+        function toggleInfo() {
+            const overlay = document.getElementById('infoOverlay');
+            const showing = overlay.classList.toggle('show');
+            if (showing && podcast) {
+                document.getElementById('infoPodcastTitle').textContent = podcast.title;
+                document.getElementById('infoDesc').textContent = podcast.description;
+                document.getElementById('infoMeta').innerHTML = `
+                <span><i class="fas fa-user-circle" style="color:#6366f1"></i> Host: ${podcast.host}</span>
+                <span><i class="fas fa-calendar" style="color:#6366f1"></i> ${podcast.date} · ${podcast.time}</span>
+                <span><i class="fas fa-id-badge" style="color:#6366f1"></i> ID: ${podcast.id}</span>
+                <span><i class="fas fa-${podcast.type === 'private' ? 'lock' : 'globe'}" style="color:${podcast.type === 'private' ? '#fbbf24' : '#34d399'}"></i> ${podcast.type === 'private' ? 'Private Room' : 'Public Room'}</span>
+                <span><i class="fas fa-users" style="color:#6366f1"></i> Max: ${podcast.maxParticipants} participants</span>
+            `;
+            }
+        }
+
+        function leaveRoom() {
+            if (confirm('Are you sure you want to leave this podcast session?')) {
+                sessionStorage.removeItem('lts_name');
+                sessionStorage.removeItem('lts_podcast_id');
+                window.location.href = 'lts-index.html';
+            }
+        }
+
+        // ── Chat ─────────────────────────────────────────────────────────────────
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            appendChatMessage(myName, text, true);
+            input.value = '';
+            input.focus();
+        }
+
+        function appendChatMessage(who, text, isYou, isSystem = false) {
+            const messages = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'chat-msg' + (isYou ? ' you-msg' : '');
+
+            if (isSystem) {
+                div.innerHTML = `<div style="text-align:center;font-size:.75rem;color:rgba(255,255,255,.3);padding:.2rem 0;">${text}</div>`;
+            } else {
+                div.innerHTML = `
+                <div class="msg-name${isYou ? ' you' : ''}">${isYou ? 'You' : who}</div>
+                <div class="msg-bubble">${escapeHTML(text)}</div>
+            `;
+            }
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+    </script>
+</body>
+
+</html>

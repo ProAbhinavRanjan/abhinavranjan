@@ -126,6 +126,34 @@
 
                 <!-- Episodes rendered by JS from biography_page.json -->
                 <div id="podcastEpisodes" class="podcast-episodes-list"></div>
+
+                <!-- LTS Button -->
+                <div style="text-align: center; margin-top: 2.5rem;" class="fade-in-up delay-300">
+                    <a href="../view/lts-index.html" class="btn btn-primary"
+                        style="display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.8rem;font-size:1rem;">
+                        <span
+                            style="width:9px;height:9px;border-radius:50%;background:#ef4444;display:inline-block;animation:ltsBtnPulse 1.2s ease-in-out infinite;flex-shrink:0;"></span>
+                        View LTS — Live Telecast Server
+                        <i class="fas fa-arrow-right" style="font-size:.85rem;"></i>
+                    </a>
+                    <p style="margin-top:.8rem;color:var(--text-muted);font-size:.85rem;">Join live podcast sessions
+                        &amp; Q&amp;A rooms</p>
+                </div>
+                <style>
+                    @keyframes ltsBtnPulse {
+
+                        0%,
+                        100% {
+                            opacity: 1;
+                            transform: scale(1);
+                        }
+
+                        50% {
+                            opacity: .4;
+                            transform: scale(1.4);
+                        }
+                    }
+                </style>
             </div>
         </section>
 

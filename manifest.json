@@ -1,5 +1,5 @@
 {
-  "name": "AR.",
+  "name": "AR. — Abhinav Ranjan",
   "short_name": "AR.",
   "start_url": "/index.html",
   "display": "standalone",
@@ -27,5 +27,4 @@
       "purpose": "any maskable"
     }
   ]
-
 }

@@ -1,0 +1,22 @@
+{
+    "image_url": "images/arlogo.png",
+    "about_text": "Welcome to the FAQ section. Here you can find answers to some of the most common questions regarding my expertise, background, and vision. Check the questions below, and if you still need help or have a business inquiry, feel free to use the contact form at the bottom of the page.",
+    "faqs": [
+        {
+            "question": "Who is Abhinav Ranjan?",
+            "answer": "Abhinav Ranjan is a young technology enthusiast and ethical hacker from Muzaffarpur, Bihar, India, known for his early involvement in cybersecurity and digital security education."
+        },
+        {
+            "question": "What are your main areas of expertise?",
+            "answer": "My primary areas of interest include cybersecurity, ethical hacking, network security, penetration testing, digital forensics, web development, and AI."
+        },
+        {
+            "question": "How can I collaborate or work with you?",
+            "answer": "You can use the form below to send an email, or directly message me via WhatsApp or Telegram with your project details and requirements. I am always open to interesting collaborations."
+        },
+        {
+            "question": "What is the Luminary Technicals ecosystem?",
+            "answer": "It is a futuristic technology initiative I founded focusing on digital infrastructure, hosting solutions, and collaborative technology projects."
+        }
+    ]
+}

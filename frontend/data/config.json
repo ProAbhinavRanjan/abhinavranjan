@@ -113,11 +113,11 @@
     "links": [
       {
         "label": "Privacy Policy",
-        "url": "#"
+        "url": "/frontend/html/moredetails/privacy-policy.html"
       },
       {
         "label": "Terms of Service",
-        "url": "#"
+        "url": "/frontend/html/moredetails/terms-and-conditions.html"
       }
     ]
   }

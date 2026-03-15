@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Podcast — LTS</title>
+    <link rel="icon" type="image/png" href="../../images/arlogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #05050f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99, 102, 241, .28) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 90% 90%, rgba(139, 92, 246, .18) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .join-wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            color: rgba(255, 255, 255, .4);
+            font-size: .88rem;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: color .2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* Card */
+        .join-card {
+            background: rgba(14, 14, 26, 0.92);
+            border: 1px solid rgba(99, 102, 241, .25);
+            border-radius: 20px;
+            padding: 2rem 2rem 2.2rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+        }
+
+        /* Logo */
+        .lts-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            padding: .25rem .75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: .85rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: .35rem;
+        }
+
+        .join-subtitle {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .45);
+            margin-bottom: 1.6rem;
+        }
+
+        /* Podcast info strip */
+        .podcast-info {
+            background: rgba(99, 102, 241, .1);
+            border: 1px solid rgba(99, 102, 241, .25);
+            border-radius: 12px;
+            padding: .9rem 1.1rem;
+            margin-bottom: 1.4rem;
+            display: none;
+        }
+
+        .podcast-info.show {
+            display: block;
+        }
+
+        .podcast-info .pi-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: .25rem;
+        }
+
+        .podcast-info .pi-meta {
+            font-size: .8rem;
+            color: rgba(255, 255, 255, .4);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: .3rem;
+        }
+
+        .podcast-info .pi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: .2rem .6rem;
+            border-radius: 50px;
+            margin-left: .5rem;
+        }
+
+        .badge-live {
+            background: rgba(239, 68, 68, .18);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, .35);
+        }
+
+        .badge-upcoming {
+            background: rgba(245, 158, 11, .15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .3);
+        }
+
+        .badge-ended {
+            background: rgba(107, 114, 128, .15);
+            color: #9ca3af;
+            border: 1px solid rgba(107, 114, 128, .3);
+        }
+
+        .badge-public {
+            background: rgba(16, 185, 129, .12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, .25);
+        }
+
+        .badge-private {
+            background: rgba(245, 158, 11, .12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .25);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .65);
+            margin-bottom: .45rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 10px;
+            padding: .75rem 1rem;
+            color: #fff;
+            font-family: inherit;
+            font-size: .95rem;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .form-group input:focus {
+            border-color: rgba(99, 102, 241, .7);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .15);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, .25);
+        }
+
+        .input-error {
+            border-color: rgba(239, 68, 68, .6) !important;
+        }
+
+        .error-msg {
+            font-size: .8rem;
+            color: #f87171;
+            margin-top: .4rem;
+            display: none;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        /* T&C checkbox */
+        .tc-row {
+            display: flex;
+            align-items: flex-start;
+            gap: .75rem;
+            margin-bottom: 1.4rem;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .5);
+            cursor: pointer;
+        }
+
+        .tc-row input[type=checkbox] {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            accent-color: #6366f1;
+            cursor: pointer;
+        }
+
+        .tc-row a {
+            color: #a5b4fc;
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn-join {
+            width: 100%;
+            padding: .85rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: opacity .2s, transform .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        .btn-join:hover {
+            opacity: .9;
+            transform: translateY(-1px);
+        }
+
+        .btn-join:disabled {
+            opacity: .4;
+            cursor: default;
+            transform: none;
+        }
+
+        /* Steps */
+        .steps {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step {
+            flex: 1;
+            height: 3px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, .1);
+            transition: background .3s;
+        }
+
+        .step.active {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+
+        .step.done {
+            background: rgba(99, 102, 241, .4);
+        }
+
+        /* Screen toggle */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Not supported */
+        .not-supported {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .not-supported .ns-icon {
+            font-size: 3rem;
+            color: #f87171;
+            margin-bottom: 1rem;
+        }
+
+        .not-supported h3 {
+            font-size: 1.2rem;
+            margin-bottom: .5rem;
+        }
+
+        .not-supported p {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .45);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .ts-list {
+            text-align: left;
+            background: rgba(239, 68, 68, .07);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 10px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .ts-list li {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .5);
+            padding: .3rem 0;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .ts-list li i {
+            color: #fbbf24;
+            flex-shrink: 0;
+        }
+
+        @media(max-width:480px) {
+            .join-card {
+                padding: 1.5rem 1.2rem 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="join-wrap">
+        <a href="lts-index.html" class="back-link"><i class="fas fa-arrow-left"></i> All Podcasts</a>
+
+        <div class="join-card">
+            <div class="lts-badge">LTS</div>
+            <h1 id="joinHeading">Join Podcast</h1>
+            <p class="join-subtitle" id="joinSubtitle">Enter the podcast ID or continue with the pre-loaded session.</p>
+
+            <!-- Step progress bar -->
+            <div class="steps">
+                <div class="step active" id="step1bar"></div>
+                <div class="step" id="step2bar"></div>
+                <div class="step" id="step3bar"></div>
+            </div>
+
+            <!-- SCREEN 1: Podcast ID Lookup -->
+            <div class="screen active" id="screen1">
+                <div class="form-group">
+                    <label for="podcastIdInput">Podcast ID</label>
+                    <input type="text" id="podcastIdInput" placeholder="e.g. PODCAST-IIT-01" autocomplete="off">
+                    <div class="error-msg" id="idError">Podcast not found. Please check the ID.</div>
+                </div>
+                <!-- Podcast info strip (shown after valid ID) -->
+                <div class="podcast-info" id="podcastInfoStrip"></div>
+                <button class="btn-join" id="btnLookup" onclick="lookupPodcast()">
+                    <i class="fas fa-search"></i> Find Podcast
+                </button>
+            </div>
+
+            <!-- SCREEN 2: Password (if private) -->
+            <div class="screen" id="screen2">
+                <div style="text-align:center;margin-bottom:1.2rem;">
+                    <i class="fas fa-lock" style="font-size:2rem;color:#fbbf24;margin-bottom:.6rem;display:block;"></i>
+                    <div style="font-size:.95rem;color:rgba(255,255,255,.5);">This is a <strong
+                            style="color:#fbbf24;">private</strong> podcast. Enter the room password to continue.</div>
+                </div>
+                <div class="podcast-info show" id="pwInfoStrip"></div>
+                <div class="form-group" style="margin-top:1.1rem;">
+                    <label for="passwordInput">Room Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter room password">
+                    <div class="error-msg" id="pwError">Incorrect password. Please try again.</div>
+                </div>
+                <button class="btn-join" onclick="checkPassword()">
+                    <i class="fas fa-unlock"></i> Verify & Continue
+                </button>
+                <button onclick="goTo(1)"
+                    style="width:100%;margin-top:.7rem;padding:.7rem;border:none;background:none;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:.9rem;">←
+                    Back</button>
+            </div>
+
+            <!-- SCREEN 3: Your Info + T&C -->
+            <div class="screen" id="screen3">
+                <div class="podcast-info show" id="joinInfoStrip"></div>
+                <div class="form-group" style="margin-top:1.1rem;">
+                    <label for="nameInput">Your Display Name</label>
+                    <input type="text" id="nameInput" placeholder="How should we call you?">
+                    <div class="error-msg" id="nameError">Please enter your display name.</div>
+                </div>
+                <label class="tc-row" for="tcCheck">
+                    <input type="checkbox" id="tcCheck">
+                    <span>I agree to the <a href="../html/moredetails/terms-and-conditions.html" target="_blank">Terms &
+                            Conditions</a> and <a href="../html/moredetails/privacy-policy.html" target="_blank">Privacy
+                            Policy</a>.</span>
+                </label>
+                <button class="btn-join" id="btnJoinFinal" onclick="joinNow()">
+                    <i class="fas fa-video"></i> Join Now
+                </button>
+                <button onclick="goTo(currentPodcast && currentPodcast.type === 'private' ? 2 : 1)"
+                    style="width:100%;margin-top:.7rem;padding:.7rem;border:none;background:none;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:.9rem;">←
+                    Back</button>
+            </div>
+
+            <!-- SCREEN 4: Attention OFF — device not supported -->
+            <div class="screen" id="screen4">
+                <div class="not-supported">
+                    <div class="ns-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Session Unavailable</h3>
+                    <p>This podcast room is currently suspended by the host. Your device cannot connect at this time.
+                    </p>
+                    <ul class="ts-list">
+                        <li><i class="fas fa-wifi"></i> Check your internet connection</li>
+                        <li><i class="fas fa-camera"></i> Ensure camera & microphone permissions are granted</li>
+                        <li><i class="fas fa-browser"></i> Try a modern browser: Chrome, Edge, or Firefox</li>
+                        <li><i class="fas fa-sync"></i> Refresh the page and try again later</li>
+                        <li><i class="fas fa-envelope"></i> Contact host if the problem persists</li>
+                    </ul>
+                    <a href="lts-index.html"
+                        style="display:inline-block;padding:.7rem 1.5rem;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);border-radius:10px;color:#a5b4fc;text-decoration:none;font-weight:600;font-size:.9rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Podcasts
+                    </a>
+                </div>
+            </div>
+
+            <!-- SCREEN 5: Ended -->
+            <div class="screen" id="screen5">
+                <div class="not-supported">
+                    <div class="ns-icon" style="color:#9ca3af;"><i class="fas fa-clock"></i></div>
+                    <h3>Session Ended</h3>
+                    <p>This podcast session has already ended. Check back for upcoming sessions.</p>
+                    <a href="lts-index.html"
+                        style="display:inline-block;padding:.7rem 1.5rem;background:rgba(107,114,128,.15);border:1px solid rgba(107,114,128,.3);border-radius:10px;color:#9ca3af;text-decoration:none;font-weight:600;font-size:.9rem;">
+                        <i class="fas fa-arrow-left"></i> Back to Podcasts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lts-podcasts.js"></script>
+    <script>
+        let currentPodcast = null;
+        let currentStep = 1;
+
+        function setStepBars(step) {
+            for (let i = 1; i <= 3; i++) {
+                const bar = document.getElementById('step' + i + 'bar');
+                bar.className = 'step' + (i < step ? ' done' : i === step ? ' active' : '');
+            }
+        }
+
+        function goTo(step) {
+            currentStep = step;
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + step).classList.add('active');
+            setStepBars(Math.min(step, 3));
+        }
+
+        function podcastInfoHTML(podcast) {
+            const statusClass = { live: 'badge-live', upcoming: 'badge-upcoming', ended: 'badge-ended' }[podcast.status] || '';
+            const typeClass = podcast.type === 'private' ? 'badge-private' : 'badge-public';
+            return `
+            <div class="pi-title">${podcast.title}
+                <span class="pi-badge ${statusClass}">${podcast.status.toUpperCase()}</span>
+                <span class="pi-badge ${typeClass}">${podcast.type === 'private' ? '🔒 Private' : '🌐 Public'}</span>
+            </div>
+            <div class="pi-meta">
+                <span><i class="fas fa-user-circle"></i> ${podcast.host}</span>
+                <span><i class="fas fa-calendar"></i> ${podcast.date}</span>
+                <span><i class="fas fa-clock"></i> ${podcast.time}</span>
+            </div>
+        `;
+        }
+
+        function lookupPodcast() {
+            const rawId = document.getElementById('podcastIdInput').value.trim().toUpperCase();
+            const errEl = document.getElementById('idError');
+            const infoEl = document.getElementById('podcastInfoStrip');
+            const input = document.getElementById('podcastIdInput');
+
+            // Search
+            const found = (window.LTS_PODCASTS || []).find(p => p.id.toUpperCase() === rawId);
+            if (!found) {
+                input.classList.add('input-error');
+                errEl.classList.add('show');
+                infoEl.classList.remove('show');
+                return;
+            }
+            input.classList.remove('input-error');
+            errEl.classList.remove('show');
+            currentPodcast = found;
+
+            // Show info strip
+            infoEl.innerHTML = podcastInfoHTML(found);
+            infoEl.classList.add('show');
+
+            // Check attention
+            if (!found.attention) { goTo(4); return; }
+            // Check ended
+            if (found.status === 'ended') { goTo(5); return; }
+            // Private?
+            if (found.type === 'private') {
+                document.getElementById('pwInfoStrip').innerHTML = podcastInfoHTML(found);
+                goTo(2);
+            } else {
+                document.getElementById('joinInfoStrip').innerHTML = podcastInfoHTML(found);
+                goTo(3);
+            }
+        }
+
+        function checkPassword() {
+            const entered = document.getElementById('passwordInput').value;
+            const errEl = document.getElementById('pwError');
+            if (entered === currentPodcast.password) {
+                errEl.classList.remove('show');
+                document.getElementById('joinInfoStrip').innerHTML = podcastInfoHTML(currentPodcast);
+                goTo(3);
+            } else {
+                errEl.classList.add('show');
+                document.getElementById('passwordInput').classList.add('input-error');
+            }
+        }
+
+        function joinNow() {
+            const name = document.getElementById('nameInput').value.trim();
+            const tc = document.getElementById('tcCheck').checked;
+            let valid = true;
+
+            if (!name) {
+                document.getElementById('nameInput').classList.add('input-error');
+                document.getElementById('nameError').classList.add('show');
+                valid = false;
+            } else {
+                document.getElementById('nameInput').classList.remove('input-error');
+                document.getElementById('nameError').classList.remove('show');
+            }
+            if (!tc) {
+                document.getElementById('tcCheck').style.outline = '2px solid #f87171';
+                valid = false;
+            } else {
+                document.getElementById('tcCheck').style.outline = '';
+            }
+
+            if (!valid) return;
+
+            // Save session info and navigate to room
+            sessionStorage.setItem('lts_name', name);
+            sessionStorage.setItem('lts_podcast_id', currentPodcast.id);
+            window.location.href = `lts-room.html?id=${encodeURIComponent(currentPodcast.id)}&name=${encodeURIComponent(name)}`;
+        }
+
+        // Pre-fill from URL param ?id=
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const preId = params.get('id');
+            if (preId) {
+                document.getElementById('podcastIdInput').value = preId;
+                lookupPodcast();
+            }
+        });
+    </script>
+</body>
+
+</html>
