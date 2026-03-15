@@ -182,50 +182,122 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =============================================
-    // PODCAST
+    // PODCAST (DYNAMIC LTS INTEGRATION)
     // =============================================
-    function initPodcast(podcast) {
-        if (!podcast) return;
-
-        // Update podcast header info
+    async function initPodcast(staticPodcastData) {
         const podcastTitleEl = document.getElementById('podcastTitle');
         const podcastDescEl = document.getElementById('podcastDescription');
         const spotifyLink = document.getElementById('podcastSpotifyLink');
         const appleLink = document.getElementById('podcastAppleLink');
-
-        if (podcastTitleEl) podcastTitleEl.textContent = podcast.title;
-        if (podcastDescEl) podcastDescEl.textContent = podcast.description;
-        if (spotifyLink && podcast.spotifyUrl) spotifyLink.href = podcast.spotifyUrl;
-        if (appleLink && podcast.applePodcastsUrl) appleLink.href = podcast.applePodcastsUrl;
-
-        // Render episodes
         const episodesContainer = document.getElementById('podcastEpisodes');
-        if (!episodesContainer || !podcast.episodes || podcast.episodes.length === 0) return;
 
-        episodesContainer.innerHTML = podcast.episodes.map((ep, index) => `
+        if (staticPodcastData) {
+            if (podcastTitleEl) podcastTitleEl.textContent = staticPodcastData.title;
+            if (podcastDescEl) podcastDescEl.textContent = staticPodcastData.description;
+            if (spotifyLink && staticPodcastData.spotifyUrl) spotifyLink.href = staticPodcastData.spotifyUrl;
+            if (appleLink && staticPodcastData.applePodcastsUrl) appleLink.href = staticPodcastData.applePodcastsUrl;
+        }
+
+        try {
+            // Fetch live data from LTS
+            const ltsResponse = await fetch('../data/lts_podcasts.json');
+            const ltsPodcasts = await ltsResponse.json();
+
+            // Combine with static episodes if desired, or prioritize LTS
+            // For this enhancement, we prioritize showing LTS sessions as the main episodes
+            renderLTSSessions(ltsPodcasts, episodesContainer);
+        } catch (err) {
+            console.warn('Could not fetch LTS data, falling back to static episodes:', err);
+            if (staticPodcastData && staticPodcastData.episodes) {
+                renderStaticEpisodes(staticPodcastData.episodes, episodesContainer);
+            }
+        }
+    }
+
+    function renderLTSSessions(sessions, container) {
+        if (!container || !sessions || sessions.length === 0) return;
+
+        container.innerHTML = sessions.map((session, index) => {
+            let statusBadge = '';
+            let actionBtn = '';
+            const status = session.status.toLowerCase();
+
+            if (status === 'live') {
+                statusBadge = `<span class="badge badge-live"><span class="pulse"></span> LIVE</span>`;
+                actionBtn = `<a href="../view/lts-join.html?id=${session.id}" class="ep-btn ep-btn-live">Join Now & Connect <i class="fas fa-heart"></i></a>`;
+            } else if (status === 'upcoming') {
+                statusBadge = `<span class="badge badge-upcoming">UPCOMING</span>`;
+                actionBtn = `<a href="../view/lts-join.html?id=${session.id}" class="ep-btn">Register Interest</a>`;
+            } else {
+                statusBadge = `<span class="badge badge-ended">ENDED</span>`;
+                actionBtn = `<span class="ep-btn disabled">Session Ended</span>`;
+            }
+
+            return `
+                <div class="podcast-episode fade-in-up delay-${200 + index * 100}">
+                    <div class="episode-header">
+                        <div class="episode-icon">
+                            <i class="fas ${status === 'live' ? 'fa-signal' : 'fa-microphone-alt'}"></i>
+                        </div>
+                        <div class="episode-meta">
+                            <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom: 0.3rem;">
+                                <h4 class="episode-title" style="margin:0;">${session.title}</h4>
+                                ${statusBadge}
+                            </div>
+                            <span class="episode-info">
+                                <i class="fas fa-calendar-alt"></i> ${session.date}
+                                &nbsp;·&nbsp;
+                                <i class="fas fa-clock"></i> ${session.time}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="episode-description">${session.description}</p>
+                    <div class="episode-footer" style="margin-top: 1.2rem;">
+                        ${actionBtn}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        addBadgeStyles();
+        if (window.observeNewCards) window.observeNewCards();
+    }
+
+    function renderStaticEpisodes(episodes, container) {
+        container.innerHTML = episodes.map((ep, index) => `
             <div class="podcast-episode fade-in-up delay-${200 + index * 100}">
                 <div class="episode-header">
-                    <div class="episode-icon">
-                        <i class="fas fa-play-circle"></i>
-                    </div>
+                    <div class="episode-icon"><i class="fas fa-play-circle"></i></div>
                     <div class="episode-meta">
                         <h4 class="episode-title">${ep.title}</h4>
                         <span class="episode-info">
-                            <i class="fas fa-clock"></i> ${ep.duration}
-                            &nbsp;·&nbsp;
+                            <i class="fas fa-clock"></i> ${ep.duration} &nbsp;·&nbsp;
                             <i class="fas fa-calendar-alt"></i> ${ep.date}
                         </span>
                     </div>
                 </div>
                 <p class="episode-description">${ep.description}</p>
-                ${ep.audioUrl && ep.audioUrl !== '#'
-                ? `<audio controls class="custom-audio-player"><source src="${ep.audioUrl}" type="audio/mpeg">Your browser does not support the audio element.</audio>`
-                : `<p class="episode-coming-soon"><i class="fas fa-microphone-slash"></i> Audio coming soon</p>`
-            }
             </div>
         `).join('');
+    }
 
-        // Observe new elements for fade-in animation
-        if (window.observeNewCards) window.observeNewCards();
+    function addBadgeStyles() {
+        if (document.getElementById('lts-badge-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'lts-badge-styles';
+        style.textContent = `
+            .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+            .badge-live { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+            .badge-upcoming { background: rgba(99, 102, 241, 0.15); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.3); }
+            .badge-ended { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--border); }
+            .pulse { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; display: inline-block; animation: badgePulse 1.5s infinite; }
+            @keyframes badgePulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+            .ep-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500; transition: all 0.3s ease; text-decoration: none; background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border); }
+            .ep-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); transform: translateY(-2px); }
+            .ep-btn-live { background: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+            .ep-btn-live:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6); }
+            .ep-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+        `;
+        document.head.appendChild(style);
     }
 });

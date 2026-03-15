@@ -19,7 +19,7 @@
             "buttons": [
                 {
                     "label": "View Podcast - LTS",
-                    "url": "#"
+                    "url": "frontend/view/lts-join.html?id=PODCAST-IIT-01"
                 }
             ]
         },
