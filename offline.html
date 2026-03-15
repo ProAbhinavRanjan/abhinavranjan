@@ -75,12 +75,29 @@
 </head>
 
 <body>
+  <div id="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Loading Excellence...</div>
+    </div>
+  </div>
   <div class="offline-card">
     <div class="offline-icon"><i class="fas fa-wifi-slash"></i></div>
     <h1>Connection Lost</h1>
     <p>It seems you're offline. Don't worry, you can still browse previously visited pages of the portfolio.</p>
     <a href="index.html" class="btn btn-primary" style="text-decoration: none;">Try Reconnecting</a>
   </div>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader-wrapper');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => { loader.style.display = 'none'; }, 500);
+        }
+      }, 500);
+    });
+  </script>
 </body>
 
 </html>
