@@ -1,21 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 script.js v1.0.5 loaded');
     // Fetch Configuration Data
-    let baseDir = '';
-    if (window.location.pathname.includes('/moredetails/')) {
-        baseDir = '../../../';
-    } else if (window.location.pathname.includes('/html/')) {
-        baseDir = '../../';
-    }
-    const dataDir = baseDir + 'frontend/data/';
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    // Use absolute paths so Netlify pretty URLs don't break relative fetches.
+    // On Netlify, '/frontend/html/moredetails/asked-questions' has no .html
+    // which makes relative '../../../' resolve incorrectly against the URL.
+    const dataDir = '/frontend/data/';
+
+    // For image/asset src attributes that live in the HTML (not fetched), preserve relative baseDir.
+    let baseDir = '/';
+
+    // currentPage: handles `asked-questions.html` and `asked-questions` (Netlify pretty URLs)
+    const rawPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPage = rawPage.includes('.') ? rawPage : rawPage + '.html';
 
     // Decide which data to fetch based on the current page
     let configPromise = fetch(dataDir + 'config.json').then(r => r.json());
     let pageDataPromise = Promise.resolve(null);
 
     const path = window.location.pathname;
-    const isFAQ = path.includes('asked-questions.html');
+    // Works with both `asked-questions.html` and `asked-questions` (Netlify)
+    const isFAQ = path.includes('asked-questions');
 
     if (currentPage === 'socials.html') {
         pageDataPromise = fetch(dataDir + 'socials_page.json').then(r => r.json());
@@ -253,13 +257,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const imgPath = data.asked_questions.image_url;
 
                     if (imgPath && imgPath !== '#') {
-                        faqProfileImg.src = baseDir + imgPath;
+                        faqProfileImg.src = '/' + imgPath;
                     } else {
-                        faqProfileImg.src = baseDir + 'images/arlogo.png';
+                        faqProfileImg.src = '/images/arlogo.png';
                     }
 
                     faqProfileImg.onerror = () => {
-                        faqProfileImg.src = baseDir + 'images/arlogo.png';
+                        faqProfileImg.src = '/images/arlogo.png';
                     };
                 }
             }
@@ -316,13 +320,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imgPath = data.personal.profile_image;
 
                 if (imgPath && imgPath !== '#') {
-                    profileImg.src = baseDir + imgPath;
+                    profileImg.src = '/' + imgPath;
                 } else {
-                    profileImg.src = baseDir + 'images/arlogo.png';
+                    profileImg.src = '/images/arlogo.png';
                 }
 
                 profileImg.onerror = () => {
-                    profileImg.src = baseDir + 'images/arlogo.png';
+                    profileImg.src = '/images/arlogo.png';
                 };
             }
 
