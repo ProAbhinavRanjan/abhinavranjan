@@ -3370,27 +3370,32 @@ main {
 
     /* Biography timeline */
     .timeline::before {
-        left: 0.6rem;
+        left: 2rem;
+        transform: translateX(-50%);
     }
 
     .timeline-item {
-        padding-left: 3.5rem;
+        padding-left: 4.5rem;
         margin-bottom: 2.5rem;
     }
 
     .timeline-date {
+        left: 2rem;
+        transform: translateX(-50%);
         width: 36px;
         height: 36px;
         line-height: 36px;
         font-size: 1rem;
-        margin-right: 1.2rem;
+        margin-right: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: absolute;
     }
 
     .timeline-dot {
-        left: 0.4rem;
+        left: 2rem;
+        transform: translateX(-50%);
         width: 16px;
         height: 16px;
     }
