@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Podcast — LTS</title>
+    <link rel="icon" type="image/png" href="../../images/arlogo.png">
+    <link rel="apple-touch-icon" href="../../images/arlogo.png">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="../../manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #05050f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99, 102, 241, .28) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 90% 90%, rgba(139, 92, 246, .18) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .join-wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            color: rgba(255, 255, 255, .4);
+            font-size: .88rem;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: color .2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* Card */
+        .join-card {
+            background: rgba(14, 14, 26, 0.92);
+            border: 1px solid rgba(99, 102, 241, .25);
+            border-radius: 20px;
+            padding: 2rem 2rem 2.2rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+        }
+
+        /* Logo */
+        .lts-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            padding: .25rem .75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: .85rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: .35rem;
+        }
+
+        .join-subtitle {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .45);
+            margin-bottom: 1.6rem;
+        }
+
+        /* Podcast info strip */
+        .podcast-info {
+            background: rgba(99, 102, 241, .1);
+            border: 1px solid rgba(99, 102, 241, .25);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .podcast-info.show {
+            display: block;
+        }
+
+        .podcast-info .pi-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: .6rem;
+            color: #fff;
+        }
+
+        .podcast-info .pi-meta {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .5);
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .podcast-info .pi-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            font-size: .75rem;
+            font-weight: 700;
+            padding: .25rem .75rem;
+            border-radius: 50px;
+            margin-left: .5rem;
+        }
+
+        .badge-live {
+            background: rgba(239, 68, 68, .15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, .3);
+        }
+
+        .badge-upcoming {
+            background: rgba(245, 158, 11, .15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .3);
+        }
+
+        .badge-ended {
+            background: rgba(107, 114, 128, .15);
+            color: #9ca3af;
+            border: 1px solid rgba(107, 114, 128, .3);
+        }
+
+        .badge-public {
+            background: rgba(16, 185, 129, .1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, .2);
+        }
+
+        .badge-private {
+            background: rgba(245, 158, 11, .1);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, .2);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .7);
+            margin-bottom: .6rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 12px;
+            padding: .85rem 1.1rem;
+            color: #fff;
+            font-family: inherit;
+            font-size: .95rem;
+            outline: none;
+            transition: all .3s;
+        }
+
+        .form-group input:focus {
+            border-color: rgba(99, 102, 241, .6);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, .3);
+        }
+
+        .input-error {
+            border-color: rgba(239, 68, 68, .5) !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+        }
+
+        .error-msg {
+            font-size: .8rem;
+            color: #fca5a5;
+            margin-top: .5rem;
+            display: none;
+            font-weight: 500;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        /* T&C checkbox */
+        .tc-row {
+            display: flex;
+            align-items: flex-start;
+            gap: .75rem;
+            margin-bottom: 1.8rem;
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .5);
+            cursor: pointer;
+        }
+
+        .tc-row input[type=checkbox] {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            accent-color: #6366f1;
+            cursor: pointer;
+        }
+
+        .tc-row a {
+            color: #a5b4fc;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* Buttons */
+        .btn-join {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-join:hover {
+            opacity: .95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-join:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Steps */
+        .steps {
+            display: flex;
+            gap: .6rem;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            flex: 1;
+            height: 4px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, .1);
+            transition: all .4s;
+        }
+
+        .step.active {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .step.done {
+            background: rgba(99, 102, 241, .4);
+        }
+
+        /* Screen toggle */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Not supported */
+        .not-supported {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .not-supported .ns-icon {
+            font-size: 3.5rem;
+            color: #f87171;
+            margin-bottom: 1.5rem;
+            animation: ltsPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes ltsPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+
+        .not-supported h3 {
+            font-size: 1.4rem;
+            margin-bottom: .8rem;
+            font-weight: 700;
+        }
+
+        .not-supported p {
+            font-size: .95rem;
+            color: rgba(255, 255, 255, .45);
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+        }
+
+        .ts-list {
+            text-align: left;
+            background: rgba(239, 68, 68, .08);
+            border: 1px solid rgba(239, 68, 68, .2);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.8rem;
+            list-style: none;
+        }
+
+        .ts-list li {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .6);
+            padding: .4rem 0;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .ts-list li i {
+            color: #fbbf24;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .btn-back-alt {
+            display: inline-block;
+            padding: .85rem 1.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: all .3s;
+        }
+
+        .btn-back-alt:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media(max-width:480px) {
+            .join-card {
+                padding: 1.5rem 1.25rem 2rem;
+            }
+        }
+
+        /* ── LOADING SCREEN (PREMIUM MOD) ───── */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #05050f;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+        }
+
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(99, 102, 241, 0.2);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: ltsLoaderSpinner 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .loader-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: ltsLoaderPulse 2s ease-in-out infinite;
+            text-transform: uppercase;
+        }
+
+        @keyframes ltsLoaderSpinner {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes ltsLoaderPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Excellence...</div>
+        </div>
+    </div>
+    <div class="join-wrap">
+        <a href="lts-index" class="back-link"><i class="fas fa-arrow-left"></i> All Podcasts</a>
+
+        <div class="join-card">
+            <div class="lts-badge">LTS</div>
+            <h1 id="joinHeading">Join Podcast</h1>
+            <p class="join-subtitle" id="joinSubtitle">Enter the podcast ID or continue with the pre-loaded session.</p>
+
+            <!-- Step progress bar -->
+            <div class="steps">
+                <div class="step active" id="step1bar"></div>
+                <div class="step" id="step2bar"></div>
+                <div class="step" id="step3bar"></div>
+            </div>
+
+            <!-- SCREEN 1: Podcast ID Lookup -->
+            <div class="screen active" id="screen1">
+                <div class="form-group">
+                    <label for="podcastIdInput">Podcast ID</label>
+                    <input type="text" id="podcastIdInput" placeholder="e.g. PODCAST-IIT-01" autocomplete="off">
+                    <div class="error-msg" id="idError">Podcast not found. Please check the ID.</div>
+                </div>
+                <!-- Podcast info strip -->
+                <div class="podcast-info" id="podcastInfoStrip"></div>
+                <button class="btn-join" id="btnLookup" onclick="lookupPodcast()">
+                    <i class="fas fa-search"></i> Find Podcast
+                </button>
+            </div>
+
+            <!-- SCREEN 2: Password (if private) -->
+            <div class="screen" id="screen2">
+                <div style="text-align:center;margin-bottom:1.5rem;">
+                    <i class="fas fa-lock"
+                        style="font-size:2.5rem;color:#fbbf24;margin-bottom:.8rem;display:block;"></i>
+                    <div style="font-size:.95rem;color:rgba(255,255,255,.5);">This is a <strong
+                            style="color:#fbbf24;">private</strong> podcast. Enter the room password to continue.</div>
+                </div>
+                <div class="podcast-info show" id="pwInfoStrip"></div>
+                <div class="form-group" style="margin-top:1.5rem;">
+                    <label for="passwordInput">Room Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter room password">
+                    <div class="error-msg" id="pwError">Incorrect password. Please try again.</div>
+                </div>
+                <button class="btn-join" onclick="checkPassword()">
+                    <i class="fas fa-unlock"></i> Verify & Continue
+                </button>
+                <button onclick="goTo(1)"
+                    style="width:100%;margin-top:1rem;padding:.7rem;border:none;background:none;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:.9rem;">←
+                    Back</button>
+            </div>
+
+            <!-- SCREEN 3: Your Info + T&C -->
+            <div class="screen" id="screen3">
+                <div class="podcast-info show" id="joinInfoStrip"></div>
+                <div class="form-group" style="margin-top:1.5rem;">
+                    <label for="nameInput">Your Display Name</label>
+                    <input type="text" id="nameInput" placeholder="How should we call you?">
+                    <div class="error-msg" id="nameError">Please enter your display name.</div>
+                </div>
+                <label class="tc-row" for="tcCheck">
+                    <input type="checkbox" id="tcCheck">
+                    <span>I agree to the <a href="../html/moredetails/terms-and-conditions.html" target="_blank">Terms &
+                            Conditions</a> and <a href="../html/moredetails/privacy-policy.html" target="_blank">Privacy
+                            Policy</a>.</span>
+                </label>
+                <button class="btn-join" id="btnJoinFinal" onclick="joinNow()">
+                    <i class="fas fa-video"></i> Join Now
+                </button>
+                <button onclick="goTo(currentPodcast && currentPodcast.type === 'private' ? 2 : 1)"
+                    style="width:100%;margin-top:1rem;padding:.7rem;border:none;background:none;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:.9rem;">←
+                    Back</button>
+            </div>
+
+            <!-- SCREEN 4: Attendement OFF — device not supported -->
+            <div class="screen" id="screen4">
+                <div class="not-supported">
+                    <div class="ns-icon"><i class="fas fa-shield-virus"></i></div>
+                    <h3>Your device is not supported</h3>
+                    <p>This podcast room requires specific hardware or software protocols that your current
+                        device/browser doesn't meet.</p>
+                    <ul class="ts-list">
+                        <li><i class="fas fa-microchip"></i> Hardware Acceleration must be enabled</li>
+                        <li><i class="fas fa-wifi"></i> Ensure a stable high-speed connection</li>
+                        <li><i class="fas fa-camera"></i> Grant permission to camera & microphone</li>
+                        <li><i class="fas fa-browser"></i> Use a modern browser (Chrome, Edge, Firefox)</li>
+                        <li><i class="fas fa-sync"></i> Refresh the page and try again later</li>
+                    </ul>
+                    <a href="lts-index.html" class="btn-back-alt">
+                        <i class="fas fa-arrow-left"></i> Back to Podcasts
+                    </a>
+                </div>
+            </div>
+
+            <!-- SCREEN 5: Ended -->
+            <div class="screen" id="screen5">
+                <div class="not-supported">
+                    <div class="ns-icon" style="color:#9ca3af;"><i class="fas fa-clock"></i></div>
+                    <h3>Session Ended</h3>
+                    <p>This podcast session has already ended. Check back for upcoming sessions.</p>
+                    <a href="lts-index.html" class="btn-back-alt">
+                        <i class="fas fa-arrow-left"></i> Back to Podcasts
+                    </a>
+                </div>
+            </div>
+
+            <!-- SCREEN 6: Already Registered -->
+            <div class="screen" id="screen6">
+                <div class="not-supported">
+                    <div class="ns-icon" style="color:#10b981;"><i class="fas fa-check-circle"></i></div>
+                    <h3>Already Registered</h3>
+                    <p id="alreadyRegText">You have already registered for this podcast.</p>
+                    <a href="lts-index.html" class="btn-join" style="text-decoration:none;">
+                        <i class="fas fa-arrow-left"></i> Back to Podcasts
+                    </a>
+                    <button onclick="goTo(3)"
+                        style="width:100%;padding:.7rem;border:none;background:none;color:rgba(255,255,255,.4);cursor:pointer;font-family:inherit;font-size:.9rem;text-decoration:underline;">
+                        Re-register (Update Details)
+                    </button>
+                </div>
+            </div>
+
+            <!-- SCREEN 7: Success -->
+            <div class="screen" id="screen7">
+                <div class="not-supported">
+                    <div class="ns-icon" style="color:#8b5cf6;"><i class="fas fa-star"></i></div>
+                    <h2 style="margin-bottom:.5rem;">Successfully Registered!</h2>
+                    <p>Your spot has been saved. We'll see you at the event!</p>
+                    <div id="successPodInfo"
+                        style="background:rgba(255,255,255,0.05);border-radius:12px;padding:1rem;margin:1.5rem 0;text-align:left;font-size:.9rem;color:rgba(255,255,255,0.7);">
+                    </div>
+                    <a href="lts-index.html" class="btn-join" style="text-decoration:none;">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../logic/time_sync.js"></script>
+    <script src="lts-podcasts.js"></script>
+    <script>
+        let currentPodcast = null;
+        let currentStep = 1;
+
+        function setStepBars(step) {
+            for (let i = 1; i <= 3; i++) {
+                const bar = document.getElementById('step' + i + 'bar');
+                bar.className = 'step' + (i < step ? ' done' : i === step ? ' active' : '');
+            }
+        }
+
+        function goTo(step) {
+            currentStep = step;
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen' + step).classList.add('active');
+            setStepBars(Math.min(step, 3));
+        }
+
+        function podcastInfoHTML(podcast) {
+            const statusClass = { live: 'badge-live', upcoming: 'badge-upcoming', ended: 'badge-ended' }[podcast.status] || '';
+            const typeClass = podcast.type === 'private' ? 'badge-private' : 'badge-public';
+            return `
+            <div class="pi-title">${podcast.title}</div>
+            <div class="pi-meta">
+                <span class="pi-badge ${statusClass}">${podcast.status.toUpperCase()}</span>
+                <span class="pi-badge ${typeClass}">${podcast.type === 'private' ? '🔒 Private' : '🌐 Public'}</span>
+                <span><i class="fas fa-user-circle"></i> ${podcast.host}</span>
+                <span><i class="fas fa-calendar"></i> ${podcast.date}</span>
+                <span><i class="fas fa-clock"></i> ${podcast.time}</span>
+            </div>
+        `;
+        }
+
+        function lookupPodcast() {
+            const rawId = document.getElementById('podcastIdInput').value.trim().toUpperCase();
+            const errEl = document.getElementById('idError');
+            const infoEl = document.getElementById('podcastInfoStrip');
+            const input = document.getElementById('podcastIdInput');
+            const heading = document.getElementById('joinHeading');
+            const subtitle = document.getElementById('joinSubtitle');
+
+            if (!rawId) return;
+
+            // Wait for data if not yet loaded
+            if (!window.LTS_PODCASTS) {
+                input.value = "LOADING DATA...";
+                window.addEventListener('ltsDataReady', lookupPodcast, { once: true });
+                return;
+            }
+
+            const found = window.LTS_PODCASTS.find(p => p.id.toUpperCase() === rawId);
+            if (!found) {
+                input.classList.add('input-error');
+                errEl.classList.add('show');
+                infoEl.classList.remove('show');
+                return;
+            }
+            input.classList.remove('input-error');
+            errEl.classList.remove('show');
+            currentPodcast = found;
+
+            // UI Adjustments for Upcoming/Live
+            if (found.status === 'upcoming') {
+                heading.innerText = 'Register for Podcast';
+                subtitle.innerText = 'Register below to save your spot for this upcoming session.';
+                document.getElementById('btnJoinFinal').innerHTML = '<i class="fas fa-calendar-check"></i> Register Now';
+            } else {
+                heading.innerText = 'Join Podcast';
+                subtitle.innerText = 'Enter your details to join the live session.';
+                document.getElementById('btnJoinFinal').innerHTML = '<i class="fas fa-video"></i> Join Now';
+            }
+
+            // Show info strip
+            infoEl.innerHTML = podcastInfoHTML(found);
+            infoEl.classList.add('show');
+
+            // Check attendement ( device support)
+            if (found.attendement === false) { goTo(4); return; }
+            // Check ended
+            if (found.status === 'ended') { goTo(5); return; }
+
+            // ALREADY REGISTERED CHECK (Only for Upcoming)
+            if (found.status === 'upcoming') {
+                const regId = getCookie('lts_reg_id');
+                const regName = getCookie('lts_reg_name');
+                if (regId === found.id) {
+                    document.getElementById('alreadyRegText').innerHTML = `You are already registered for this podcast as <strong>${regName}</strong>.`;
+                    goTo(6);
+                    return;
+                }
+            }
+
+            // Private?
+            if (found.type === 'private') {
+                document.getElementById('pwInfoStrip').innerHTML = podcastInfoHTML(found);
+                goTo(2);
+            } else {
+                document.getElementById('joinInfoStrip').innerHTML = podcastInfoHTML(found);
+                goTo(3);
+            }
+        }
+
+        function checkPassword() {
+            const entered = document.getElementById('passwordInput').value;
+            const errEl = document.getElementById('pwError');
+            if (entered === currentPodcast.password) {
+                errEl.classList.remove('show');
+                document.getElementById('joinInfoStrip').innerHTML = podcastInfoHTML(currentPodcast);
+                goTo(3);
+            } else {
+                errEl.classList.add('show');
+                document.getElementById('passwordInput').classList.add('input-error');
+            }
+        }
+
+        function setCookie(name, value, expiryDate) {
+            const expires = "expires=" + expiryDate.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cname = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(cname) == 0) {
+                    return c.substring(cname.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function parsePodcastDate(dateStr) {
+            // dateStr format: "7 April 2026"
+            try {
+                const parts = dateStr.split(' ');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0]);
+                    const monthName = parts[1];
+                    const year = parseInt(parts[2]);
+                    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    const monthIndex = months.indexOf(monthName);
+                    if (monthIndex !== -1) {
+                        return new Date(year, monthIndex, day);
+                    }
+                }
+            } catch (e) {
+                console.error("Date parsing error:", e);
+            }
+            return window.getSyncedDate ? window.getSyncedDate() : new Date(); // Fallback to current date
+        }
+
+        function joinNow() {
+            const name = document.getElementById('nameInput').value.trim();
+            const tc = document.getElementById('tcCheck').checked;
+            let valid = true;
+
+            if (!name) {
+                document.getElementById('nameInput').classList.add('input-error');
+                document.getElementById('nameError').classList.add('show');
+                valid = false;
+            } else {
+                document.getElementById('nameInput').classList.remove('input-error');
+                document.getElementById('nameError').classList.remove('show');
+            }
+            if (!tc) {
+                document.getElementById('tcCheck').style.outline = '2px solid #f87171';
+                valid = false;
+            } else {
+                document.getElementById('tcCheck').style.outline = '';
+            }
+
+            if (!valid) return;
+
+            if (currentPodcast.status === 'upcoming') {
+                // Registration Logic
+                const podDate = parsePodcastDate(currentPodcast.date);
+                const expiry = window.getSyncedDate ? window.getSyncedDate() : new Date();
+                expiry.setTime(podDate.getTime()); // Set to podcast date
+                expiry.setDate(expiry.getDate() + 1); // Date + 1 day
+
+                setCookie('lts_reg_name', name, expiry);
+                setCookie('lts_reg_id', currentPodcast.id, expiry);
+                setCookie('lts_reg_pass', currentPodcast.password || '', expiry);
+
+                // Show Success Screen
+                document.getElementById('successPodInfo').innerHTML = `
+                    <strong>Podcast:</strong> ${currentPodcast.title}<br>
+                    <strong>Host:</strong> ${currentPodcast.host}<br>
+                    <strong>Date:</strong> ${currentPodcast.date} at ${currentPodcast.time}<br>
+                    <strong>Registered Name:</strong> ${name}
+                `;
+                goTo(7);
+            } else {
+                // Live Join Logic
+                sessionStorage.setItem('lts_name', name);
+                sessionStorage.setItem('lts_podcast_id', currentPodcast.id);
+                window.location.href = `lts-room?id=${encodeURIComponent(currentPodcast.id)}&name=${encodeURIComponent(name)}`;
+            }
+        }
+
+        // Pre-fill from URL param ?id=
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const preId = params.get('id');
+            if (preId) {
+                document.getElementById('podcastIdInput').value = preId;
+                if (window.LTS_PODCASTS) {
+                    lookupPodcast();
+                } else {
+                    window.addEventListener('ltsDataReady', lookupPodcast, { once: true });
+                }
+            }
+        });
+
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('✅ SW registered:', reg))
+                    .catch(err => console.log('❌ SW failed:', err));
+            });
+        }
+
+        // Loader removal
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader-wrapper');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>

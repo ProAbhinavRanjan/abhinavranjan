@@ -4,8 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | Abhinav Ranjan</title>
-    <meta name="description" content="Get in touch with Abhinav Ranjan.">
+    <title>Contact Abhinav Ranjan | Cybersecurity Collaborations & Technology Projects</title>
+    <meta name="description" content="Get in touch with Abhinav Ranjan for cybersecurity collaborations, technology partnerships, or project inquiries. Reach him via WhatsApp, Email, or Telegram.">
+    <link rel="canonical" href="https://abhinavranjan.netlify.app/frontend/html/contact.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AR. Abhinav Ranjan">
+    <meta property="og:title" content="Contact Abhinav Ranjan | Cybersecurity & Tech Collaborations">
+    <meta property="og:description" content="Get in touch with Abhinav Ranjan for cybersecurity collaborations, technology partnerships, or project inquiries via WhatsApp, Email, or Telegram.">
+    <meta property="og:image" content="https://abhinavranjan.netlify.app/images/arlogo.png">
+    <meta property="og:url" content="https://abhinavranjan.netlify.app/frontend/html/contact.html">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@abhinav_vyom">
+    <meta name="twitter:title" content="Contact Abhinav Ranjan">
+    <meta name="twitter:description" content="Get in touch with Abhinav Ranjan for cybersecurity collaborations and technology projects.">
+    <meta name="twitter:image" content="https://abhinavranjan.netlify.app/images/arlogo.png">
     <link rel="icon" type="image/png" href="../../images/arlogo.png">
     <link rel="apple-touch-icon" href="../../images/arlogo.png">
     <meta name="theme-color" content="#6366f1">
@@ -49,7 +65,7 @@
     <main>
         <section id="contact" class="section contact">
             <div class="container">
-                <h2 class="section-title fade-in-up">Get In Touch</h2>
+                <h1 class="section-title fade-in-up">Get In Touch</h1>
                 <p class="section-subtitle fade-in-up delay-100">Have a project in mind? Let's work together.</p>
 
                 <div class="contact-wrapper fade-in-up delay-200">
@@ -69,13 +85,16 @@
                         </div>
                         <div class="form-actions" style="display: flex; flex-direction: column; gap: 1rem;">
                             <button type="button" id="sendWhatsapp" class="btn btn-primary btn-block">
-                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp - Fast
                             </button>
                             <button type="button" id="sendEmail" class="btn btn-secondary btn-block">
-                                <i class="fas fa-envelope"></i> Send via Email
+                                <i class="fas fa-envelope"></i> Send via Email - Slow
                             </button>
                             <button type="button" id="sendTelegram" class="btn btn-secondary btn-block">
-                                <i class="fab fa-telegram"></i> Send via Telegram
+                                <i class="fab fa-telegram"></i> Send via Telegram - Fast
+                            </button>
+                            <button type="button" id="sendWeb" class="btn btn-secondary btn-block">
+                                <i class="fas fa-globe"></i> Send via Web - Slow
                             </button>
                         </div>
                     </form>
@@ -86,7 +105,7 @@
 
     <footer id="siteFooter" class="footer"></footer>
 
-    <script src="../logic/script_v105.js"></script>
+    <script src="../logic/script_v105.js" defer></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

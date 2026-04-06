@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Block internal/live-streaming views from indexing
-Disallow: /frontend/view/
+Disallow: /frontend/lts/
 Disallow: /offline.html
 
 Sitemap: https://abhinavranjan.netlify.app/sitemap.xml

@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.0.9';
+const CACHE_VERSION = 'v1.1.0';
 const CACHE_NAME = `ar-portfolio-${CACHE_VERSION}`;
 
 const ASSETS_TO_CACHE = [
@@ -12,7 +12,15 @@ const ASSETS_TO_CACHE = [
     '/frontend/data/config.json',
     '/frontend/data/projects_page.json',
     '/frontend/data/socials_page.json',
-    '/frontend/data/winnings_page.json'
+    '/frontend/data/winnings_page.json',
+    '/frontend/data/asked_questions_page.json',
+    '/frontend/data/popup_index.json',
+    '/frontend/data/blogs.json',
+    '/frontend/logic/blog_library.js',
+    '/frontend/blogs/blog-index.html',
+    '/frontend/lts/lts-index.html',
+    '/frontend/lts/lts-join.html',
+    '/frontend/lts/lts-room.html'
 ];
 
 // Install Event - Cache assets

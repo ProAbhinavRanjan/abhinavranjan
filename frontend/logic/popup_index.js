@@ -6,7 +6,7 @@
     let POPUP_CONFIG;
 
     try {
-        const response = await fetch('frontend/data/popup_index.json');
+        const response = await fetch(`/frontend/data/popup_index.json?v=${new Date().getTime()}`);
         if (!response.ok) throw new Error('Failed to load popup config');
         POPUP_CONFIG = await response.json();
     } catch (error) {

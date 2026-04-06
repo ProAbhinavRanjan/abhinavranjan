@@ -1,0 +1,38 @@
+[
+    {
+        "id": "future-of-cybersecurity-2026",
+        "title": "The Future of Cybersecurity in 2026",
+        "excerpt": "Exploring the shift from traditional defense to AI-driven proactive security measures in the modern age.",
+        "date": "March 15, 2026",
+        "dateModified": "2026-03-15",
+        "category": "Technology",
+        "image": "https://img.freepik.com/free-photo/standard-quality-control-concept-m_23-2150041848.jpg",
+        "author": "Abhinav Ranjan",
+        "tags": ["AI", "Cybersecurity", "Ethics"],
+        "content_path": "frontend/blogs/content/future-cyber.html"
+    },
+    {
+        "id": "innovating-with-lts",
+        "title": "Innovating with LTS: Behind the Scenes",
+        "excerpt": "A deep dive into how the Live Telecast Server (LTS) was built to handle real-time tech discussions.",
+        "date": "February 28, 2026",
+        "dateModified": "2026-02-28",
+        "category": "Innovation",
+        "image": "https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg",
+        "author": "Abhinav Ranjan",
+        "tags": ["LTS", "WebRTC", "Backend"],
+        "content_path": "frontend/blogs/content/innovating-lts.html"
+    },
+    {
+        "id": "young-entrepreneurship-tips",
+        "title": "5 Tips for Young Tech Entrepreneurs",
+        "excerpt": "My journey from learning to building systems and how you can start your own tech venture early.",
+        "date": "January 10, 2026",
+        "dateModified": "2026-01-10",
+        "category": "Business",
+        "image": "https://img.freepik.com/free-photo/young-successful-businessman-sitting-office_176420-534.jpg",
+        "author": "Abhinav Ranjan",
+        "tags": ["Entrepreneurship", "Youth", "Tech"],
+        "content_path": "frontend/blogs/content/entrepreneur-tips.html"
+    }
+]

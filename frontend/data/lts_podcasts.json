@@ -10,7 +10,7 @@
         "type": "public",
         "password": "",
         "status": "upcoming",
-        "attendement": true,
+        "attendement": false,
         "maxParticipants": 15000,
         "chatEnabled": true
     }

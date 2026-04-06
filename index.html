@@ -4,8 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR. Abhinav Ranjan | Developer and Techy</title>
-    <meta name="description" content="Luminary - Abhinav Ranjan.">
+    <title>Abhinav Ranjan | Cybersecurity Educator, Developer & Luminary Technicals Founder</title>
+    <meta name="description" content="Official portfolio of Abhinav Ranjan — cybersecurity enthusiast, ethical hacking educator, web developer, and founder of Luminary Technicals from Muzaffarpur, Bihar, India. Recognized by Guinness World Records.">
+    <link rel="canonical" href="https://abhinavranjan.netlify.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AR. Abhinav Ranjan">
+    <meta property="og:title" content="Abhinav Ranjan | Cybersecurity Educator & Developer">
+    <meta property="og:description" content="Official portfolio of Abhinav Ranjan — cybersecurity enthusiast, ethical hacking educator, web developer, and founder of Luminary Technicals. Recognized by Guinness World Records.">
+    <meta property="og:image" content="https://abhinavranjan.netlify.app/images/arlogo.png">
+    <meta property="og:url" content="https://abhinavranjan.netlify.app/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@abhinav_vyom">
+    <meta name="twitter:title" content="Abhinav Ranjan | Cybersecurity Educator & Developer">
+    <meta name="twitter:description" content="Official portfolio of Abhinav Ranjan — cybersecurity enthusiast, ethical hacking educator, web developer, and founder of Luminary Technicals.">
+    <meta name="twitter:image" content="https://abhinavranjan.netlify.app/images/arlogo.png">
+
+    <!-- JSON-LD: Person Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abhinav Ranjan",
+      "alternateName": "itzmeabhinavranjan",
+      "url": "https://abhinavranjan.netlify.app/",
+      "image": "https://abhinavranjan.netlify.app/images/profile.png",
+      "jobTitle": "Cybersecurity Educator & Developer",
+      "description": "Young cybersecurity enthusiast, ethical hacking educator, and founder of Luminary Technicals from Muzaffarpur, Bihar, India.",
+      "birthDate": "2012-02-05",
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Muzaffarpur, Bihar, India"
+      },
+      "knowsAbout": ["Cybersecurity", "Ethical Hacking", "Penetration Testing", "Web Development", "Network Security", "Digital Forensics", "Python", "JavaScript"],
+      "award": ["Guinness World Records Recognition 2026", "Golden Book of World Records 2026", "Vidyarthi Vigyan Manthan State Rank 4 2025"],
+      "sameAs": [
+        "https://twitter.com/abhinav_vyom",
+        "https://linkedin.com/in/itzmeabhinavranjan",
+        "https://github.com/ProAbhinavRanjan",
+        "https://instagram.com/itzmeabhinavranjan"
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AR. Abhinav Ranjan",
+      "url": "https://abhinavranjan.netlify.app/",
+      "description": "Official portfolio and digital home of Abhinav Ranjan — cybersecurity educator and founder of Luminary Technicals."
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="images/arlogo.png">
     <link rel="apple-touch-icon" href="images/arlogo.png">
     <meta name="theme-color" content="#6366f1">
@@ -187,7 +242,7 @@
 
                 <div class="grid socials-grid" style="justify-content: center;">
                     <!-- LTS Card -->
-                    <a href="frontend/view/lts-index.html" class="card tilt-card fade-in-up delay-200"
+                    <a href="frontend/lts/lts-index.html" class="card tilt-card fade-in-up delay-200"
                         style="text-decoration: none; color: inherit;">
                         <div class="tilt-content">
                             <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
@@ -218,6 +273,22 @@
                             <span
                                 style="color: var(--accent); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
                                 View FAQs <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    <!-- Tech Blogs Card -->
+                    <a href="frontend/blogs/blog-index.html" class="card tilt-card fade-in-up delay-400"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="tilt-content">
+                            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
+                                <div class="card-icon" style="color: var(--primary);"><i
+                                        class="fas fa-newspaper"></i></div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0;">Tech Blogs</h3>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">Read stories
+                                and articles on cybersecurity, development, and tech innovation.</p>
+                            <span
+                                style="color: var(--primary); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+                                Read Entry <i class="fas fa-arrow-right"></i>
                             </span>
                         </div>
                     </a>
@@ -260,8 +331,8 @@
 
     <footer id="siteFooter" class="footer"></footer>
 
-    <script src="frontend/logic/script_v105.js"></script>
-    <script src="frontend/logic/popup_index.js"></script>
+    <script src="frontend/logic/script_v105.js?v=1.1.0" defer></script>
+    <script src="frontend/logic/popup_index.js?v=1.1.0" defer></script>
     <script>
         // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {

@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadBtn.onclick = () => {
                 const link = document.createElement('a');
                 link.href = book.pdfUrl;
+                link.target = '_blank';
                 link.download = book.pdfUrl.split('/').pop() || 'download.pdf';
                 link.click();
             };
@@ -224,10 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (status === 'live') {
                 statusBadge = `<span class="badge badge-live"><span class="pulse"></span> LIVE</span>`;
-                actionBtn = `<a href="../view/lts-join.html?id=${session.id}" class="ep-btn ep-btn-live">Join Now & Connect <i class="fas fa-heart"></i></a>`;
+                actionBtn = `<a href="../lts/lts-join.html?id=${session.id}" class="ep-btn ep-btn-live">Join Now & Connect <i class="fas fa-heart"></i></a>`;
             } else if (status === 'upcoming') {
                 statusBadge = `<span class="badge badge-upcoming">UPCOMING</span>`;
-                actionBtn = `<a href="../view/lts-join.html?id=${session.id}" class="ep-btn">Register Interest</a>`;
+                actionBtn = `<a href="../lts/lts-join.html?id=${session.id}" class="ep-btn">Register Interest</a>`;
             } else {
                 statusBadge = `<span class="badge badge-ended">ENDED</span>`;
                 actionBtn = `<span class="ep-btn disabled">Session Ended</span>`;

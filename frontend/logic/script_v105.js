@@ -171,7 +171,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Render Asked Questions Configuration
             if (isFAQ && data.asked_questions) {
-                console.log(`📦 [Debug] Rendering ${data.asked_questions.faqs ? data.asked_questions.faqs.length : 0} FAQ items`);
+                const faqs = data.asked_questions.faqs || [];
+                console.log(`📦 [Debug] Rendering ${faqs.length} FAQ items`);
+
+                // ── 1. Inject FAQPage JSON-LD schema dynamically ──────────────────
+                // asked_questions_page.json is the single source of truth.
+                // The <script id="faqJsonLd"> tag in the HTML is intentionally empty.
+                const jsonLdEl = document.getElementById('faqJsonLd');
+                if (jsonLdEl && faqs.length > 0) {
+                    const schema = {
+                        '@context': 'https://schema.org',
+                        '@type': 'FAQPage',
+                        'mainEntity': faqs.map(faq => ({
+                            '@type': 'Question',
+                            'name': faq.question,
+                            'acceptedAnswer': { '@type': 'Answer', 'text': faq.answer }
+                        }))
+                    };
+                    jsonLdEl.textContent = JSON.stringify(schema, null, 2);
+                }
+
+                // ── 2. Inject static <dl> pre-render for crawlers ─────────────────
+                // Visually hidden but semantically visible to search bots.
+                const prerender = document.getElementById('staticFaqPrerender');
+                if (prerender && faqs.length > 0) {
+                    const dl = document.createElement('dl');
+                    faqs.forEach(faq => {
+                        const dt = document.createElement('dt');
+                        dt.textContent = faq.question;
+                        const dd = document.createElement('dd');
+                        dd.textContent = faq.answer;
+                        dl.appendChild(dt);
+                        dl.appendChild(dd);
+                    });
+                    prerender.appendChild(dl);
+                }
+
                 const aboutTextEl = document.getElementById('faqAboutText');
                 if (aboutTextEl && data.asked_questions.about_text) {
                     aboutTextEl.innerText = data.asked_questions.about_text;
@@ -453,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sendWhatsappBtn = document.getElementById('sendWhatsapp');
         const sendEmailBtn = document.getElementById('sendEmail');
         const sendTelegramBtn = document.getElementById('sendTelegram');
+        const sendWebBtn = document.getElementById('sendWeb');
 
         if (sendWhatsappBtn) {
             sendWhatsappBtn.addEventListener('click', (e) => {
@@ -491,6 +527,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cNoText = contactNo ? `%0AuserContactNo: ${contactNo}` : '';
                 const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}${cNoText}%0AuserMessage: ${message}`;
                 window.open(`https://t.me/${username}?text=${text}`, '_blank');
+            });
+        }
+
+        if (sendWebBtn) {
+            sendWebBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const { name, email, contactNo, message } = getFormData();
+                if (!name || !message) { showToast('Please fill in Name and Message'); return; }
+
+                const googleScriptUrl = window.siteConfig && window.siteConfig.contact && window.siteConfig.contact.google_script_url
+                    ? window.siteConfig.contact.google_script_url
+                    : "YOUR_GOOGLE_SCRIPT_URL_HERE";
+
+                if (googleScriptUrl === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+                    showToast('Notice: Website not yet linked to Google Sheets. Check console for instructions.');
+                    console.log('To make the WEB submission work: Create a Google Apps Script linked to your sheet, deploy as Web App, and add the URL to config.json as "google_script_url".');
+                    return;
+                }
+
+                const originalHTML = sendWebBtn.innerHTML;
+                sendWebBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                sendWebBtn.disabled = true;
+
+                const params = new URLSearchParams();
+                params.append('Name', name);
+                params.append('Email', email);
+                params.append('ContactNo', contactNo);
+                params.append('Message', message);
+                params.append('Date', new Date().toLocaleString());
+
+                fetch(googleScriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: params
+                }).then(() => {
+                    showToast('Success! Your message was saved securely to the database.');
+                    if (form) form.reset();
+                }).catch(err => {
+                    console.error('Error submitting form via Web API:', err);
+                    showToast('Failed to save data. Try another method.');
+                }).finally(() => {
+                    sendWebBtn.innerHTML = originalHTML;
+                    sendWebBtn.disabled = false;
+                });
             });
         }
     }
