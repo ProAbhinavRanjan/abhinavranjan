@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUEST ZONE | Project Architecture</title>
+    <link rel="stylesheet" href="../frontend/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            padding: 2rem;
+        }
+
+        .guest-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .tree-container {
+            background: rgba(18, 18, 18, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .folder-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .file-list {
+            list-style: none;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateX(10px);
+        }
+
+        .file-icon {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .file-item:hover .file-icon {
+            color: var(--primary);
+        }
+
+        .file-info h3 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .file-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .back-home {
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-home:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="guest-container">
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Developer Portal
+        </a>
+
+        <div class="header-section">
+            <h1 class="section-title">Project Architecture</h1>
+            <p class="section-subtitle">A guest window into Luminary Technicals' structure and developer documentation.
+            </p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="readme_viewer.html" class="btn btn-secondary">
+                    <i class="fas fa-sitemap"></i> VIEW README (FOLDER STRUCTURE)
+                </a>
+                <a href="https://github.com/ProAbhinavRanjan/abhinavranjan" target="_blank" class="btn btn-secondary"
+                    style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                    <i class="fab fa-github"></i> VIEW GITHUB REPO
+                </a>
+            </div>
+        </div>
+
+        <div class="tree-container">
+            <div class="folder-title">
+                <i class="fas fa-folder-open"></i>
+                <span>/DeveloperNotes</span>
+            </div>
+
+            <div class="file-list">
+                <a href="../DeveloperNotes/blogs.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>blogs.md</h3>
+                        <p>Tech blog management and storytelling architecture.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/configuration.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>configuration.md</h3>
+                        <p>Global site variables and environment settings.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/css.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>css.md</h3>
+                        <p>Design system tokens and responsive logic.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/logic.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>logic.md</h3>
+                        <p>Frontend functional orchestration and JS handlers.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/lts.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>lts.md</h3>
+                        <p>Live Telecast Server (LTS) ecosystem mapping.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/pages.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>pages.md</h3>
+                        <p>Dynamic routing and page assembly instructions.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/seo_rankings.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>seo_rankings.md</h3>
+                        <p>SEO score tracking and optimization strategy.</p>
+                    </div>
+                </a>
+
+                <a href="../DeveloperNotes/webforms.md" target="_blank" class="file-item">
+                    <i class="far fa-file-alt file-icon"></i>
+                    <div class="file-info">
+                        <h3>webforms.md</h3>
+                        <p>Google Sheets integration and Webhook routing.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

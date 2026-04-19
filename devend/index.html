@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevEnd | Developer Portal - Abhinav Ranjan</title>
+    <meta name="description" content="Restricted Developer Entrance for Abhinav Ranjan's digital ecosystem.">
+
+    <link rel="icon" type="image/png" href="../images/arlogo.png">
+    <link rel="stylesheet" href="../frontend/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dev-badge {
+            background: var(--dev-accent, #f43f5e);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .dev-restricted-info {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid #f43f5e;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .dev-restricted-info h2 {
+            color: #f43f5e;
+            margin-bottom: 0.5rem;
+        }
+
+        .dev-identity-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Development Environment...</div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">DEV<span class="dot">.</span>AR</a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Exit Dev Zone</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-container">
+                <div class="hero-content fade-in-up">
+                    <span class="greeting">System Access: Root</span>
+                    <h1 class="name">Developer Zone</h1>
+                    <p class="tagline">Restricted access to Abhinav Ranjan's backend orchestration and data systems.</p>
+                    <div class="hero-btns" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
+                        <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
+                            <button class="btn btn-primary" id="verifyBtnDev" style="flex: 1; min-width: 250px;">
+                                <i class="fas fa-user-shield"></i> LOGIN AS A DEVELOPER
+                            </button>
+                            <button class="btn btn-secondary" id="verifyBtnGuest" style="flex: 1; min-width: 250px;">
+                                <i class="fas fa-user-graduate"></i> LOGIN AS GUEST LEARNER
+                            </button>
+                        </div>
+                        <p id="verifyStatusMain"
+                            style="margin-top: 0.5rem; font-family: monospace; font-size: 0.85rem; color: #10b981; opacity: 0;">
+                        </p>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in-up delay-200">
+                    <div class="glowing-orb" style="filter: blur(80px) hue-rotate(320deg);"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Profile Section (Replacing About) -->
+        <section id="dev-login" class="section">
+            <div class="container">
+                <div class="dev-restricted-info fade-in-up">
+                    <h2>AR. USERS ARE RESTRICTED</h2>
+                    <p style="color: var(--text-muted);">ONLY DEVELOPERS ENTRY REQUIRED • UNAUTHORIZED ACCESS PROHIBITED
+                    </p>
+                </div>
+
+                <div class="dev-identity-card fade-in-up delay-100">
+                    <div
+                        style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem; border: 3px solid var(--primary); box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);">
+                        <img src="../images/profile.png" alt="Abhinav Ranjan"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 0.3rem;">Abhinav Ranjan</h3>
+                    <p style="color: var(--primary); font-weight: 600; letter-spacing: 1px;">FOUNDER / CEO - PRINCIPAL
+                        DEVELOPER</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">itzmeabhinavranjan</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Resources (Replacing Winnings) -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Dev Resources</h2>
+                <p class="section-subtitle fade-in-up delay-100">Direct links to backend documentation.</p>
+
+                <div class="grid socials-grid" style="justify-content: center;">
+                    <a href="../DeveloperNotes/Web Sending Through Google Sheet.md"
+                        class="card tilt-card fade-in-up delay-200" style="text-decoration: none; color: inherit;">
+                        <div class="tilt-content">
+                            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
+                                <div class="card-icon" style="color: var(--primary);"><i class="fas fa-code-branch"></i>
+                                </div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0;">Backend Hook</h3>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">Configure
+                                Google Apps Script routing and storage logic.</p>
+                            <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">View MD Guide <i
+                                    class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="../frontend/data/config.json" class="card tilt-card fade-in-up delay-300"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="tilt-content">
+                            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1rem;">
+                                <div class="card-icon" style="color: #10b981;"><i class="fas fa-database"></i></div>
+                                <h3 style="font-size: 1.2rem; margin-bottom: 0;">Core Registry</h3>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">Live access
+                                to the central JSON database for site hydration.</p>
+                            <span style="color: #10b981; font-weight: 600; font-size: 0.9rem;">Open JSON <i
+                                    class="fas fa-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="siteFooter" class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 Developer Portal. Restricted Access.</p>
+        </div>
+    </footer>
+
+    <!-- Use main logic but with adjusted paths -->
+    <script src="../frontend/logic/script_v105.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const vBtnDev = document.getElementById('verifyBtnDev');
+            const vBtnGuest = document.getElementById('verifyBtnGuest');
+            const vStatus = document.getElementById('verifyStatusMain');
+
+            const handleLogin = (btn, role, target) => {
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> INITIALIZING...';
+                btn.disabled = true;
+                vStatus.style.opacity = '1';
+                vStatus.innerText = `>>> REDIRECTING TO ${role} GATEWAY...`;
+
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 800);
+            };
+
+            vBtnDev?.addEventListener('click', () => handleLogin(vBtnDev, 'SECURE', 'devend/login.html'));
+            vBtnGuest?.addEventListener('click', () => handleLogin(vBtnGuest, 'GUEST', 'devend/guest-zone.html'));
+        });
+    </script>
+</body>
+
+</html>

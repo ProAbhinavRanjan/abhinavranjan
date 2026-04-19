@@ -204,6 +204,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const ltsResponse = await fetch('../data/lts_podcasts.json');
             const ltsPodcasts = await ltsResponse.json();
 
+            // Automatically determine status based on synced time
+            function computeDynamicStatus(dateStr, timeStr) {
+                if (!dateStr || !timeStr) return "ended";
+                const timeReplaced = timeStr.replace(/IST/i, 'GMT+0530').replace(/EST/i, 'GMT-0500').replace(/PST/i, 'GMT-0800').replace(/UTC/i, 'GMT');
+                const eventTimeMs = Date.parse(`${dateStr} ${timeReplaced}`);
+                if (isNaN(eventTimeMs)) return "ended"; 
+                const durationMs = 3 * 60 * 60 * 1000;
+                const currentTimeMs = window.getSyncedDate ? window.getSyncedDate().getTime() : Date.now();
+                if (currentTimeMs < eventTimeMs) return "upcoming";
+                if (currentTimeMs >= eventTimeMs && currentTimeMs <= (eventTimeMs + durationMs)) return "live";
+                return "ended";
+            }
+
+            ltsPodcasts.forEach(p => {
+                p.status = computeDynamicStatus(p.date, p.time);
+            });
+
             // Combine with static episodes if desired, or prioritize LTS
             // For this enhancement, we prioritize showing LTS sessions as the main episodes
             renderLTSSessions(ltsPodcasts, episodesContainer);

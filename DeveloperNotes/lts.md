@@ -1,56 +1,45 @@
-# LTS Platform — Live Telecast Server
+# Live Telecast Server (LTS) Architecture Map
 
-The **Live Telecast Server (LTS)** is a specialized sub-platform within the Abhinav Ranjan portfolio designed for live-streaming podcasts, interactive Q&A sessions, and private room discussions.
+This document outlines the entire architecture of the Live Telecast Server (LTS) system, detailing its specific internal elements, styling approach, dynamic scripts, and how it connects to the broader website ecosystem.
 
----
+## 📁 1. Core LTS HTML Pages (frontend/lts/)
 
-## 1. Core Architecture
-The LTS platform is a **data-driven "Single Page" application** (split into three HTML entry points) that operates independently of the main portfolio's `script_v105.js`.
+The LTS subsystem operates independently from the main website navigation, with custom-designed monolithic interfaces to maximize performance and visual focus during live streams.
 
-- **Entry Point:** `lts-index.html` (LTS Homepage)
-- **Join Flow:** `lts-join.html` (Interactive Step-by-Step wizard)
-- **Live Room:** `lts-room.html` (The "Theater" experience)
+- **`lts-index.html`**: The main LTS Dashboard / Hub. Displays categorized grids for Live Now, Upcoming, and Ended podcast sessions.
+- **`lts-join.html`**: The Waiting Room / Registration page. Authenticates users via cookie generation, checks browser compatibility, and displays countdowns for upcoming streams.
+- **`lts-room.html`**: The actual Broadcast Interface. Contains the video grid, chat UI mockups, and "Attention check" popups.
 
----
+## 🎨 2. Styling (CSS)
 
-## 2. Key Modules & Logic
-### 🎙️ Podcast Management: `lts-podcasts.js`
-A specialized fetcher that loads `lts_podcasts.json` into a global `window.LTS_PODCASTS` array. It is the **single source of truth** for all session data (ID, Status, Password).
+Unlike the main global portfolio which relies heavily on `../css/styles.css`, the LTS system utilizes **Independent Component Styling**.
+- All three HTML pages contain dedicated, embedded `<style>` blocks specifically engineered for deep-dark UI, glassmorphism, and stream functionality. 
+- **CSS Variables Used**: `--lts-primary`, `--lts-accent`, `--lts-live`, `--lts-upcoming`, `--lts-ended`, `--lts-card`.
+- **External CDN Links**: Google Fonts (Outfit) and FontAwesome v6.4.0.
 
-### 🕒 Time Sync: `time_sync.js`
-Critical for accurate session status. It calls `WorldTimeAPI` (UTC) to calculate a `timeOffset` relative to the local system clock.
-- **Functions:** `window.getSyncedDate()` (Adjusted timestamp) and `window.isTimeSynced()`.
+## ⚙️ 3. JavaScript & Logic
 
----
+The LTS runs on three layers of logic:
 
-## 3. The Interactive Join Flow (`lts-join.html`)
-A 7-step wizard built with interactive JavaScript:
-1. **Lookup:** Validates the Podcast ID from `LTS_PODCASTS`.
-2. **Validation:** Checks if the session is "Live" or "Ended" and if the device metadata (`attendement`) is supported.
-3. **Security:** Enforces password entry for private rooms.
-4. **Registration:** For "Upcoming" sessions, it saves user registry data via cookies (`lts_reg_id`, `lts_reg_name`).
-5. **Session:** Redirects users to the live room via `sessionStorage` tokenization.
+- **`lts-podcasts.js` (Local)**:
+  - Fetches the raw scheduling data for podcasts.
+  - Dynamically calculates if a podcast is `upcoming`, `live`, or `ended` based on a 3-hour broadcast window.
+  - Exposes the data globally to `window.LTS_PODCASTS` and triggers an `ltsDataReady` event.
+  
+- **`../logic/time_sync.js` (Shared External)**:
+  - Critical dependency. Bootstraps immediately on page load to ping `worldtimeapi.org`.
+  - Calculates the strict online UTC offset to prevent users from altering their device time to spoof event accessibility. 
+  - Provides `window.getSyncedDate()`.
 
----
+- **Inline Page Scripts**:
+  - `lts-index.html`, `lts-join.html`, and `lts-room.html` contain massive inline `<script>` blocks (e.g. 100+ lines) handling proprietary UI DOM manipulation such as chat simulations, countdown timers, and rendering `ltsDataReady` payloads.
 
-## 4. The Theatre Experience (`lts-room.html`)
-- **Video Grid:** A responsive CSS grid mixing real-time `video-tile` elements (for the user) and simulated participant tiles.
-- **Controls:** Includes functional (simulated) toggles for Mic, Camera, Raise Hand, Chat, and Info.
-- **Overlay System:** Supports a "Host Suspended Session" overlay driven by the `attention` flag in the JSON data.
+## 💾 4. Data Sources
 
----
+- **`../data/lts_podcasts.json`**: The absolute Single Source of Truth for podcast data. Contains ID, Title, Guest Name, Date, Time, Registration Links, and Passwords.
 
-## 5. Summary Table
-| File | Responsibility |
-|---|---|
-| `lts-index.html` | Displays Live, Upcoming, and Past sessions in a grid. |
-| `lts-join.html` | Step-by-step room join and registration logic. |
-| `lts-room.html` | Optimized for low-latency visual performance (simulated). |
-| `lts_podcasts.json` | JSON database for all LTS sessions. |
+## 🕸️ 5. Inbound/Outbound Connected Ecosystem Pages
 
----
-
-## Optimization & Next Steps
-- ✅ **Dark-Futuristic UI:** Specialized CSS variables and glassmorphism.
-- ✅ **Device Support Checking:** Blocks incompatible devices via `attendement` metadata.
-- ⚠️ **WebRTC Ready:** The UI and participant logic are structured for future live streaming integration.
+The LTS doesn't exist in a vacuum; it intrinsically ties back to the main static architecture:
+- **`biography.html`**: The Biography page connects to the entire LTS system.
+- **`../logic/biography_library.js`**: Re-imports the `time_sync` duration logic and directly queries `../data/lts_podcasts.json` to embed the LTS podcast history natively into the Biography interface for visitors to see past and future broadcasts dynamically!

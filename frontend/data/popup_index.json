@@ -3,23 +3,22 @@
     "showDelay": 1500,
     "sections": [
         {
-            "id": "podcast-iitm",
+            "id": "podcast-iit-m",
             "active": true,
-            "name": "🎙 Podcast at IIT Madras",
-            "date": "7 April 2026",
-            "paragraph": "Abhinav Ranjan will be featured in a special podcast session at IIT Madras, Chennai, discussing cybersecurity, innovation, and the future of young tech entrepreneurs.",
+            "name": "🏆 Podcast IIT-M Recording Coming Soon",
+            "date": "2026",
+            "paragraph": "The Recordings will be out witin a time period of 1 month to 3 months based on the time required to finalize the winner and process the World Records.",
             "images": [
-                "https://img.freepik.com/free-vector/hand-drawn-flat-podcast-cover-design_23-2149435765.jpg?semt=ais_hybrid&w=740&q=80",
-                "https://www.learningroutes.in/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fweb_cms_content%2Fiit_madras_online_bsc_37b5bfb9f6%2Fiit_madras_online_bsc_37b5bfb9f6.webp&w=1920&q=75",
-                "https://mbagate.in/storage/upload-images/vO9AU8UB0PB8RSQBu69Vl4YHURPcv6fJQs1Rw0Cf.jpg"
+                "https://images.ctfassets.net/qyg0c6wmz8bn/1tZv5s0UFT4q2QLg3qO5zu/55b00f5680ae64c4e9512ef8df4f184d/start-a-podcast.jpg?w=1200&h=630&fit=thumb&fm=jpg",
+                "https://www.iitm.ac.in/sites/default/files/styles/img_m4/public/happenings/press_release/pressrelease08_05_2025_15_23.jpg?itok=3bz15xVT"
             ],
             "imageSize": "medium",
-            "autoplay": false,
+            "autoplay": true,
             "autoplayInterval": 3000,
             "buttons": [
                 {
-                    "label": "View Podcast - LTS",
-                    "url": "/frontend/lts/lts-join?id=PODCAST-IIT-01"
+                    "label": "Recording - Soon",
+                    "url": "#"
                 }
             ]
         },
@@ -47,7 +46,7 @@
             "id": "golden-book-record",
             "active": true,
             "name": "🥇 Golden Book of World Records",
-            "date": "2026",
+            "date": "2025",
             "paragraph": "Abhinav Ranjan has also been honored by the Golden Book of World Records for contributions to technology innovation, cybersecurity awareness, and youth leadership.",
             "images": [
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYay48ZoNXVstwNBXC-WU9jZGwFT9-VEQQvQ&s",

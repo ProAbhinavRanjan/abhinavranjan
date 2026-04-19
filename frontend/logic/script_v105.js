@@ -1,699 +1,303 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 script.js v1.0.5 loaded');
-    // Fetch Configuration Data
-    // Use absolute paths so Netlify pretty URLs don't break relative fetches.
-    // On Netlify, '/frontend/html/moredetails/asked-questions' has no .html
-    // which makes relative '../../../' resolve incorrectly against the URL.
+    console.log('script.js v1.1.0 loaded');
+
     const dataDir = '/frontend/data/';
-
-    // For image/asset src attributes that live in the HTML (not fetched), preserve relative baseDir.
-    let baseDir = '/';
-
-    // currentPage: handles `asked-questions.html` and `asked-questions` (Netlify pretty URLs)
     const rawPage = window.location.pathname.split('/').pop() || 'index.html';
     const currentPage = rawPage.includes('.') ? rawPage : rawPage + '.html';
+    const path = window.location.pathname;
 
-    // Decide which data to fetch based on the current page
-    let configPromise = fetch(dataDir + 'config.json').then(r => r.json());
+    const isFAQ       = path.includes('asked-questions');
+    const isProjects  = currentPage === 'projects.html';
+    const isWinnings  = currentPage === 'winnings.html';
+    const isBiography = currentPage === 'biography.html';
+    const isContact   = currentPage === 'contact.html';
+    const isSocials   = currentPage === 'socials.html';
+    const isIndex     = (currentPage === 'index.html' || path === '/' || path === '');
+
+    let configPromise   = fetch(dataDir + 'config.json').then(r => r.json());
     let pageDataPromise = Promise.resolve(null);
 
-    const path = window.location.pathname;
-    // Works with both `asked-questions.html` and `asked-questions` (Netlify)
-    const isFAQ = path.includes('asked-questions');
+    if (isSocials)        pageDataPromise = fetch(dataDir + 'socials_page.json').then(r => r.json());
+    else if (isProjects)  pageDataPromise = fetch(dataDir + 'projects_page.json').then(r => r.json());
+    else if (isWinnings)  pageDataPromise = fetch(dataDir + 'winnings_page.json').then(r => r.json());
+    else if (isBiography) pageDataPromise = fetch(dataDir + 'biography_page.json').then(r => r.json());
+    else if (isFAQ)       pageDataPromise = fetch(dataDir + 'asked_questions_page.json').then(r => r.json());
 
-    if (currentPage === 'socials.html') {
-        pageDataPromise = fetch(dataDir + 'socials_page.json').then(r => r.json());
-    } else if (currentPage === 'projects.html') {
-        pageDataPromise = fetch(dataDir + 'projects_page.json').then(r => r.json());
-    } else if (currentPage === 'winnings.html') {
-        pageDataPromise = fetch(dataDir + 'winnings_page.json').then(r => r.json());
-    } else if (currentPage === 'biography.html') {
-        pageDataPromise = fetch(dataDir + 'biography_page.json').then(r => r.json());
-    } else if (isFAQ) {
-        console.log('🔍 [Debug] FAQ Page Detected. Fetching asked_questions_page.json...');
-        pageDataPromise = fetch(dataDir + 'asked_questions_page.json').then(r => r.json());
+    let fetchPromises = [configPromise, pageDataPromise];
+
+    if (isIndex) {
+        fetchPromises.push(fetch(dataDir + 'projects_page.json').then(r => r.json()).catch(() => []));
+        fetchPromises.push(fetch(dataDir + 'winnings_page.json').then(r => r.json()).catch(() => []));
+        fetchPromises.push(fetch(dataDir + 'socials_page.json').then(r => r.json()).catch(() => []));
     }
 
-    Promise.all([configPromise, pageDataPromise])
-        .then(([config, pageData]) => {
-            console.log('✅ [Debug] Config and PageData loaded');
-            // Merge pageData if it exists
+    Promise.all(fetchPromises)
+        .then(([config, pageData, indexProjects, indexWinnings, indexSocials]) => {
             const data = { ...config };
             if (pageData) {
-                if (currentPage === 'socials.html') data.socials = pageData;
-                else if (currentPage === 'projects.html') data.projects = pageData;
-                else if (currentPage === 'winnings.html') data.winnings = pageData;
-                else if (currentPage === 'biography.html') data.biography = pageData;
-                else if (isFAQ) data.asked_questions = pageData;
+                if (isSocials)        data.socials         = pageData;
+                else if (isProjects)  data.projects        = pageData;
+                else if (isWinnings)  data.winnings        = pageData;
+                else if (isBiography) data.biography       = pageData;
+                else if (isFAQ)       data.asked_questions = pageData;
+            }
+            
+            if (isIndex) {
+                if (data.projects && indexProjects) {
+                    data.projects = data.projects.map(p => {
+                        const fullData = indexProjects.find(ip => ip.id === p.id);
+                        return fullData ? { ...fullData, ...p } : p;
+                    }).filter(p => p.name);
+                }
+                if (data.winnings && indexWinnings) {
+                    data.winnings = data.winnings.map(w => {
+                        const fullData = indexWinnings.find(iw => iw.id === w.id);
+                        return fullData ? { ...fullData, ...w } : w;
+                    }).filter(w => w.title && w.description);
+                }
+                if (data.socials && indexSocials) {
+                    data.socials = data.socials.map(s => {
+                        const fullData = indexSocials.find(is => is.id === s.id);
+                        return fullData ? { ...fullData, ...s } : s;
+                    }).filter(s => s.platform);
+                }
             }
             window.siteConfig = data;
 
-            // Populate basic variables via data-var attributes
+            /* 1. data-var → set innerHTML/value */
             document.querySelectorAll('[data-var]').forEach(el => {
                 const keys = el.getAttribute('data-var').split('.');
                 let val = data;
-                for (let k of keys) {
-                    if (val) val = val[k];
-                }
-                if (val !== undefined) {
-                    // Update content
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.value = val;
-                    } else if (el.tagName === 'A' && el.hasAttribute('href') && el.getAttribute('href') === '#') {
-                        el.href = val;
-                        // wait, if we specifically want to just set innerHTML
-                        el.innerHTML = val;
-                    } else {
-                        el.innerHTML = val;
-                    }
+                for (let k of keys) { if (val != null) val = val[k]; }
+                if (val != null && typeof val !== 'object') {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = val;
+                    else el.innerHTML = val;
                 }
             });
 
-            // Update document title if we are on root
-            if (baseDir === '' && data.meta && data.meta.title) {
-                document.title = data.meta.title;
+            /* 2. data-link → set href */
+            document.querySelectorAll('[data-link]').forEach(el => {
+                const keys = el.getAttribute('data-link').split('.');
+                let val = data;
+                for (let k of keys) { if (val != null) val = val[k]; }
+                if (val != null && typeof val === 'string' && val !== '#') el.href = val;
+            });
+
+            /* 3. Inject meta keywords from config (centralised per-page) */
+            const seoKeys = data.seo && data.seo.keywords;
+            if (seoKeys) {
+                const pageKey = isProjects ? 'projects' : isWinnings ? 'winnings' : isBiography ? 'biography'
+                    : isContact ? 'contact' : isSocials ? 'socials' : isFAQ ? 'faq' : 'home';
+                let kw = document.querySelector('meta[name="keywords"]');
+                if (!kw) { kw = document.createElement('meta'); kw.name = 'keywords'; document.head.appendChild(kw); }
+                kw.content = seoKeys.global + ', ' + (seoKeys[pageKey] || '');
             }
 
-            // Render Projects
+            /* 4. Schema injection helper */
+            function injectSchema(obj, id) {
+                let el = document.getElementById(id);
+                if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = id; document.head.appendChild(el); }
+                el.textContent = JSON.stringify(obj, null, 2);
+            }
+
+            const personBase = (data.schema && data.schema.person) ? data.schema.person : {};
+
+            if (isIndex && personBase.name) {
+                injectSchema(personBase, 'schemaPersonHome');
+                injectSchema({ '@context': 'https://schema.org', '@type': 'WebSite', 'name': 'AR. Abhinav Ranjan', 'url': data.meta.site_url, 'description': data.meta.description }, 'schemaWebSite');
+            }
+            if (isProjects && data.projects) {
+                injectSchema({ '@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Projects by Abhinav Ranjan',
+                    'itemListElement': data.projects.map((p,i) => ({ '@type': 'ListItem', 'position': i+1, 'name': p.name, 'description': p.description, 'url': p.url !== '#' ? p.url : data.meta.site_url }))
+                }, 'schemaProjectsList');
+                injectSchema(personBase, 'schemaPersonProjects');
+            }
+            if (isWinnings && data.winnings) {
+                injectSchema({ '@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Achievements and Awards of Abhinav Ranjan',
+                    'itemListElement': data.winnings.map((w,i) => ({ '@type': 'ListItem', 'position': i+1, 'name': w.title, 'description': w.description }))
+                }, 'schemaWinningsList');
+                injectSchema(personBase, 'schemaPersonWinnings');
+            }
+            if (isBiography && personBase.name) {
+                injectSchema({ '@context': 'https://schema.org', '@type': 'ProfilePage', 'name': 'Biography of Abhinav Ranjan', 'url': data.meta.site_url + '/frontend/html/biography.html', 'mainEntity': personBase }, 'schemaBiography');
+            }
+            if (isContact && data.contact) {
+                injectSchema({ '@context': 'https://schema.org', '@type': 'ContactPage', 'name': 'Contact Abhinav Ranjan', 'url': data.meta.site_url + '/frontend/html/contact.html',
+                    'mainEntity': { '@type': 'Person', 'name': personBase.name || 'Abhinav Ranjan', 'email': data.contact.email, 'url': data.meta.site_url }
+                }, 'schemaContact');
+            }
+            if (isSocials && personBase.name) {
+                injectSchema({ '@context': 'https://schema.org', '@type': 'ProfilePage', 'name': 'Social Media Handles of Abhinav Ranjan', 'url': data.meta.site_url + '/frontend/html/socials.html', 'mainEntity': personBase }, 'schemaSocials');
+            }
+
+            /* 5. Static prerender for bots (visually hidden divs) */
+            function injectStaticPrerender(id, items, fn) {
+                const el = document.getElementById(id);
+                if (el && items) el.innerHTML = items.map(fn).join('');
+            }
+            if (isProjects && data.projects) {
+                injectStaticPrerender('staticProjectsPrerender', data.projects, p =>
+                    `<article><h2>${p.name}</h2><p>${p.description}</p><p>Tags: ${(p.tags||[]).join(', ')}</p>${p.url!=='#'?`<a href="${p.url}" rel="noopener">Visit ${p.name}</a>`:''}</article>`);
+            }
+            if (isWinnings && data.winnings) {
+                injectStaticPrerender('staticWinningsPrerender', data.winnings, w =>
+                    `<article><h2>${w.title}</h2><p>${w.description}</p><p>Year: ${w.date||''}</p></article>`);
+            }
+
+            /* 6. Render Projects grid */
             const projectsGrid = document.getElementById('dynamicProjectsGrid');
             if (projectsGrid && data.projects) {
                 projectsGrid.innerHTML = '';
-                data.projects.forEach((proj, index) => {
-                    const delay = 200 + (index * 100);
-                    let imageHTML = '';
-                    if (proj.image === '#' || !proj.image) {
-                        const gradients = [
-                            'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%)',
-                            'linear-gradient(135deg, #d946ef 0%, #f43f5e 50%, #f97316 100%)',
-                            'linear-gradient(135deg, #10b981 0%, #3b82f6 50%, #6366f1 100%)'
-                        ];
-                        const selectedGradient = gradients[index % gradients.length];
-                        imageHTML = `<div class="placeholder-img" style="background: ${selectedGradient}; display: flex; align-items: center; justify-content: center;"><i class="${proj.icon} project-icon-overlay" style="font-size: 3rem; opacity: 0.2; color: #fff;"></i></div>`;
-                    } else {
-                        imageHTML = `<img src="${proj.image}" alt="${proj.name}" style="width: 100%; height: 100%; object-fit: cover;">`;
-                    }
-
-                    const tagsHTML = (proj.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
-
+                data.projects.forEach((proj, i) => {
+                    const gradients = ['linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4)','linear-gradient(135deg,#d946ef,#f43f5e,#f97316)','linear-gradient(135deg,#10b981,#3b82f6,#6366f1)'];
+                    const img = (proj.image==='#'||!proj.image) ? `<div class="placeholder-img" style="background:${gradients[i%3]};display:flex;align-items:center;justify-content:center;"><i class="${proj.icon} project-icon-overlay" style="font-size:3rem;opacity:0.2;color:#fff;"></i></div>` : `<img src="${proj.image}" alt="${proj.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
+                    const tags = (proj.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
                     const card = document.createElement('div');
-                    card.className = `card project-card fade-in-up delay-${delay}`;
-                    card.innerHTML = `
-                        <div class="project-image">
-                            ${imageHTML}
-                        </div>
-                        <div class="project-content">
-                            <h3>${proj.name}</h3>
-                            <p>${proj.description}</p>
-                            <div class="tags">
-                                ${tagsHTML}
-                            </div>
-                            <div class="project-links">
-                                <a href="${proj.url}" class="btn-text" target="_blank">Launch Project <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    `;
+                    card.className = `card project-card fade-in-up delay-${200+i*100}`;
+                    card.innerHTML = `<div class="project-image">${img}</div><div class="project-content"><h3>${proj.name}</h3><p>${proj.description}</p><div class="tags">${tags}</div><div class="project-links"><a href="${proj.url}" class="btn-text" target="_blank" rel="noopener">Launch Project <i class="fas fa-arrow-right"></i></a></div></div>`;
                     projectsGrid.appendChild(card);
                 });
-                // Register new cards with intersection observer
                 if (window.observeNewCards) window.observeNewCards();
             }
 
-            // Render Winnings
+            /* 7. Render Winnings grid */
             const winningsGrid = document.getElementById('dynamicWinningsGrid');
             if (winningsGrid && data.winnings) {
                 winningsGrid.innerHTML = '';
-                data.winnings.forEach((win, index) => {
-                    const delay = 200 + (index * 100);
-                    let imageHTML = '';
-                    if (win.image === '#' || !win.image) {
-                        const gradients = [
-                            'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)',
-                            'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
-                            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                        ];
-                        const selectedGradient = gradients[index % gradients.length];
-                        imageHTML = `<div class="placeholder-img" style="background: ${selectedGradient}"></div>`;
-                    } else {
-                        imageHTML = `<img src="${win.image}" alt="${win.title}" style="width: 100%; height: 100%; object-fit: cover;">`;
-                    }
-
+                data.winnings.forEach((win, i) => {
+                    const gradients = ['linear-gradient(135deg,#ff9a9e,#fad0c4)','linear-gradient(120deg,#a1c4fd,#c2e9fb)','linear-gradient(135deg,#667eea,#764ba2)'];
+                    const img = (win.image==='#'||!win.image) ? `<div class="placeholder-img" style="background:${gradients[i%3]}"></div>` : `<img src="${win.image}" alt="${win.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`;
                     const card = document.createElement('div');
-                    card.className = `card winning-card fade-in-up delay-${delay}`;
+                    card.className = `card winning-card fade-in-up delay-${200+i*100}`;
                     card.style.cursor = 'pointer';
-                    // Modal Trigger
                     card.addEventListener('click', () => {
                         const modal = document.getElementById('winningsModal');
-                        if (modal) {
-                            document.getElementById('modalImageContainer').innerHTML = imageHTML;
-                            document.getElementById('modalTitle').innerText = win.title;
-                            document.getElementById('modalDescription').innerText = win.description;
-                            modal.classList.add('active');
-                        }
+                        if (modal) { document.getElementById('modalImageContainer').innerHTML = img; document.getElementById('modalTitle').innerText = win.title; document.getElementById('modalDescription').innerText = win.description; modal.classList.add('active'); }
                     });
-
-                    card.innerHTML = `
-                        <div class="winning-image">
-                            ${imageHTML}
-                        </div>
-                        <div class="winning-content">
-                            <h3>${win.title}</h3>
-                            <p>${win.description.substring(0, 60)}...</p>
-                            <div class="tags">
-                                <span class="tag">${win.date || 'Award'}</span>
-                            </div>
-                        </div>
-                    `;
+                    card.innerHTML = `<div class="winning-image">${img}</div><div class="winning-content"><h3>${win.title}</h3><p>${win.description.substring(0,60)}...</p><div class="tags"><span class="tag">${win.date||'Award'}</span></div></div>`;
                     winningsGrid.appendChild(card);
                 });
-                // Register new cards with intersection observer
                 if (window.observeNewCards) window.observeNewCards();
             }
 
-            // Render Asked Questions Configuration
+            /* 8. Render FAQ */
             if (isFAQ && data.asked_questions) {
                 const faqs = data.asked_questions.faqs || [];
-                console.log(`📦 [Debug] Rendering ${faqs.length} FAQ items`);
-
-                // ── 1. Inject FAQPage JSON-LD schema dynamically ──────────────────
-                // asked_questions_page.json is the single source of truth.
-                // The <script id="faqJsonLd"> tag in the HTML is intentionally empty.
                 const jsonLdEl = document.getElementById('faqJsonLd');
                 if (jsonLdEl && faqs.length > 0) {
-                    const schema = {
-                        '@context': 'https://schema.org',
-                        '@type': 'FAQPage',
-                        'mainEntity': faqs.map(faq => ({
-                            '@type': 'Question',
-                            'name': faq.question,
-                            'acceptedAnswer': { '@type': 'Answer', 'text': faq.answer }
-                        }))
-                    };
-                    jsonLdEl.textContent = JSON.stringify(schema, null, 2);
+                    jsonLdEl.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': faqs.map(f => ({ '@type': 'Question', 'name': f.question, 'acceptedAnswer': { '@type': 'Answer', 'text': f.answer } })) }, null, 2);
                 }
-
-                // ── 2. Inject static <dl> pre-render for crawlers ─────────────────
-                // Visually hidden but semantically visible to search bots.
                 const prerender = document.getElementById('staticFaqPrerender');
                 if (prerender && faqs.length > 0) {
                     const dl = document.createElement('dl');
-                    faqs.forEach(faq => {
-                        const dt = document.createElement('dt');
-                        dt.textContent = faq.question;
-                        const dd = document.createElement('dd');
-                        dd.textContent = faq.answer;
-                        dl.appendChild(dt);
-                        dl.appendChild(dd);
-                    });
+                    faqs.forEach(f => { const dt = document.createElement('dt'); dt.textContent = f.question; const dd = document.createElement('dd'); dd.textContent = f.answer; dl.appendChild(dt); dl.appendChild(dd); });
                     prerender.appendChild(dl);
                 }
-
                 const aboutTextEl = document.getElementById('faqAboutText');
-                if (aboutTextEl && data.asked_questions.about_text) {
-                    aboutTextEl.innerText = data.asked_questions.about_text;
-                }
-
+                if (aboutTextEl && data.asked_questions.about_text) aboutTextEl.innerText = data.asked_questions.about_text;
                 const faqAccordion = document.getElementById('dynamicFaqAccordion');
-                if (faqAccordion && data.asked_questions.faqs) {
+                if (faqAccordion && faqs.length > 0) {
                     faqAccordion.innerHTML = '';
-                    data.asked_questions.faqs.forEach(faq => {
-                        const item = document.createElement('div');
-                        item.className = 'faq-item';
-                        item.innerHTML = `
-                            <button class="faq-question">
-                                <span>${faq.question}</span>
-                                <i class="fas fa-plus faq-icon"></i>
-                            </button>
-                            <div class="faq-answer">
-                                <p>${faq.answer}</p>
-                            </div>
-                        `;
+                    faqs.forEach(faq => {
+                        const item = document.createElement('div'); item.className = 'faq-item';
+                        item.innerHTML = `<button class="faq-question"><span>${faq.question}</span><i class="fas fa-plus faq-icon"></i></button><div class="faq-answer"><p>${faq.answer}</p></div>`;
                         faqAccordion.appendChild(item);
                     });
-
-                    // Add "No results" message element
-                    const noResults = document.createElement('div');
-                    noResults.className = 'no-results-message';
-                    noResults.id = 'faqNoResults';
-                    noResults.innerHTML = `
-                        <i class="fas fa-search"></i>
-                        <p>No questions found matching your search.</p>
-                    `;
+                    const noResults = document.createElement('div'); noResults.className = 'no-results-message'; noResults.id = 'faqNoResults'; noResults.innerHTML = `<i class="fas fa-search"></i><p>No questions found matching your search.</p>`;
                     faqAccordion.parentNode.insertBefore(noResults, faqAccordion.nextSibling);
-
-                    // Search Filtering Logic
                     const searchInput = document.getElementById('faqSearchInput');
                     if (searchInput) {
-                        searchInput.addEventListener('input', (e) => {
+                        searchInput.addEventListener('input', e => {
                             const term = e.target.value.toLowerCase().trim();
-                            const items = faqAccordion.querySelectorAll('.faq-item');
                             let hasResults = false;
-
-                            items.forEach(item => {
-                                const question = item.querySelector('.faq-question span').innerText.toLowerCase();
-                                const answer = item.querySelector('.faq-answer p').innerText.toLowerCase();
-
-                                if (question.includes(term) || answer.includes(term)) {
-                                    item.style.display = 'block';
-                                    hasResults = true;
-                                } else {
-                                    item.style.display = 'none';
-                                }
+                            faqAccordion.querySelectorAll('.faq-item').forEach(item => {
+                                const show = item.querySelector('.faq-question span').innerText.toLowerCase().includes(term) || item.querySelector('.faq-answer p').innerText.toLowerCase().includes(term);
+                                item.style.display = show ? 'block' : 'none'; if (show) hasResults = true;
                             });
-
                             noResults.style.display = hasResults ? 'none' : 'block';
                         });
                     }
-
-                    // Attach accordion toggle logic for newly created items
                     document.querySelectorAll('.faq-question').forEach(btn => {
                         btn.addEventListener('click', () => {
-                            const item = btn.parentElement;
-                            const isActive = item.classList.contains('active');
-
-                            // Close all items
-                            document.querySelectorAll('.faq-item').forEach(f => {
-                                f.classList.remove('active');
-                                const answer = f.querySelector('.faq-answer');
-                                if (answer) answer.style.maxHeight = null;
-                            });
-
-                            // Open clicked item if it wasn't active
-                            if (!isActive) {
-                                item.classList.add('active');
-                                const answer = item.querySelector('.faq-answer');
-                                if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
-                            }
+                            const item = btn.parentElement; const isActive = item.classList.contains('active');
+                            document.querySelectorAll('.faq-item').forEach(f => { f.classList.remove('active'); const a = f.querySelector('.faq-answer'); if (a) a.style.maxHeight = null; });
+                            if (!isActive) { item.classList.add('active'); const a = item.querySelector('.faq-answer'); if (a) a.style.maxHeight = a.scrollHeight + 'px'; }
                         });
                     });
                 }
-
                 const faqProfileImg = document.getElementById('faqProfileImg');
-                if (faqProfileImg && data.asked_questions) {
-                    const imgPath = data.asked_questions.image_url;
-
-                    if (imgPath && imgPath !== '#') {
-                        faqProfileImg.src = '/' + imgPath;
-                    } else {
-                        faqProfileImg.src = '/images/arlogo.png';
-                    }
-
-                    faqProfileImg.onerror = () => {
-                        faqProfileImg.src = '/images/arlogo.png';
-                    };
-                }
+                if (faqProfileImg) { const ip = data.asked_questions && data.asked_questions.image_url; faqProfileImg.src = (ip && ip !== '#') ? '/' + ip : '/images/arlogo.png'; faqProfileImg.onerror = () => { faqProfileImg.src = '/images/arlogo.png'; }; }
             }
 
-            // Render Socials
+            /* 9. Render Socials */
             const socialsGrid = document.getElementById('dynamicSocialsGrid');
             if (socialsGrid && data.socials) {
                 socialsGrid.innerHTML = '';
-                data.socials.forEach((social, index) => {
-                    const delay = 200 + (index * 100);
-                    const card = document.createElement('a');
-                    card.href = social.url;
-                    card.target = '_blank';
-                    card.className = `card social-card fade-in-up delay-${delay}`;
-                    card.innerHTML = `
-                        <div class="card-icon ${social.colorClass || social.platform.toLowerCase()}">
-                            <i class="${social.icon}"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>${social.platform}</h3>
-                            <p>${social.handle}</p>
-                        </div>
-                        <div class="card-arrow">
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    `;
+                data.socials.forEach((social, i) => {
+                    const card = document.createElement('a'); card.href = social.url; card.target = '_blank'; card.rel = 'noopener noreferrer'; card.className = `card social-card fade-in-up delay-${200+i*100}`;
+                    card.innerHTML = `<div class="card-icon ${social.colorClass||social.platform.toLowerCase()}"><i class="${social.icon}"></i></div><div class="card-content"><h3>${social.platform}</h3><p>${social.handle}</p></div><div class="card-arrow"><i class="fas fa-arrow-right"></i></div>`;
                     socialsGrid.appendChild(card);
                 });
                 if (window.observeNewCards) window.observeNewCards();
             }
 
-            // Render Footer (all pages)
+            /* 10. Render Footer */
             const siteFooter = document.getElementById('siteFooter');
             if (siteFooter && data.footer) {
                 const f = data.footer;
-                const linksHTML = (f.links || []).map(l => {
-                    let url = l.url;
-                    if (url !== '#' && !url.startsWith('http') && !url.startsWith('/')) {
-                        url = baseDir + url;
-                    }
-                    return `<a href="${url}">${l.label}</a>`;
-                }).join('');
-                siteFooter.innerHTML = `
-                    <div class="container footer-container">
-                        <p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p>
-                        <div class="footer-links">${linksHTML}</div>
-                    </div>
-                `;
+                siteFooter.innerHTML = `<div class="container footer-container"><p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p><div class="footer-links">${(f.links||[]).map(l=>`<a href="${l.url}">${l.label}</a>`).join('')}</div></div>`;
             }
 
-            // Profile Image (About Page)
+            /* 11. Profile image */
             const profileImg = document.getElementById('profileImg');
-            if (profileImg && data.personal) {
-                const imgPath = data.personal.profile_image;
+            if (profileImg && data.personal) { const ip = data.personal.profile_image; profileImg.src = (ip&&ip!=='#') ? '/'+ip : '/images/arlogo.png'; profileImg.onerror = () => { profileImg.src = '/images/arlogo.png'; }; }
 
-                if (imgPath && imgPath !== '#') {
-                    profileImg.src = '/' + imgPath;
-                } else {
-                    profileImg.src = '/images/arlogo.png';
-                }
+            /* 12. Winnings modal close */
+            const closeBtn = document.getElementById('closeModalBtn'); const winModal = document.getElementById('winningsModal');
+            if (closeBtn && winModal) { closeBtn.addEventListener('click', () => winModal.classList.remove('active')); window.addEventListener('click', e => { if (e.target === winModal) winModal.classList.remove('active'); }); }
 
-                profileImg.onerror = () => {
-                    profileImg.src = '/images/arlogo.png';
-                };
-            }
-
-            // Modal Close Listeners for Winnings Page
-            const closeWinningsModal = document.getElementById('closeModalBtn');
-            const winningsModal = document.getElementById('winningsModal');
-            if (closeWinningsModal && winningsModal) {
-                closeWinningsModal.addEventListener('click', () => {
-                    winningsModal.classList.remove('active');
-                });
-                window.addEventListener('click', (e) => {
-                    if (e.target === winningsModal) {
-                        winningsModal.classList.remove('active');
-                    }
-                });
-            }
-
-            // Hide loader after a short delay for smooth transition
-            setTimeout(() => {
-                const loader = document.getElementById('loader-wrapper');
-                if (loader) {
-                    loader.classList.add('fade-out');
-                    setTimeout(() => loader.remove(), 600);
-                }
-            }, 500);
+            /* Hide loader */
+            setTimeout(() => { const l = document.getElementById('loader-wrapper'); if (l) { l.classList.add('fade-out'); setTimeout(() => l.remove(), 600); } }, 500);
         })
         .catch(err => {
-            if (window.location.protocol === 'file:') {
-                console.error("🔴 CROSS-ORIGIN ERROR: Modern browsers block 'fetch()' when using 'file://' protocol. Please use 'http://localhost:8090' which is already running in your terminal.");
-                // Optionally show a toast for the user
-                if (typeof showToast === 'function') showToast("Please use the 'localhost:8090' link (CORS restriction)");
-            } else {
-                console.error("Error loading config:", err);
-            }
+            console.error('Config load error:', err);
+            const l = document.getElementById('loader-wrapper');
+            if (l) { l.classList.add('fade-out'); setTimeout(() => l.remove(), 600); }
         });
 
-    // Mobile Menu
-    const hamburger = document.getElementById('hamburger');
-    const navList = document.querySelector('.nav-list');
-
+    /* Mobile Menu */
+    const hamburger = document.getElementById('hamburger'); const navList = document.querySelector('.nav-list');
     if (hamburger && navList) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navList.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-            if (hamburger && navList) {
-                hamburger.classList.remove('active');
-                navList.classList.remove('active');
-            }
-        }));
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); navList.classList.toggle('active'); });
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => { hamburger.classList.remove('active'); navList.classList.remove('active'); }));
     }
 
-    // Scroll Animations (Intersection Observer)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    /* Scroll Animations */
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    window.observeNewCards = () => { document.querySelectorAll('.fade-in-up:not(.observed)').forEach(el => { el.classList.add('observed'); observer.observe(el); }); };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Only animate once
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in-up').forEach(el => {
-        observer.observe(el);
+    /* 3D Tilt */
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(); card.style.transform = `perspective(1000px) rotateX(${(((e.clientY-r.top)/r.height)-0.5)*-10}deg) rotateY(${(((e.clientX-r.left)/r.width)-0.5)*10}deg)`; });
+        card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)'; });
     });
 
-    // Helper to observe dynamically added elements
-    window.observeNewCards = () => {
-        document.querySelectorAll('.fade-in-up:not(.observed)').forEach(el => {
-            el.classList.add('observed');
-            observer.observe(el);
-        });
-    };
+    /* Contact form logic has been decoupled to contact_handler.js */
 
-    // 3D Tilt Effect
-    const cards = document.querySelectorAll('.card');
+    /* Toast */
+    function showToast(msg) { let t=document.getElementById('toast'); if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);} t.innerText=msg; t.className='toast show'; setTimeout(()=>{t.className=t.className.replace('show','');},3000); }
 
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    /* Active nav */
+    const cp = window.location.pathname.split('/').pop()||'index.html';
+    document.querySelectorAll('.nav-link').forEach(l => { if(l.getAttribute('href')===cp) l.classList.add('active'); });
 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+    /* Read More toggle */
+    const rmb = document.getElementById('aboutReadMoreBtn'); const mc = document.getElementById('aboutMoreContent');
+    if (rmb && mc) { rmb.addEventListener('click', () => { const a=mc.classList.toggle('active'); rmb.classList.toggle('active'); rmb.innerHTML=a?'Read Less <i class="fas fa-chevron-up"></i>':'Read More <i class="fas fa-chevron-down"></i>'; if(!a) rmb.scrollIntoView({behavior:'smooth',block:'center'}); }); }
 
-            const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
-            const rotateY = ((x - centerX) / centerX) * 10;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-        });
-    });
-
-    // Form Handling (WhatsApp Integration)
-    // Form Handling (Multi-platform)
-    const form = document.getElementById('contactForm');
-    if (form) {
-        const getFormData = () => {
-            const nameEl = document.getElementById('name');
-            const emailEl = document.getElementById('email');
-            const contactNoEl = document.getElementById('contactNo');
-            const messageEl = document.getElementById('message');
-
-            return {
-                name: nameEl ? nameEl.value : '',
-                email: emailEl ? emailEl.value : '',
-                contactNo: contactNoEl ? contactNoEl.value : '',
-                message: messageEl ? messageEl.value : ''
-            };
-        };
-
-        const sendWhatsappBtn = document.getElementById('sendWhatsapp');
-        const sendEmailBtn = document.getElementById('sendEmail');
-        const sendTelegramBtn = document.getElementById('sendTelegram');
-        const sendWebBtn = document.getElementById('sendWeb');
-
-        if (sendWhatsappBtn) {
-            sendWhatsappBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const { name, email, contactNo, message } = getFormData();
-                if (!name || !message) { showToast('Please fill in Name and Message'); return; }
-
-                const phoneNumber = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.whatsapp_number : "8294721929";
-                const cNoText = contactNo ? `%0AuserContactNo: ${contactNo}` : '';
-                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}${cNoText}%0AuserMessage: ${message}`;
-                window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
-            });
-        }
-
-        if (sendEmailBtn) {
-            sendEmailBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const { name, email, contactNo, message } = getFormData();
-                if (!name || !message) { showToast('Please fill in Name and Message'); return; }
-
-                const emailTo = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.email : "abhinavranjanmit@gmail.com";
-                const subject = `New Contact from ${name}`;
-                const cNoText = contactNo ? `%0D%0AuserContactNo: ${contactNo}` : '';
-                const body = `userName: ${name}%0D%0AuserEmail: ${email || 'Not provided'}${cNoText}%0D%0AuserMessage: ${message}`;
-                window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
-            });
-        }
-
-        if (sendTelegramBtn) {
-            sendTelegramBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const { name, email, contactNo, message } = getFormData();
-                if (!name || !message) { showToast('Please fill in Name and Message'); return; }
-
-                const username = window.siteConfig && window.siteConfig.contact ? window.siteConfig.contact.telegram_username : "abhinav_ranjan";
-                const cNoText = contactNo ? `%0AuserContactNo: ${contactNo}` : '';
-                const text = `userName: ${name}%0AuserEmail: ${email || 'Not provided'}${cNoText}%0AuserMessage: ${message}`;
-                window.open(`https://t.me/${username}?text=${text}`, '_blank');
-            });
-        }
-
-        if (sendWebBtn) {
-            sendWebBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const { name, email, contactNo, message } = getFormData();
-                if (!name || !message) { showToast('Please fill in Name and Message'); return; }
-
-                const googleScriptUrl = window.siteConfig && window.siteConfig.contact && window.siteConfig.contact.google_script_url
-                    ? window.siteConfig.contact.google_script_url
-                    : "YOUR_GOOGLE_SCRIPT_URL_HERE";
-
-                if (googleScriptUrl === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-                    showToast('Notice: Website not yet linked to Google Sheets. Check console for instructions.');
-                    console.log('To make the WEB submission work: Create a Google Apps Script linked to your sheet, deploy as Web App, and add the URL to config.json as "google_script_url".');
-                    return;
-                }
-
-                const originalHTML = sendWebBtn.innerHTML;
-                sendWebBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                sendWebBtn.disabled = true;
-
-                const params = new URLSearchParams();
-                params.append('Name', name);
-                params.append('Email', email);
-                params.append('ContactNo', contactNo);
-                params.append('Message', message);
-                params.append('Date', new Date().toLocaleString());
-
-                fetch(googleScriptUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: params
-                }).then(() => {
-                    showToast('Success! Your message was saved securely to the database.');
-                    if (form) form.reset();
-                }).catch(err => {
-                    console.error('Error submitting form via Web API:', err);
-                    showToast('Failed to save data. Try another method.');
-                }).finally(() => {
-                    sendWebBtn.innerHTML = originalHTML;
-                    sendWebBtn.disabled = false;
-                });
-            });
-        }
-    }
-
-    // Toast Notification Helper
-    function showToast(message) {
-        let toast = document.getElementById("toast");
-        if (!toast) {
-            toast = document.createElement("div");
-            toast.id = "toast";
-            toast.className = "toast";
-            document.body.appendChild(toast);
-        }
-        toast.innerText = message;
-        toast.className = "toast show";
-        setTimeout(function () { toast.className = toast.className.replace("show", ""); }, 3000);
-    }
-
-    // Highlight active link
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-        }
-    });
-
-    // Book Live View Modal
-    const modal = document.getElementById("bookModal");
-    const btn = document.getElementById("liveViewBtn");
-    const span = document.getElementsByClassName("close-modal")[0];
-    const modalTitle = document.getElementById("modalBookTitle");
-
-    if (btn && modal && span) {
-        btn.onclick = function () {
-            modal.style.display = "block";
-            // Update modal title based on current selection
-            const currentTitle = document.getElementById("bookTitle").innerText;
-            modalTitle.innerText = currentTitle + " - Preview";
-        }
-
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
-    // Book Selection Logic
-    const bookSelect = document.getElementById("bookSelect");
-    if (bookSelect) {
-        const books = {
-            book1: {
-                title: "The Developer's Mindset",
-                desc: "A comprehensive guide to thinking like a programmer. From problem-solving strategies to mastering the art of debugging, this book covers it all.",
-                color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            },
-            book2: {
-                title: "Mastering Modern Web",
-                desc: "Deep dive into the latest web technologies, frameworks, and best practices for building scalable applications.",
-                color: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)"
-            },
-            book3: {
-                title: "The AI Revolution",
-                desc: "Understanding the impact of Artificial Intelligence on society and how to leverage it in your projects.",
-                color: "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)"
-            }
-        };
-
-        const bookTitle = document.getElementById("bookTitle");
-        const bookTitleDisplay = document.getElementById("bookTitleDisplay");
-        const bookDescription = document.getElementById("bookDescription");
-        const bookCover = document.getElementById("bookCover");
-
-        bookSelect.addEventListener("change", function (e) {
-            const selected = books[e.target.value];
-
-            // Animate out
-            const showcase = document.getElementById("bookShowcase");
-            showcase.style.opacity = "0";
-            showcase.style.transform = "translateY(20px)";
-
-            setTimeout(() => {
-                // Update content
-                bookTitle.innerText = selected.title;
-                bookTitleDisplay.innerText = selected.title;
-                bookDescription.innerText = selected.desc;
-                bookCover.style.background = selected.color;
-
-                // Animate in
-                showcase.style.opacity = "1";
-                showcase.style.transform = "translateY(0)";
-            }, 300);
-        });
-    }
-
-    // About Page "Read More" Toggle Logic
-    const readMoreBtn = document.getElementById('aboutReadMoreBtn');
-    const moreContent = document.getElementById('aboutMoreContent');
-
-    if (readMoreBtn && moreContent) {
-        readMoreBtn.addEventListener('click', () => {
-            const isActive = moreContent.classList.toggle('active');
-            readMoreBtn.classList.toggle('active');
-
-            if (isActive) {
-                readMoreBtn.innerHTML = `Read Less <i class="fas fa-chevron-up"></i>`;
-            } else {
-                readMoreBtn.innerHTML = `Read More <i class="fas fa-chevron-down"></i>`;
-                readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-    }
-
-    // Fallback: hide loader on window load in case fetch fails
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('loader-wrapper');
-        if (loader && !loader.classList.contains('fade-out')) {
-            loader.classList.add('fade-out');
-            setTimeout(() => loader.remove(), 600);
-        }
-    });
+    /* Fallback loader */
+    window.addEventListener('load', () => { const l=document.getElementById('loader-wrapper'); if(l&&!l.classList.contains('fade-out')){l.classList.add('fade-out');setTimeout(()=>l.remove(),600);} });
 });

@@ -5,111 +5,97 @@
     "tagline": "Cybersecurity Enthusiast, Developer & Young Technology Educator",
     "role": "Cybersecurity Researcher & Developer",
     "dob": "02-05-2012",
-    "profile_image": "images/profile.png"
+    "profile_image": "images/profile.png",
+    "location": "Muzaffarpur, Bihar, India"
   },
   "meta": {
-    "title": "Abhinav Ranjan | Cybersecurity & Technology Portfolio",
-    "description": "Official portfolio of Abhinav Ranjan – cybersecurity enthusiast, developer, founder of Luminary Technicals, and youngest hacking teacher recognized by global record organizations.",
-    "theme_color": "#6366f1"
+    "title": "Abhinav Ranjan | Cybersecurity Educator, Developer & Luminary Technicals Founder",
+    "description": "Official portfolio of Abhinav Ranjan — cybersecurity enthusiast, ethical hacking educator, web developer, and founder of Luminary Technicals from Muzaffarpur, Bihar, India. Recognized by Guinness World Records.",
+    "theme_color": "#6366f1",
+    "site_url": "https://abhinavranjan.qzz.io",
+    "og_image": "https://abhinavranjan.qzz.io/images/arlogo.png",
+    "twitter_handle": "@abhinav_vyom"
+  },
+  "seo": {
+    "keywords": {
+      "global": "Abhinav Ranjan, itzmeabhinavranjan, cybersecurity educator, ethical hacking teacher, Luminary Technicals, Muzaffarpur Bihar India",
+      "home": "Abhinav Ranjan portfolio, cybersecurity developer, youngest ethical hacking teacher, Guinness World Records, web developer Bihar",
+      "about": "about Abhinav Ranjan, cybersecurity educator background, ethical hacking education, penetration testing, network security Bihar",
+      "projects": "Abhinav Ranjan projects, AgroScan AI, Luminary Servers, cybersecurity tools, web development portfolio",
+      "biography": "Abhinav Ranjan biography, AR Tech founder, Luminary Technicals history, cybersecurity journey, tech timeline",
+      "winnings": "Abhinav Ranjan achievements, Guinness World Records cybersecurity, Golden Book of World Records, VVM State Rank 4, National Science Championship",
+      "contact": "contact Abhinav Ranjan, cybersecurity collaboration, tech project inquiry, WhatsApp Telegram email",
+      "socials": "Abhinav Ranjan social media, Instagram GitHub Twitter LinkedIn YouTube Telegram handles",
+      "faq": "Abhinav Ranjan FAQ, frequently asked questions, cybersecurity questions, age background projects",
+      "blogs": "Abhinav Ranjan tech blog, cybersecurity articles, ethical hacking blog, web development stories"
+    }
   },
   "contact": {
     "email": "abhinavranjanmit@gmail.com",
+    "email_mailto": "mailto:abhinavranjanmit@gmail.com",
     "whatsapp_number": "8294721929",
-    "telegram_username": "abhinav_ranjan"
+    "whatsapp_url": "https://wa.me/918294721929",
+    "telegram_username": "abhinav_ranjan",
+    "telegram_url": "https://t.me/abhinav_ranjan",
+    "discord_url": "#",
+    "line_url": "#"
   },
   "projects": [
-    {
-      "id": "portfolio",
-      "name": "Personal Portfolio Website",
-      "description": "Official portfolio website showcasing projects, achievements, and cybersecurity work of Abhinav Ranjan.",
-      "tags": [
-        "Web Development",
-        "Portfolio",
-        "Frontend"
-      ],
-      "icon": "fas fa-code",
-      "image": "#",
-      "url": "https://abhinavranjan.netlify.app"
-    },
-    {
-      "id": "agroscan",
-      "name": "AgroScan",
-      "description": "AI-powered agricultural analysis web application helping farmers make data-driven decisions using machine learning and computer vision.",
-      "tags": [
-        "AI/ML",
-        "Computer Vision",
-        "Web Application"
-      ],
-      "icon": "fas fa-leaf",
-      "image": "#",
-      "url": "https://agroscan-lumitech.netlify.app"
-    },
-    {
-      "id": "luminary",
-      "name": "Luminary Technicals",
-      "description": "A futuristic technology ecosystem focused on digital infrastructure, hosting services, and collaborative tech innovation.",
-      "tags": [
-        "Technology Ecosystem",
-        "Cloud Infrastructure",
-        "Systems"
-      ],
-      "icon": "fas fa-bolt",
-      "image": "#",
-      "url": "#"
-    }
+    { "id": "portfolio" },
+    { "id": "agroscan" },
+    { "id": "luminary" }
   ],
   "winnings": [
-    {
-      "id": "guinness",
-      "title": "Guinness World Records Recognition",
-      "description": "Recognized for achievements in cybersecurity education and technology awareness at a young age.",
-      "date": "2026",
-      "icon": "fas fa-trophy",
-      "image": "#"
-    },
-    {
-      "id": "golden",
-      "title": "Golden Book of World Records",
-      "description": "Honored for contributions to ethical hacking awareness and technology education.",
-      "date": "2026",
-      "icon": "fas fa-award",
-      "image": "#"
-    },
-    {
-      "id": "vvm",
-      "title": "Vidyarthi Vigyan Manthan – State Rank 4",
-      "description": "Secured State Rank 4 in VVM 2025, a national science talent search promoting scientific research and innovation.",
-      "date": "2025-2026",
-      "icon": "fas fa-medal",
-      "image": "#"
-    }
+    { "id": "guinness" },
+    { "id": "golden-book" },
+    { "id": "vvm" }
   ],
   "socials": [
-    {
-      "platform": "Instagram",
-      "handle": "@itzmeabhinavranjan",
-      "icon": "fab fa-instagram",
-      "url": "https://instagram.com/itzmeabhinavranjan"
-    },
-    {
-      "platform": "LinkedIn",
-      "handle": "@itzmeabhinavranjan",
-      "icon": "fab fa-linkedin-in",
-      "url": "https://linkedin.com/in/itzmeabhinavranjan"
-    },
-    {
-      "platform": "GitHub",
-      "handle": "@ProAbhinavRanjan",
-      "icon": "fab fa-github",
-      "url": "https://github.com/ProAbhinavRanjan"
-    },
-    {
-      "platform": "Twitter",
-      "handle": "@abhinav_vyom",
-      "icon": "fab fa-twitter",
-      "url": "https://twitter.com/abhinav_vyom"
-    }
+    { "id": "instagram" },
+    { "id": "linkedin" },
+    { "id": "github" },
+    { "id": "twitter" }
   ],
+  "schema": {
+    "person": {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abhinav Ranjan",
+      "alternateName": "itzmeabhinavranjan",
+      "url": "https://abhinavranjan.netlify.app/",
+      "image": "https://abhinavranjan.netlify.app/images/profile.png",
+      "jobTitle": "Cybersecurity Educator & Developer",
+      "description": "Young cybersecurity enthusiast, ethical hacking educator, and founder of Luminary Technicals from Muzaffarpur, Bihar, India.",
+      "birthDate": "2012-02-05",
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Muzaffarpur, Bihar, India"
+      },
+      "knowsAbout": [
+        "Cybersecurity",
+        "Ethical Hacking",
+        "Penetration Testing",
+        "Web Development",
+        "Network Security",
+        "Digital Forensics",
+        "Python",
+        "JavaScript",
+        "Cyber Law"
+      ],
+      "award": [
+        "Guinness World Records Recognition 2026",
+        "Golden Book of World Records 2026",
+        "Vidyarthi Vigyan Manthan State Rank 4 2025",
+        "National Science Championship All India Rank 7 2026"
+      ],
+      "sameAs": [
+        "https://twitter.com/abhinav_vyom",
+        "https://linkedin.com/in/itzmeabhinavranjan",
+        "https://github.com/ProAbhinavRanjan",
+        "https://instagram.com/itzmeabhinavranjan"
+      ]
+    }
+  },
   "footer": {
     "copyright_name": "Abhinav Ranjan",
     "year": "2026",

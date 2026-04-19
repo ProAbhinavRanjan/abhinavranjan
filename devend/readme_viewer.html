@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README | Full Repository Structure</title>
+    <link rel="stylesheet" href="../frontend/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #050505;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            padding: 3rem;
+            line-height: 1.6;
+        }
+
+        .readme-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .repo-card {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 4rem;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+        }
+
+        .repo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .repo-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .tree-viz {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--primary);
+            overflow-x: auto;
+            color: #10b981;
+        }
+
+        .tree-viz b { color: var(--primary); }
+        .tree-viz i { color: #8b5cf6; font-style: normal; }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover { color: #fff; }
+
+        section {
+            margin-top: 3rem;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .desc-box {
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(255,255,255,0.05);
+            margin-top: 1rem;
+        }
+
+        .desc-item {
+            margin-bottom: 1rem;
+        }
+
+        .desc-item strong { color: var(--accent); }
+    </style>
+</head>
+
+<body>
+    <div class="readme-container">
+        <a href="guest-zone.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Guest Zone</a>
+
+        <div class="repo-card">
+            <h1 class="repo-title" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <span><i class="fas fa-book"></i> PROJECT_README.md</span>
+                <a href="https://github.com/ProAbhinavRanjan" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem; padding: 10px 20px;">
+                    <i class="fab fa-github"></i> GITHUB
+                </a>
+            </h1>
+            <p class="repo-subtitle">High-level architectural overview of the AR. Digital Ecosystem.</p>
+
+            <div class="tree-viz">
+<pre>
+<b>Root/</b>
+|-- index.html (Main Entry)
+|-- manifest.json
+|-- sw.js (PWA Service Worker)
+|
++-- <b>DeveloperNotes/</b> (Study Guides)
+|   |-- blogs.md
+|   |-- configuration.md
+|   |-- css.md
+|   |-- logic.md
+|   |-- lts.md
+|   |-- pages.md
+|   |-- seo_rankings.md
+|   |-- <i>webforms.md</i> (GAS Integration)
+|
++-- <b>devend/</b> (Admin Portal)
+|   |-- index.html
+|   |-- login.html
+|   |-- guest-zone.html
+|   \-- <b>private/keys/</b> (Access Control)
+|
++-- <b>frontend/</b> (App Core)
+|   +-- <b>blogs/</b>
+|   +-- <b>css/</b> (styles.css)
+|   +-- <b>data/</b> (JSON Registry)
+|   +-- <b>html/</b> (Modules)
+|   +-- <b>logic/</b> (JS Handlers)
+|   \-- <b>lts/</b> (Broadcast Hub)
+|
+\-- <b>images/</b> (AR Logo, Profile)</pre>
+            </div>
+
+            <section>
+                <h2>System Overview</h2>
+                <div class="desc-box">
+                    <div class="desc-item">
+                        <strong>DeveloperNotes:</strong> Contains standard operating procedures and technical documentation for frontend orchestration.
+                    </div>
+                    <div class="desc-item">
+                        <strong>DevEnd Portal:</strong> A restricted management layer for system monitoring, log tracking, and live configuration updates.
+                    </div>
+                    <div class="desc-item">
+                        <strong>Frontend Logic:</strong> Modular JavaScript handlers that sync with Google Apps Script (GAS) for serverless form processing.
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

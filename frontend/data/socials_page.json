@@ -1,5 +1,6 @@
 [
     {
+        "id": "website",
         "platform": "Website",
         "handle": "Personal Portfolio",
         "icon": "fas fa-globe",
@@ -7,6 +8,7 @@
         "colorClass": "website"
     },
     {
+        "id": "twitter",
         "platform": "Twitter",
         "handle": "@abhinav_vyom",
         "icon": "fab fa-twitter",
@@ -14,6 +16,7 @@
         "colorClass": "twitter"
     },
     {
+        "id": "linkedin",
         "platform": "LinkedIn",
         "handle": "@itzmeabhinavranjan",
         "icon": "fab fa-linkedin-in",
@@ -21,6 +24,7 @@
         "colorClass": "linkedin"
     },
     {
+        "id": "github",
         "platform": "GitHub",
         "handle": "@ProAbhinavRanjan",
         "icon": "fab fa-github",
@@ -28,6 +32,7 @@
         "colorClass": "github"
     },
     {
+        "id": "instagram",
         "platform": "Instagram",
         "handle": "@itzmeabhinavranjan",
         "icon": "fab fa-instagram",

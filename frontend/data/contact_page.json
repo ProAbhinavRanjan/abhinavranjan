@@ -1,0 +1,8 @@
+{
+  "whatsapp_number": "8294721929",
+  "email": "abhinavranjanmit@gmail.com",
+  "telegram_username": "abhinav_ranjan",
+  "google_script_url": "https://script.google.com/macros/s/AKfycbxk5bTkMwI8ch14TEHtd25ZzOBcC3X8cTmsVX11NXySjfieF7qXAIrXo2jdL6yhlCCt/exec",
+  "routing_department": "General Inquiry",
+  "message_format": "Name: {name};\nEmail: {email};\nPhone: {contactNo};\nMessage: {message};"
+}

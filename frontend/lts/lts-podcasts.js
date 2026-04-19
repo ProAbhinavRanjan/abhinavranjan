@@ -10,8 +10,31 @@
         if (!response.ok) throw new Error('Failed to fetch podcast data');
         const data = await response.json();
 
-        // Renaming/mapping for internal consistency if needed, 
-        // but the JSON already uses 'attendement'
+        // Automatically determine status based on synced time
+        function computeDynamicStatus(dateStr, timeStr) {
+            if (!dateStr || !timeStr) return "ended";
+            
+            // Standardize time zones for robust parsing across browsers (e.g. IST -> GMT+0530)
+            const timeReplaced = timeStr.replace(/IST/i, 'GMT+0530')
+                                      .replace(/EST/i, 'GMT-0500')
+                                      .replace(/PST/i, 'GMT-0800')
+                                      .replace(/UTC/i, 'GMT');
+            
+            const eventTimeMs = Date.parse(`${dateStr} ${timeReplaced}`);
+            if (isNaN(eventTimeMs)) return "ended"; // parsing fallback
+            
+            const durationMs = 3 * 60 * 60 * 1000; // 3 hours window for live
+            const currentTimeMs = window.getSyncedDate ? window.getSyncedDate().getTime() : Date.now();
+            
+            if (currentTimeMs < eventTimeMs) return "upcoming";
+            if (currentTimeMs >= eventTimeMs && currentTimeMs <= (eventTimeMs + durationMs)) return "live";
+            return "ended";
+        }
+
+        data.forEach(p => {
+            p.status = computeDynamicStatus(p.date, p.time);
+        });
+
         window.LTS_PODCASTS = data;
 
         // Dispatch event so HTML pages know data is ready
@@ -21,4 +44,3 @@
         window.LTS_PODCASTS = [];
     }
 })();
-
