@@ -52,6 +52,7 @@
 <meta content="#6366f1" name="theme-color"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../css/styles.css" rel="stylesheet"/>
 <style>
     :root {
       --primary: #6366f1;
@@ -141,9 +142,6 @@
 <span style="font-weight: 700; letter-spacing: 1px; margin-left: 0.5rem; color: var(--primary);">BLOGS</span>
 </a>
 <div style="display: flex; gap: 1.5rem; align-items: center;">
-<a class="back-link" href="https://www.blogger.com/profile/YOUR_ID" style="color: var(--primary); font-weight: 600;" target="_blank">
-<i class="fab fa-blogger"></i> Blogger Profile
-        </a>
 <a class="back-link" href="../../index.html">
 <i class="fas fa-arrow-left"></i> AR. Index
         </a>
@@ -169,7 +167,9 @@
 <!-- Dynamically populated -->
 </div>
 </div>
-<script src="/frontend/logic/blog_library.js"></script>
+<footer class="footer" id="siteFooter"></footer>
+<script defer src="../logic/footer_v105.js"></script>
+<script src="../logic/blog_library.js"></script>
 <script>
     window.addEventListener('load', () => {
       const loader = document.getElementById('loader-wrapper');
