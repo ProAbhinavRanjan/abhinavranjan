@@ -22,14 +22,14 @@
 <meta content="AR. Abhinav Ranjan" property="og:site_name"/>
 <meta content="FAQ — Abhinav Ranjan | Cybersecurity &amp; Luminary Technicals" property="og:title"/>
 <meta content="Frequently asked questions about Abhinav Ranjan — his age, cybersecurity expertise, Luminary Technicals, world records, and how to collaborate." property="og:description"/>
-<meta content="https://abhinavranjan.qzz.io/images/arlogo.png" property="og:image"/>
+<meta content="https://abhinavranjan.qzz.io/images/og-image.png" property="og:image"/>
 <meta content="https://abhinavranjan.qzz.io/frontend/html/moredetails/asked-questions.html" property="og:url"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="@i_abhinavranjanan" name="twitter:site"/>
+<meta content="@arabhinavranjan" name="twitter:site"/>
 <meta content="FAQ — Abhinav Ranjan | Cybersecurity &amp; Luminary Technicals" name="twitter:title"/>
 <meta content="Frequently asked questions about Abhinav Ranjan — cybersecurity, age, projects, world records, and collaborations." name="twitter:description"/>
-<meta content="https://abhinavranjan.qzz.io/images/arlogo.png" name="twitter:image"/>
+<meta content="https://abhinavranjan.qzz.io/images/og-image.png" name="twitter:image"/>
 <script type="application/ld+json">
   {
    "@context": "https://schema.org",
@@ -66,15 +66,18 @@
   }
   </script>
 <script id="faqJsonLd" type="application/ld+json"></script>
-<link href="../../../images/arlogo.png" rel="icon" type="image/png"/>
-<link href="../../../images/arlogo.png" rel="apple-touch-icon"/>
+
+
+<link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
+<link rel="icon" type="image/png" sizes="192x192" href="../../../images/favicon-192x192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../../images/apple-touch-icon.png" />
 <meta content="#6366f1" name="theme-color"/>
 <link href="../../../manifest.json" rel="manifest"/>
 <link href="../../css/styles.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="loader-wrapper">
@@ -142,8 +145,17 @@
 <div class="faq-search-container fade-in-up delay-150">
 <div class="search-wrapper">
 <i class="fas fa-search search-icon"></i>
-<input id="faqSearchInput" placeholder="Search questions or keywords..." type="text"/>
+<input id="faqSearchInput" placeholder="Search questions or keywords..." type="text" autocomplete="off"/>
+<button class="clear-search-btn" id="faqClearSearchBtn" aria-label="Clear Search"><i class="fas fa-times"></i></button>
 </div>
+<div class="glossary-filters" id="faqFilters">
+<button class="filter-pill active" data-filter="all">All Questions</button>
+<button class="filter-pill" data-filter="bio">Identity & Bio</button>
+<button class="filter-pill" data-filter="cyber">Cybersecurity</button>
+<button class="filter-pill" data-filter="luminary">Ecosystem</button>
+<button class="filter-pill" data-filter="skills">Skills & Tools</button>
+</div>
+<div class="glossary-stats" id="faqStats">Showing all questions</div>
 </div>
 <div class="faq-accordion fade-in-up delay-200" id="dynamicFaqAccordion">
 <!-- JS-rendered accordion items will populate here -->

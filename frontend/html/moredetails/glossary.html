@@ -22,14 +22,14 @@
 <meta content="AR. Abhinav Ranjan" property="og:site_name"/>
 <meta content="Ecosystem Glossary — Abhinav Ranjan" property="og:title"/>
 <meta content="Official glossary of terms for the Abhinav Ranjan ecosystem. Learn about DevEnd, LTS Platform, and Luminary Technicals." property="og:description"/>
-<meta content="https://abhinavranjan.qzz.io/images/arlogo.png" property="og:image"/>
+<meta content="https://abhinavranjan.qzz.io/images/og-image.png" property="og:image"/>
 <meta content="https://abhinavranjan.qzz.io/frontend/html/moredetails/glossary.html" property="og:url"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="@i_abhinavranjanan" name="twitter:site"/>
+<meta content="@arabhinavranjan" name="twitter:site"/>
 <meta content="Ecosystem Glossary — Abhinav Ranjan" name="twitter:title"/>
 <meta content="Official glossary of terms for the Abhinav Ranjan ecosystem." name="twitter:description"/>
-<meta content="https://abhinavranjan.qzz.io/images/arlogo.png" name="twitter:image"/>
+<meta content="https://abhinavranjan.qzz.io/images/og-image.png" name="twitter:image"/>
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
   {
@@ -62,15 +62,18 @@
    ]
   }
   </script>
-<link href="../../../images/arlogo.png" rel="icon" type="image/png"/>
-<link href="../../../images/arlogo.png" rel="apple-touch-icon"/>
+
+
+<link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
+<link rel="icon" type="image/png" sizes="192x192" href="../../../images/favicon-192x192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../../../images/apple-touch-icon.png" />
 <meta content="#6366f1" name="theme-color"/>
 <link href="../../../manifest.json" rel="manifest"/>
 <link href="../../css/styles.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../css/all.min.css" rel="stylesheet"/>
 <style>
     .glossary-search-container {
       margin: 2rem auto;
@@ -162,8 +165,20 @@
 <div class="glossary-search-container faq-search-container fade-in-up delay-150">
 <div class="search-wrapper">
 <i class="fas fa-search search-icon"></i>
-<input id="glossarySearchInput" placeholder="Search technical terms or definitions..." type="text"/>
+<input id="glossarySearchInput" placeholder="Search technical terms or definitions..." type="text" autocomplete="off"/>
+<button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i class="fas fa-times"></i></button>
 </div>
+<div class="glossary-filters">
+<button class="filter-pill active" data-category="all">All Terms</button>
+<button class="filter-pill" data-category="Ecosystem">Ecosystem</button>
+<button class="filter-pill" data-category="System Portal">System Portal</button>
+<button class="filter-pill" data-category="Communication">Communication</button>
+<button class="filter-pill" data-category="Artificial Intelligence">AI</button>
+<button class="filter-pill" data-category="Education">Education</button>
+<button class="filter-pill" data-category="Identity Alias">Identity</button>
+<button class="filter-pill" data-category="Heritage">Heritage</button>
+</div>
+<div class="glossary-stats" id="glossaryStats">Showing 7 of 7 terms</div>
 </div>
 <div class="glossary-grid" id="glossaryGrid">
 <div class="glossary-card fade-in-up delay-200">
@@ -202,6 +217,12 @@
 <span class="category-badge">Heritage</span>
 </div>
 </div>
+<div class="no-results-box" id="noResultsBox">
+<i class="fas fa-search-minus"></i>
+<h3>No matching terms found</h3>
+<p>Try searching for a different keyword or click another category filter.</p>
+<button class="btn btn-primary" id="resetSearchBtn">Reset Search</button>
+</div>
 </div>
 </section>
 </main>
@@ -211,24 +232,79 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const searchInput = document.getElementById('glossarySearchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const resetBtn = document.getElementById('resetSearchBtn');
+      const statsEl = document.getElementById('glossaryStats');
+      const noResultsBox = document.getElementById('noResultsBox');
       const cards = document.querySelectorAll('.glossary-card');
+      const filterPills = document.querySelectorAll('.filter-pill');
+
+      let activeCategory = 'all';
+
+      function filterGlossary() {
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        let visibleCount = 0;
+
+        if (clearBtn) {
+          clearBtn.style.display = query.length > 0 ? 'flex' : 'none';
+        }
+
+        cards.forEach(card => {
+          const title = card.querySelector('h3').innerText.toLowerCase();
+          const desc = card.querySelector('p').innerText.toLowerCase();
+          const badge = card.querySelector('.category-badge').innerText;
+
+          const matchesQuery = !query || title.includes(query) || desc.includes(query) || badge.toLowerCase().includes(query);
+          const matchesCategory = activeCategory === 'all' || badge.toLowerCase() === activeCategory.toLowerCase();
+
+          if (matchesQuery && matchesCategory) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (statsEl) {
+          statsEl.innerText = `Showing ${visibleCount} of ${cards.length} terms`;
+        }
+
+        if (noResultsBox) {
+          noResultsBox.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+      }
 
       if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-          const term = e.target.value.toLowerCase().trim();
-          cards.forEach(card => {
-            const title = card.querySelector('h3').innerText.toLowerCase();
-            const desc = card.querySelector('p').innerText.toLowerCase();
-            const badge = card.querySelector('.category-badge').innerText.toLowerCase();
+        searchInput.addEventListener('input', filterGlossary);
+      }
 
-            if (title.includes(term) || desc.includes(term) || badge.includes(term)) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
-            }
-          });
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          searchInput.value = '';
+          filterGlossary();
+          searchInput.focus();
         });
       }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          activeCategory = 'all';
+          filterPills.forEach(p => p.classList.remove('active'));
+          const allPill = document.querySelector('.filter-pill[data-category="all"]');
+          if (allPill) allPill.classList.add('active');
+          filterGlossary();
+        });
+      }
+
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          activeCategory = pill.dataset.category;
+          filterGlossary();
+        });
+      });
     });
   </script>
 </body>

@@ -266,17 +266,57 @@ document.addEventListener('DOMContentLoaded', () => {
                     const noResults = document.createElement('div'); noResults.className = 'no-results-message'; noResults.id = 'faqNoResults'; noResults.innerHTML = `<i class="fas fa-search"></i><p>No questions found matching your search.</p>`;
                     faqAccordion.parentNode.insertBefore(noResults, faqAccordion.nextSibling);
                     const searchInput = document.getElementById('faqSearchInput');
-                    if (searchInput) {
-                        searchInput.addEventListener('input', e => {
-                            const term = e.target.value.toLowerCase().trim();
-                            let hasResults = false;
-                            faqAccordion.querySelectorAll('.faq-item').forEach(item => {
-                                const show = item.querySelector('.faq-question span').innerText.toLowerCase().includes(term) || item.querySelector('.faq-answer p').innerText.toLowerCase().includes(term);
-                                item.style.display = show ? 'block' : 'none'; if (show) hasResults = true;
-                            });
-                            noResults.style.display = hasResults ? 'none' : 'block';
+                    const clearBtn = document.getElementById('faqClearSearchBtn');
+                    const statsEl = document.getElementById('faqStats');
+                    const filterPills = document.querySelectorAll('#faqFilters .filter-pill');
+                    let activeFaqFilter = 'all';
+
+                    function filterFaqs() {
+                        const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                        let visibleCount = 0;
+                        if (clearBtn) clearBtn.style.display = term.length > 0 ? 'flex' : 'none';
+
+                        faqAccordion.querySelectorAll('.faq-item').forEach(item => {
+                            const qText = item.querySelector('.faq-question span').innerText.toLowerCase();
+                            const aText = item.querySelector('.faq-answer p').innerText.toLowerCase();
+                            const matchesTerm = !term || qText.includes(term) || aText.includes(term);
+
+                            let matchesCategory = true;
+                            if (activeFaqFilter === 'bio') {
+                                matchesCategory = qText.includes('who is') || qText.includes('age') || qText.includes('bihar') || qText.includes('from') || qText.includes('routine') || qText.includes('dream');
+                            } else if (activeFaqFilter === 'cyber') {
+                                matchesCategory = qText.includes('cyber') || qText.includes('hacking') || qText.includes('security') || qText.includes('penetration') || qText.includes('malware') || qText.includes('forensics');
+                            } else if (activeFaqFilter === 'luminary') {
+                                matchesCategory = qText.includes('luminary') || qText.includes('ecosystem') || qText.includes('servers') || qText.includes('webs') || qText.includes('projects');
+                            } else if (activeFaqFilter === 'skills') {
+                                matchesCategory = qText.includes('code') || qText.includes('language') || qText.includes('tool') || qText.includes('learn') || qText.includes('teach') || qText.includes('work');
+                            }
+
+                            const show = matchesTerm && matchesCategory;
+                            item.style.display = show ? 'block' : 'none';
+                            if (show) visibleCount++;
+                        });
+
+                        if (statsEl) statsEl.innerText = `Showing ${visibleCount} of ${faqs.length} questions`;
+                        if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                    }
+
+                    if (searchInput) searchInput.addEventListener('input', filterFaqs);
+                    if (clearBtn) {
+                        clearBtn.addEventListener('click', () => {
+                            searchInput.value = '';
+                            filterFaqs();
+                            searchInput.focus();
                         });
                     }
+                    filterPills.forEach(pill => {
+                        pill.addEventListener('click', () => {
+                            filterPills.forEach(p => p.classList.remove('active'));
+                            pill.classList.add('active');
+                            activeFaqFilter = pill.dataset.filter;
+                            filterFaqs();
+                        });
+                    });
                     document.querySelectorAll('.faq-question').forEach(btn => {
                         btn.addEventListener('click', () => {
                             const item = btn.parentElement; const isActive = item.classList.contains('active');

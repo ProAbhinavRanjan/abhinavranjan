@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
-<script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
 
-   gtag('config', 'G-4VR4XZ987L');
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-4VR4XZ987L');
   </script>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AR. Tech | Live Server</title>
-<link href="/images/arlogo.png" rel="icon" type="image/png"/>
-<meta content="Join live podcast sessions by Abhinav Ranjan on the Live Telecast Server." name="description"/>
-<meta content="Live Telecast Server, Abhinav Ranjan, podcasts, cybersecurity panels, live stream" name="keywords"/>
-<link href="https://abhinavranjan.qzz.io/" rel="canonical"/>
-<meta content="website" property="og:type"/>
-<meta content="LTS — Live Telecast Server | Abhinav Ranjan" property="og:title"/>
-<meta content="Join live podcast sessions by Abhinav Ranjan on the Live Telecast Server." property="og:description"/>
-<meta content="https://abhinavranjan.qzz.io/frontend/lts/index.html" property="og:url"/>
-<link href="../../images/arlogo.png" rel="icon" type="image/png"/>
-<link href="../../images/arlogo.png" rel="apple-touch-icon"/>
-<meta content="#6366f1" name="theme-color"/>
-<link href="../../manifest.json" rel="manifest"/>
-<!-- JSON-LD: BroadcastService Schema -->
-<script type="application/ld+json">
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>AR. Tech | Live Server</title>
+  <link href="/images/arlogo.png" rel="icon" type="image/png" />
+  <meta content="Join live podcast sessions by Abhinav Ranjan on the Live Telecast Server." name="description" />
+  <meta content="Live Telecast Server, Abhinav Ranjan, podcasts, cybersecurity panels, live stream" name="keywords" />
+  <link href="https://abhinavranjan.qzz.io" rel="canonical" />
+  <meta content="website" property="og:type" />
+  <meta content="LTS — Live Telecast Server | Abhinav Ranjan" property="og:title" />
+  <meta content="Join live podcast sessions by Abhinav Ranjan on the Live Telecast Server." property="og:description" />
+  <meta content="https://abhinavranjan.qzz.io/frontend/lts/index.html" property="og:url" />
+  <link href="../../images/arlogo.png" rel="icon" type="image/png" />
+  <link href="../../images/arlogo.png" rel="apple-touch-icon" />
+  <meta content="#6366f1" name="theme-color" />
+  <link href="../../manifest.json" rel="manifest" />
+  <!-- JSON-LD: BroadcastService Schema -->
+  <script type="application/ld+json">
   {
    "@context": "https://schema.org",
    "@type": "BroadcastService",
@@ -47,9 +48,9 @@
    }
   }
   </script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="../css/styles.css" rel="stylesheet"/>
-<style>
+  <link href="../css/all.min.css" rel="stylesheet" />
+  <link href="../css/styles.css" rel="stylesheet" />
+  <style>
     :root {
       --lts-primary: #6366f1;
       --lts-accent: #8b5cf6;
@@ -104,13 +105,20 @@
       align-items: center;
       gap: .6rem;
       text-decoration: none;
-      color: #ffffff;    /* AR = always white */
+      color: #ffffff;
+      /* AR = always white */
       font-weight: 800;
       font-size: 1.6rem;
       letter-spacing: -0.5px;
       line-height: 1;
     }
-    .lts-nav .lts-logo .dot { color: #6366f1; font-weight: 800; } /* . = always purple */
+
+    .lts-nav .lts-logo .dot {
+      color: #6366f1;
+      font-weight: 800;
+    }
+
+    /* . = always purple */
 
     .lts-logo-badge {
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
@@ -494,57 +502,76 @@
     }
 
     @keyframes ltsLoaderSpinner {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.1); box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); }
-      100% { transform: rotate(360deg) scale(1); }
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.1);
+        box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+      }
+
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
     }
 
     @keyframes ltsLoaderPulse {
-      0%, 100% { opacity: 0.8; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
+
+      0%,
+      100% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
     }
   </style>
 </head>
+
 <body>
-<div id="loader-wrapper">
-<div class="loader-content">
-<div class="loader-spinner"></div>
-<div class="loader-text">Loading Excellence...</div>
-</div>
-</div>
-<nav class="lts-nav">
-<a class="lts-logo" href="/frontend/lts/index.html">
+  <div id="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Loading Excellence...</div>
+    </div>
+  </div>
+  <nav class="lts-nav">
+    <a class="lts-logo" href="/frontend/lts/index.html">
       AR<span class="dot" style="color:#6366f1;">.</span>
-<span class="lts-logo-text">Live Telecast Server</span>
-</a>
-<a class="lts-nav-back" href="/">
-<i class="fas fa-arrow-left"></i> Main Site
+      <span class="lts-logo-text">Live Telecast Server</span>
     </a>
-</nav>
-<div class="lts-hero">
-<div class="lts-live-dot">Live Podcast Platform</div>
-<h1>Live Telecast Server</h1>
-<p>Join live podcast sessions, Q&amp;A rooms, and exclusive discussions hosted by Abhinav Ranjan.</p>
-</div>
-<main class="lts-main">
-<div id="lts-live-section">
-<div class="lts-section-label">🔴 Live Now</div>
-<div class="lts-grid" id="lts-live-grid"></div>
-</div>
-<div id="lts-upcoming-section">
-<div class="lts-section-label">🕒 Upcoming</div>
-<div class="lts-grid" id="lts-upcoming-grid"></div>
-</div>
-<div id="lts-ended-section">
-<div class="lts-section-label">📁 Past Sessions</div>
-<div class="lts-grid" id="lts-ended-grid"></div>
-</div>
-</main>
-<footer class="footer" id="siteFooter"></footer>
-<script defer src="../logic/footer_v105.js"></script>
-<script src="/frontend/logic/time_sync.js"></script>
-<script src="/frontend/lts/lts-podcasts.js"></script>
-<script>
+    <a class="lts-nav-back" href="/">
+      <i class="fas fa-arrow-left"></i> Main Site
+    </a>
+  </nav>
+  <div class="lts-hero">
+    <div class="lts-live-dot">Live Podcast Platform</div>
+    <h1>Live Telecast Server</h1>
+    <p>Join live podcast sessions, Q&amp;A rooms, and exclusive discussions hosted by Abhinav Ranjan.</p>
+  </div>
+  <main class="lts-main">
+    <div id="lts-live-section">
+      <div class="lts-section-label">🔴 Live Now</div>
+      <div class="lts-grid" id="lts-live-grid"></div>
+    </div>
+    <div id="lts-upcoming-section">
+      <div class="lts-section-label">🕒 Upcoming</div>
+      <div class="lts-grid" id="lts-upcoming-grid"></div>
+    </div>
+    <div id="lts-ended-section">
+      <div class="lts-section-label">📁 Past Sessions</div>
+      <div class="lts-grid" id="lts-ended-grid"></div>
+    </div>
+  </main>
+  <footer class="footer" id="siteFooter"></footer>
+  <script defer src="../logic/footer_v105.js"></script>
+  <script src="/frontend/logic/time_sync.js"></script>
+  <script src="/frontend/lts/lts-podcasts.js"></script>
+  <script>
     function buildCard(podcast) {
       const isEnded = podcast.status === 'ended';
       const isLive = podcast.status === 'live';
@@ -636,4 +663,5 @@
     });
   </script>
 </body>
+
 </html>

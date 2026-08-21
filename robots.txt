@@ -3,8 +3,8 @@ Allow: /
 Allow: /frontend/
 Allow: /DeveloperNotes/
 
-# Block internal/live-streaming views from indexing
-Disallow: /frontend/lts/
+# Block internal/live-streaming room views from indexing
+Disallow: /frontend/lts/lts-room.html
 Disallow: /offline.html
 
 # Block secure developer dashboard panel views from crawling

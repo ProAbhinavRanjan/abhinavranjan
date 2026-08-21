@@ -50,6 +50,11 @@
     Cache-Control = "public, max-age=604800"
 
 [[headers]]
+  for = "/frontend/webfonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=86400"
