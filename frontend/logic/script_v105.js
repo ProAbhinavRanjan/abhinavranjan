@@ -301,12 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.observeNewCards) window.observeNewCards();
             }
 
-            /* 10. Render Footer */
-            const siteFooter = document.getElementById('siteFooter');
-            if (siteFooter && data.footer) {
-                const f = data.footer;
-                siteFooter.innerHTML = `<div class="container footer-container"><p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p><div class="footer-links">${(f.links||[]).map(l=>`<a href="${l.url}">${l.label}</a>`).join('')}</div></div>`;
-            }
+            /* 10. Render Footer (Disabled - using footer_v105.js instead) */
+            // const siteFooter = document.getElementById('siteFooter');
+            // if (siteFooter && data.footer) {
+            //     const f = data.footer;
+            //     siteFooter.innerHTML = `<div class="container footer-container"><p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p><div class="footer-links">${(f.links||[]).map(l=>`<a href="${l.url}">${l.label}</a>`).join('')}</div></div>`;
+            // }
 
             /* 11. Profile image */
             const profileImg = document.getElementById('profileImg');

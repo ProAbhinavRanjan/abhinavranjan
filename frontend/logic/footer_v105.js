@@ -20,8 +20,11 @@
     if (!footerEl) {
       footerEl = document.createElement('footer');
       footerEl.id = 'siteFooter';
-      footerEl.className = 'footer';
       document.body.appendChild(footerEl);
+    }
+    // Always ensure the footer class is applied for styling
+    if (!footerEl.classList.contains('footer')) {
+      footerEl.classList.add('footer');
     }
 
     const prefix = getPathPrefix();
@@ -54,7 +57,7 @@
             </ul>
           </div>
 
-          <!-- Col 3: Ecosystem & Resources -->
+          <!-- Col 3: Ecosystem -->
           <div class="footer-col">
             <h4 class="footer-title">Ecosystem</h4>
             <ul class="footer-links">
@@ -65,19 +68,24 @@
               <li><a href="${prefix}frontend/html/moredetails/asked-questions.html"><i class="fas fa-chevron-right"></i> FAQ</a></li>
             </ul>
           </div>
-        </div>
 
-        <!-- Bottom Bar -->
-        <div class="footer-bottom-wrapper">
-          <div class="footer-pill-links">
-            <a href="${prefix}frontend/html/moredetails/privacy-policy.html" class="footer-pill-btn">Privacy Policy</a>
-            <a href="${prefix}frontend/html/moredetails/terms-and-conditions.html" class="footer-pill-btn">Terms & Conditions</a>
-            <a href="${prefix}frontend/html/moredetails/glossary.html" class="footer-pill-btn">Glossary</a>
-            <a href="${prefix}devend/index.html" class="footer-pill-btn dev-btn"><i class="fas fa-terminal"></i> Dev Portal</a>
-          </div>
-          <div class="footer-copyright-row">
-            <p>© ${new Date().getFullYear()} AR. Abhinav Ranjan. All Rights Reserved.</p>
-            <button id="scrollToTopBtn" aria-label="Back to Top" title="Back to Top"><i class="fas fa-arrow-up"></i> Top</button>
+          <!-- Col 4: Action Buttons & Copyright -->
+          <div class="footer-col footer-action-col">
+            <div class="footer-pill-links">
+              <a href="${prefix}frontend/html/moredetails/privacy-policy.html" class="footer-pill-btn">Privacy Policy</a>
+              <a href="${prefix}frontend/html/moredetails/terms-and-conditions.html" class="footer-pill-btn">Terms & Conditions</a>
+              <a href="${prefix}frontend/html/moredetails/glossary.html" class="footer-pill-btn">Glossary</a>
+            </div>
+            <div class="footer-pill-links-center">
+              <a href="${prefix}devend/index.html" class="footer-pill-btn dev-btn"><span class="dev-icon">&gt;_</span> Dev Portal</a>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-copyright-row">
+              <p>© ${new Date().getFullYear()} AR. Abhinav Ranjan. All Rights Reserved.</p>
+              <button id="scrollToTopBtn" aria-label="Back to Top" title="Back to Top"><i class="fas fa-arrow-up"></i> Top</button>
+            </div>
           </div>
         </div>
       </div>

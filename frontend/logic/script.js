@@ -257,24 +257,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.observeNewCards) window.observeNewCards();
             }
 
-            // Render Footer (all pages)
-            const siteFooter = document.getElementById('siteFooter');
-            if (siteFooter && data.footer) {
-                const f = data.footer;
-                const linksHTML = (f.links || []).map(l => {
-                    let url = l.url;
-                    if (url !== '#' && !url.startsWith('http') && !url.startsWith('/')) {
-                        url = baseDir + url;
-                    }
-                    return `<a href="${url}">${l.label}</a>`;
-                }).join('');
-                siteFooter.innerHTML = `
-                    <div class="container footer-container">
-                        <p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p>
-                        <div class="footer-links">${linksHTML}</div>
-                    </div>
-                `;
-            }
+            // Render Footer (Disabled - using footer_v105.js instead)
+            // const siteFooter = document.getElementById('siteFooter');
+            // if (siteFooter && data.footer) {
+            //     const f = data.footer;
+            //     const linksHTML = (f.links || []).map(l => {
+            //         let url = l.url;
+            //         if (url !== '#' && !url.startsWith('http') && !url.startsWith('/')) {
+            //             url = baseDir + url;
+            //         }
+            //         return `<a href="${url}">${l.label}</a>`;
+            //     }).join('');
+            //     siteFooter.innerHTML = `
+            //         <div class="container footer-container">
+            //             <p>&copy; ${f.year} ${f.copyright_name}. All rights reserved.</p>
+            //             <div class="footer-links">${linksHTML}</div>
+            //         </div>
+            //     `;
+            // }
+
 
             // Profile Image (About Page)
             const profileImg = document.getElementById('profileImg');
