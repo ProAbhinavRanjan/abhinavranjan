@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
 <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
-
-   gtag('config', 'G-4VR4XZ987L');
-  </script>
+   window.addEventListener('load', () => {
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'G-4VR4XZ987L');
+   });
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Projects | AR. Abhinav Ranjan</title>
+<link rel="stylesheet" href="../css/outfit-font.css" />
 <meta content="Discover digital projects and innovations built by Abhinav Ranjan — including Luminary Servers, Luminary Webs, AgroScan AI, and cybersecurity tools under the Luminary Technicals ecosystem." name="description"/>
 <link href="https://abhinavranjan.qzz.io/frontend/html/projects.html" rel="canonical"/>
 <meta content="Abhinav Ranjan projects, AgroScan AI, Luminary Servers, cybersecurity tools, web development portfolio, machine learning project, Abhinav Ranjan, itzmeabhinavranjan, Luminary Technicals, Muzaffarpur Bihar India" name="keywords"/>
@@ -31,16 +32,12 @@
 <meta content="Discover digital projects built by Abhinav Ranjan — Luminary Servers, AgroScan AI, and more." name="twitter:description"/>
 <meta content="https://abhinavranjan.qzz.io/images/og-image.png" name="twitter:image"/>
 
-
 <link rel="icon" type="image/x-icon" href="../../favicon.ico" />
 <link rel="icon" type="image/png" sizes="192x192" href="../../images/favicon-192x192.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon.png" />
 <meta content="#6366f1" name="theme-color"/>
 <link href="../../manifest.json" rel="manifest"/>
 <link href="../css/styles.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="../css/all.min.css" rel="stylesheet"/>
 <!-- JSON-LD: SoftwareApplication Schemas -->
 <script type="application/ld+json">
@@ -67,7 +64,7 @@
     "name": "AR. Abhinav Ranjan & Luminary Developers"
    }
   }]
-  </script>
+</script>
 </head>
 <body>
 <div id="loader-wrapper">
@@ -85,10 +82,12 @@
 <ul class="nav-list">
 <li><a class="nav-link" href="../../index.html">Home</a></li>
 <li><a class="nav-link" href="about.html">About</a></li>
+<li><a class="nav-link" href="research.html">Research</a></li>
 <li><a class="nav-link active" href="projects.html">Projects</a></li>
+<li><a class="nav-link" href="../blogs/index.html">Tech Blogs</a></li>
 <li><a class="nav-link" href="biography.html">Biography</a></li>
 <li><a class="nav-link" href="socials.html">Socials</a></li>
-<li><a class="nav-link" href="winnings.html">Winnings</a></li>
+<li><a class="nav-link" href="winnings.html">Achievements</a></li>
 <li><a class="nav-link" href="contact.html">Contact</a></li>
 </ul>
 <div class="hamburger" id="hamburger">
@@ -103,9 +102,7 @@
 <section class="section projects" id="projects">
 <div class="container">
 <h1 class="section-title fade-in-up">Featured Projects</h1>
-<p class="section-subtitle fade-in-up delay-100">Real innovations created by Abhinav and his company
-          Luminary
-          Technicals.</p>
+<p class="section-subtitle fade-in-up delay-100">Innovations spanning software engineering, cybersecurity research, and web platforms.</p>
 <!-- Static prerender for search bots (visually hidden) -->
 <div aria-hidden="true" id="staticProjectsPrerender" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
 <div class="grid projects-grid" id="dynamicProjectsGrid">
@@ -113,6 +110,7 @@
 </div>
 </div>
 </section>
+</main>
 <footer class="footer" id="siteFooter"></footer>
 <script defer src="../logic/footer_v105.js"></script>
 <script defer="" src="../logic/script_v105.js"></script>
@@ -124,6 +122,6 @@
           .catch(error => console.log('❌ SW registration failed:', error));
       });
     }
-  </script>
+</script>
 </body>
 </html>

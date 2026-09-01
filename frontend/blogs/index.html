@@ -5,32 +5,35 @@
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
 <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
-
-   gtag('config', 'G-4VR4XZ987L');
-  </script>
+   window.addEventListener('load', () => {
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'G-4VR4XZ987L');
+   });
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AR. Abhinav Ranjan | Technical Blogs &amp; Insights</title>
-<link href="/images/arlogo.png" rel="icon" type="image/png"/>
-<meta content="Explore authoritative articles on cybersecurity, software engineering, and digital sovereignty by Abhinav Ranjan, founder of Luminary Technicals." name="description"/>
+<title>Technical Blogs &amp; Insights | AR. Abhinav Ranjan</title>
+<meta content="Explore authoritative articles on cybersecurity, software engineering, AI governance, and digital sovereignty by Abhinav Ranjan, founder of Luminary Technicals." name="description"/>
 <meta content="Abhinav Ranjan, tech blogs, cybersecurity research, ethical hacking, digital sovereignty, Luminary Technicals, software development, tech educator India" name="keywords"/>
 <link href="https://abhinavranjan.qzz.io/frontend/blogs/index.html" rel="canonical"/>
+
 <!-- Open Graph -->
 <meta content="website" property="og:type"/>
 <meta content="AR. Abhinav Ranjan" property="og:site_name"/>
-<meta content="Tech Blogs | Abhinav Ranjan — Cybersecurity &amp; Development" property="og:title"/>
-<meta content="Explore insights on cybersecurity, ethical hacking, software development, and digital innovation in the official blog of Abhinav Ranjan." property="og:description"/>
+<meta content="Tech Blogs &amp; Insights | Abhinav Ranjan — Cybersecurity &amp; Systems" property="og:title"/>
+<meta content="Explore insights on cybersecurity, WebRTC architecture, AI governance, and digital sovereignty in the official tech blog of Abhinav Ranjan." property="og:description"/>
 <meta content="https://abhinavranjan.qzz.io/images/og-image.png" property="og:image"/>
 <meta content="https://abhinavranjan.qzz.io/frontend/blogs/index.html" property="og:url"/>
+
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="@arabhinavranjan" name="twitter:site"/>
 <meta content="Tech Blogs | Abhinav Ranjan" name="twitter:title"/>
-<meta content="Cybersecurity, ethical hacking, and web development articles by Abhinav Ranjan." name="twitter:description"/>
+<meta content="Cybersecurity, AI governance, and system engineering articles by Abhinav Ranjan." name="twitter:description"/>
 <meta content="https://abhinavranjan.qzz.io/images/og-image.png" name="twitter:image"/>
+
 <!-- JSON-LD Blog Schema -->
 <script type="application/ld+json">
   {
@@ -38,146 +41,294 @@
    "@type": "Blog",
    "name": "Tech Blogs by Abhinav Ranjan",
    "url": "https://abhinavranjan.qzz.io/frontend/blogs/index.html",
-   "description": "Cybersecurity, ethical hacking, and web development articles by Abhinav Ranjan.",
+   "description": "Cybersecurity, AI governance, and software architecture articles by AR. Abhinav Ranjan.",
    "author": {
     "@type": "Person",
     "name": "AR. Abhinav Ranjan & Luminary Developers",
     "url": "https://abhinavranjan.qzz.io/"
    }
   }
-  </script>
-<link href="../../images/arlogo.png" rel="icon" type="image/png"/>
-<link href="../../images/arlogo.png" rel="apple-touch-icon"/>
-<link href="../../manifest.json" rel="manifest"/>
+</script>
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 <meta content="#6366f1" name="theme-color"/>
-<link href="../css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="../css/styles.css" rel="stylesheet"/>
+<link href="/manifest.json" rel="manifest"/>
+<link href="/frontend/css/outfit-font.css" rel="stylesheet"/>
+<link href="/frontend/css/styles.css" rel="stylesheet"/>
+<link href="/frontend/css/all.min.css" rel="stylesheet"/>
+
 <style>
-    :root {
-      --primary: #6366f1;
-      --accent: #8b5cf6;
-      --bg: #05050f;
-      --card-bg: rgba(18, 18, 30, 0.85);
-      --text: #fff;
-      --text-muted: rgba(255, 255, 255, 0.6);
-      --border: rgba(255, 255, 255, 0.1);
+  /* Blog Page Specific Enhancements aligned with Global Theme */
+  .blog-controls-wrapper {
+    max-width: 680px;
+    margin: 0 auto 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .blog-search-box {
+    position: relative;
+    width: 100%;
+  }
+
+  .blog-search-box input {
+    width: 100%;
+    padding: 1.1rem 1.5rem 1.1rem 3.2rem;
+    background: var(--card-bg, #121212);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 50px;
+    color: var(--text-main, #ffffff);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all var(--transition-fast, 0.2s ease);
+  }
+
+  .blog-search-box input:focus {
+    border-color: var(--primary, #6366f1);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+  }
+
+  .blog-search-box i {
+    position: absolute;
+    left: 1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted, #a1a1aa);
+    pointer-events: none;
+  }
+
+  .blog-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-filter-btn {
+    padding: 0.55rem 1.3rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, #27272a);
+    color: var(--text-muted, #a1a1aa);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast, 0.2s ease);
+  }
+
+  .blog-filter-btn:hover,
+  .blog-filter-btn.active {
+    background: var(--primary, #6366f1);
+    color: #ffffff;
+    border-color: var(--primary, #6366f1);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  }
+
+  .blog-stats-counter {
+    text-align: center;
+    color: var(--text-muted, #a1a1aa);
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+  }
+
+  /* Cards Grid */
+  .blogs-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2.2rem;
+    margin-bottom: 5rem;
+  }
+
+  .blog-card {
+    background: var(--card-bg, #121212);
+    border: 1px solid var(--border, #27272a);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-medium, 0.3s ease), border-color var(--transition-medium, 0.3s ease), box-shadow var(--transition-medium, 0.3s ease);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
+  }
+
+  .blog-card-img {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+    background: #0d0d14;
+  }
+
+  .blog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-card:hover .blog-card-img img {
+    transform: scale(1.08);
+  }
+
+  .blog-category {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.8rem;
+    background: var(--primary, #6366f1);
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .blog-card-content {
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .blog-date {
+    font-size: 0.85rem;
+    color: var(--primary, #6366f1);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .blog-card-content h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+    color: var(--text-main, #ffffff);
+  }
+
+  .blog-card-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted, #a1a1aa);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .blog-card-footer {
+    color: var(--primary, #6366f1);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .blog-card-footer i {
+    transition: transform var(--transition-fast, 0.2s ease);
+  }
+
+  .blog-card:hover .blog-card-footer i {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 768px) {
+    .blogs-grid-container {
+      grid-template-columns: 1fr;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
-
-    /* Background effects */
-    .bg-glow {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: 
-        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
-      z-index: -1; pointer-events: none;
-    }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-
-    /* Navigation */
-    .nav {
-      padding: 1.5rem 0; border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #fff; }
-    .logo-box { background: var(--primary); padding: 0.4rem 0.6rem; border-radius: 8px; font-weight: 800; font-size: 0.9rem; }
-    .back-link { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: color 0.3s; }
-    .back-link:hover { color: #fff; }
-
-    /* Header */
-    .header { padding: 5rem 0 3rem; text-align: center; }
-    .header h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-    .header p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
-
-    /* Listing Controls */
-    .controls { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
-    .search-bar { position: relative; max-width: 500px; margin: 0 auto; width: 100%; }
-    .search-bar input { width: 100%; padding: 1.2rem 1.5rem 1.2rem 3.5rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-family: inherit; font-size: 1rem; outline: none; transition: border-color 0.3s; }
-    .search-bar i { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .search-bar input:focus { border-color: var(--primary); }
-
-    .filters { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .filter-btn { padding: 0.6rem 1.4rem; border-radius: 50px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text-muted); font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
-    .filter-btn:hover, .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-
-    /* Blog Grid */
-    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2.5rem; margin-bottom: 5rem; }
-    .blog-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-    .blog-card:hover { transform: translateY(-10px); border-color: rgba(99, 102, 241, 0.5); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
-    .blog-card-img { width: 100%; height: 220px; overflow: hidden; position: relative; }
-    .blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .blog-card:hover .blog-card-img img { transform: scale(1.1); }
-    .blog-category { position: absolute; top: 1.2rem; right: 1.2rem; padding: 0.4rem 0.8rem; background: var(--primary); border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
-    
-    .blog-card-content { padding: 1.5rem; }
-    .blog-date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; display: block; }
-    .blog-card-content h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.4; color: #fff; }
-    .blog-card-content p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .blog-card-footer { color: var(--primary); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
-
-    /* Loader */
-    #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #05050f; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s; }
-    .loader-spinner { width: 50px; height: 50px; border: 3px solid rgba(99, 102, 241, 0.1); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s infinite linear; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    @media (max-width: 768px) {
-      .blog-grid { grid-template-columns: 1fr; }
-      .header { padding: 3rem 0; }
-    }
-  </style>
+  }
+</style>
 </head>
+
 <body>
 <div id="loader-wrapper">
-<div class="loader-spinner"></div>
+  <div class="loader-content">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Loading Excellence...</div>
+  </div>
 </div>
-<div class="bg-glow"></div>
-<div class="container">
-<nav class="nav">
-<a aria-label="AR. Abhinav Ranjan Home" class="logo" href="/">
-        AR<span class="dot">.</span>
-<span style="font-weight: 700; letter-spacing: 1px; margin-left: 0.5rem; color: var(--primary);">BLOGS</span>
-</a>
-<div style="display: flex; gap: 1.5rem; align-items: center;">
-<a class="back-link" href="../../index.html">
-<i class="fas fa-arrow-left"></i> AR. Index
-        </a>
-</div>
-</nav>
+
 <header class="header">
-<h1>Tech Stories by Abhinav Ranjan</h1>
-<p>Thoughtful discussions on cybersecurity, system design, and technology ventures by Abhinav Ranjan.</p>
+  <div class="container nav-container">
+    <a aria-label="AR. Abhinav Ranjan Home" class="logo" href="../../index.html">
+      AR<span class="dot">.</span>
+    </a>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a class="nav-link" href="../../index.html">Home</a></li>
+        <li><a class="nav-link" href="../html/about.html">About</a></li>
+        <li><a class="nav-link" href="../html/research.html">Research</a></li>
+        <li><a class="nav-link" href="../html/projects.html">Projects</a></li>
+        <li><a class="nav-link active" href="index.html">Tech Blogs</a></li>
+        <li><a class="nav-link" href="../html/biography.html">Biography</a></li>
+        <li><a class="nav-link" href="../html/socials.html">Socials</a></li>
+        <li><a class="nav-link" href="../html/winnings.html">Achievements</a></li>
+        <li><a class="nav-link" href="../html/contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </nav>
+  </div>
 </header>
-<section class="controls">
-<div class="search-bar">
-<i class="fas fa-search"></i>
-<input id="blogSearch" placeholder="Search by topic or keyword..." type="text"/>
-</div>
-<div class="filters">
-<button class="filter-btn active" data-category="all">All Entries</button>
-<button class="filter-btn" data-category="Technology">Technology</button>
-<button class="filter-btn" data-category="Innovation">Innovation</button>
-<button class="filter-btn" data-category="Business">Business</button>
-</div>
-</section>
-<div class="blog-grid" id="blogGrid">
-<!-- Dynamically populated -->
-</div>
-</div>
+
+<main>
+  <section class="section" id="blogs">
+    <div class="container">
+      <h1 class="section-title fade-in-up">Technical Blogs &amp; Insights</h1>
+      <p class="section-subtitle fade-in-up delay-100">Authoritative papers, engineering breakdowns, cybersecurity research, and architectural insights by AR. Abhinav Ranjan.</p>
+
+      <!-- Controls & Search -->
+      <div class="blog-controls-wrapper fade-in-up delay-150">
+        <div class="blog-search-box">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input id="blogSearch" placeholder="Search publications, topics, or keywords..." type="text" aria-label="Search articles"/>
+        </div>
+        <div class="blog-filters">
+          <button class="blog-filter-btn filter-btn active" data-category="all">All Articles</button>
+          <button class="blog-filter-btn filter-btn" data-category="Technology">Technology</button>
+          <button class="blog-filter-btn filter-btn" data-category="Innovation">Innovation</button>
+          <button class="blog-filter-btn filter-btn" data-category="Research">Research</button>
+          <button class="blog-filter-btn filter-btn" data-category="Business">Business</button>
+        </div>
+        <div class="blog-stats-counter" id="blogStats">Showing articles</div>
+      </div>
+
+      <!-- Blog Grid Dynamically Loaded -->
+      <div class="blogs-grid-container" id="blogGrid">
+        <!-- Dynamically populated by blog_library.js -->
+      </div>
+    </div>
+  </section>
+</main>
+
 <footer class="footer" id="siteFooter"></footer>
 <script defer src="../logic/footer_v105.js"></script>
+<script defer="" src="../logic/script_v105.js"></script>
 <script src="../logic/blog_library.js"></script>
 <script>
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader-wrapper');
-      if (loader) {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 500);
-      }
-    });
-  </script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('✅ SW registered:', registration))
+          .catch(error => console.log('❌ SW registration failed:', error));
+      });
+    }
+</script>
 </body>
 </html>

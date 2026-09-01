@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Article | AR. Abhinav Ranjan</title>
+  <link rel="stylesheet" href="../css/outfit-font.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/all.min.css" />
+</head>
+<body>
+  <!-- Header / Navigation (reuse same as other pages) -->
+  <header class="header">
+    <div class="container nav-container">
+      <a aria-label="AR. Abhinav Ranjan Home" class="logo" href="/">
+        AR<span class="dot">.</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="research.html">Research</a></li>
+          <li><a class="nav-link" href="projects.html">Projects</a></li>
+          <li><a class="nav-link" href="tech-blogs.html">Tech Blogs</a></li>
+          <li><a class="nav-link" href="biography.html">Biography</a></li>
+          <li><a class="nav-link" href="socials.html">Socials</a></li>
+          <li><a class="nav-link" href="winnings.html">Achievements</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="article-section" id="article">
+      <div class="container" id="articleContainer">
+        <!-- Content will be injected by script -->
+        <p>Loading article...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="siteFooter"></footer>
+
+  <script>
+    // Simple utility to get query param
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const articleId = getQueryParam('id');
+    if (articleId) {
+      fetch('../assets/data/blogs.json')
+        .then(res => res.json())
+        .then(blogs => {
+          const blog = blogs.find(b => b.id === articleId);
+          const container = document.getElementById('articleContainer');
+          if (blog && container) {
+            container.innerHTML = `
+              <h1>${blog.title}</h1>
+              <div class="blog-content">${blog.content}</div>
+            `;
+          } else if (container) {
+            container.innerHTML = '<p>Article not found.</p>';
+          }
+        })
+        .catch(err => {
+          console.error('Failed to load blog data', err);
+          const container = document.getElementById('articleContainer');
+          if (container) container.innerHTML = '<p>Error loading article.</p>';
+        });
+    } else {
+      document.getElementById('articleContainer').innerHTML = '<p>No article ID specified.</p>';
+    }
+  </script>
+
+  <script defer src="../frontend/logic/footer_v105.js"></script>
+  <script defer src="../frontend/logic/script_v105.js?v=1.1.0"></script>
+</body>
+</html>

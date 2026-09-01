@@ -1,15 +1,38 @@
-<p>Building the Live Telecast Server (LTS) was one of my most ambitious technical challenges. The goal was simple yet complex: create a platform for real-time discussions that is both secure and highly performant.</p>
+<p class="lead" style="font-size: 1.25rem; line-height: 1.8; color: #e2e8f0; margin-bottom: 2rem;">
+  The Live Telecast Server (LTS) Platform was engineered to solve a specific challenge within the Luminary Technicals ecosystem: delivering ultra-low-latency, interactive telecasting, peer-to-peer Q&A rooms, and developer broadcasts without relying on proprietary third-party streaming monopolies.
+</p>
 
-<h2>The Technical Architecture</h2>
-<p>LTS leverages <strong>WebRTC</strong> for low-latency streaming and <strong>Socket.io</strong> for real-time signaling. The backend is designed with a microservices approach to ensure scalability even during high-traffic podcast sessions.</p>
+<h2>1. Architectural Overview & WebRTC Mesh Topology</h2>
+<p>
+  Traditional streaming architectures rely heavily on RTMP ingestion nodes coupled with HTTP Live Streaming (HLS) distribution. While scalable, HLS introduces end-to-end latencies ranging from 6 to 30 seconds—making real-time technical Q&A and joint code debugging impossible.
+</p>
 
-<blockquote>
-  "Real-time communication is the backbone of the modern digital ecosystem. With LTS, we are bridging the gap between developers and innovators."
-</blockquote>
+<p>
+  LTS leverages a hybrid WebRTC topology. For direct interactive breakout rooms, connections establish a mesh P2P network. For broadcast telecasts, signal distribution transitions through a dynamic Selective Forwarding Unit (SFU) built on Node.js and WebSocket signaling pipelines.
+</p>
 
-<h2>Overcoming Challenges</h2>
-<p>One of the biggest hurdles was ensuring high-quality audio and video delivery across varying network conditions. We implemented dynamic bitrate adaptation and advanced noise cancellation protocols to maintain a premium user experience.</p>
+<div style="background: rgba(18, 18, 30, 0.9); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 16px; padding: 2rem; margin: 2rem 0;">
+  <h4 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">LTS Telemetry & Performance Standards:</h4>
+  <ul style="margin-left: 1.5rem; color: #cbd5e1; line-height: 1.8;">
+    <li><strong style="color: #fff;">Latency Target:</strong> &lt; 200ms glass-to-glass global latency.</li>
+    <li><strong style="color: #fff;">Signaling Protocol:</strong> Secure WebSockets (WSS) with JWT peer authentication.</li>
+    <li><strong style="color: #fff;">Codec Compression:</strong> VP9 video encoding with Opus audio bitrate adaptation.</li>
+    <li><strong style="color: #fff;">STUN/TURN Fallback:</strong> Multi-region ICE candidate gathering for restrictive NAT environments.</li>
+  </ul>
+</div>
 
-<p>Security was another priority. Every session is encrypted end-to-end, and our "Device Check" system (Attendement) ensures that only verified hardware can access private rooms.</p>
+<h2>2. Security & Identity Verification in Live Channels</h2>
+<p>
+  Live telecasting platform integrity requires proactive security against room hijacking and unauthorized signal insertion. LTS incorporates zero-trust peer validation:
+</p>
 
-<p>The journey of building LTS continues, and I am excited to see how it evolves with the feedback from our growing community. 🌐</p>
+<ul style="margin: 1.5rem 0 2rem 2rem; color: var(--text-muted); line-height: 1.8;">
+  <li><strong style="color: #fff;">Cryptographic Session Tokens:</strong> Short-lived HMAC tokens required for ICE candidate exchanges.</li>
+  <li><strong style="color: #fff;">Encrypted Media Streams:</strong> Mandatory DTLS-SRTP encryption across all audio, video, and data channels.</li>
+  <li><strong style="color: #fff;">Role-Based Channel Permissions:</strong> Granular moderator controls allowing dynamic mute, kick, and screen-sharing authorization.</li>
+</ul>
+
+<h2>3. Future Expansion: Interactive Code Sandbox Integration</h2>
+<p>
+  The next iteration of LTS integrates a WebAssembly-powered real-time code execution sandbox directly alongside the video broadcast feed. This will allow audience participants during Luminary Technicals workshops to fork live code instances and execute scripts locally in sandbox environments.
+</p>

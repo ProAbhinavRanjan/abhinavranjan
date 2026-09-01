@@ -33,15 +33,20 @@
 
     function renderBlogIndex(posts) {
         const grid = document.getElementById('blogGrid');
+        const stats = document.getElementById('blogStats');
         if (!grid) return;
 
+        if (stats) {
+            stats.innerText = `Showing ${posts.length} of ${ALL_POSTS.length} articles`;
+        }
+
         if (posts.length === 0) {
-            grid.innerHTML = '<div class="empty-state">No stories found matching your criteria.</div>';
+            grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 4rem 0; color: var(--text-muted);">No articles found matching your query.</div>';
             return;
         }
 
         grid.innerHTML = posts.map(post => `
-            <a href="/frontend/blogs/post.html?id=${post.id}" class="blog-card fade-in-up">
+            <a href="/frontend/blogs/${post.slug}.html" class="blog-card fade-in-up">
                 <div class="blog-card-img">
                     <img src="${post.image}" alt="${post.title}" loading="lazy">
                     <span class="blog-category">${post.category}</span>
@@ -51,11 +56,17 @@
                     <h3>${post.title}</h3>
                     <p>${post.excerpt}</p>
                     <div class="blog-card-footer">
-                        <span class="read-more">Read Entry <i class="fas fa-arrow-right"></i></span>
+                        <span class="read-more">Read Publication <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
             </a>
         `).join('');
+
+        if (window.observeNewCards) {
+            window.observeNewCards();
+        } else {
+            document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+        }
     }
 
     function setupFilters() {
@@ -64,10 +75,11 @@
 
         if (searchInput) {
             searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
+                const term = e.target.value.toLowerCase().trim();
                 const filtered = ALL_POSTS.filter(p => 
                     (p.title || '').toLowerCase().includes(term) || 
-                    (p.excerpt || '').toLowerCase().includes(term)
+                    (p.excerpt || '').toLowerCase().includes(term) ||
+                    (p.tags || []).some(t => t.toLowerCase().includes(term))
                 );
                 renderBlogIndex(filtered);
             });
@@ -87,13 +99,16 @@
     // ── SINGLE POST LOGIC ──────────────────────────────────────────────────
 
     async function renderSinglePost() {
-        const params = new URLSearchParams(window.location.search);
-        const postId = params.get('id');
-        const post = ALL_POSTS.find(p => p.id === postId);
+        // Extract slug from the filename (e.g., past-life.html)
+        const pathSegments = window.location.pathname.split('/');
+        const fileName = pathSegments[pathSegments.length - 1];
+        const slug = fileName.replace('.html', '').replace('.htm', '');
+        const post = ALL_POSTS.find(p => p.slug === slug || p.id === slug);
 
         if (!post) {
-            console.warn('⚠️ Blog post not found for ID:', postId, 'Available posts:', ALL_POSTS.length);
-            window.location.href = 'index.html';
+            console.warn('⚠️ Blog post not found for slug:', slug, 'Available posts:', ALL_POSTS.length);
+            // Redirect to the index page for graceful fallback
+            window.location.href = '/frontend/blogs/index.html';
             return;
         }
 
@@ -120,7 +135,8 @@
 
     function updateSEO(post) {
         const siteUrl = "https://abhinavranjan.qzz.io";
-        const postUrl = `${siteUrl}/frontend/blogs/post?id=${post.id}`;
+        // Use clean URL structure for SEO
+        const postUrl = `${siteUrl}/frontend/blogs/${post.slug}.html`;
         
         document.title = `${post.title} | AR. Blogs`;
         

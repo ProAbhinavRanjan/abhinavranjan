@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
+  <script>
+    window.addEventListener('load', () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4VR4XZ987L');
+    });
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Blogs | AR. Abhinav Ranjan</title>
+  <link rel="stylesheet" href="../css/outfit-font.css" />
+  <meta content="Explore authoritative articles on cybersecurity, software engineering, AI governance, and digital sovereignty by Abhinav Ranjan, founder of Luminary Technicals." name="description" />
+  <meta content="Abhinav Ranjan, tech blogs, cybersecurity research, ethical hacking, digital sovereignty, Luminary Technicals, software development, tech educator India" name="keywords" />
+  <link href="https://abhinavranjan.qzz.io/frontend/blogs/index.html" rel="canonical" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+  <meta content="#6366f1" name="theme-color" />
+  <link href="/manifest.json" rel="manifest" />
+  <link href="/frontend/css/outfit-font.css" rel="stylesheet" />
+  <link href="/frontend/css/styles.css" rel="stylesheet" />
+  <link href="/frontend/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    /* Blog Page Specific Enhancements aligned with Global Theme */
+    .blog-controls-wrapper {
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .blog-search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .blog-search-box input {
+      width: 100%;
+      padding: 1.1rem 1.5rem 1.1rem 3.2rem;
+      background: var(--card-bg, #121212);
+      border: 1px solid var(--border, #27272a);
+      border-radius: 50px;
+      color: var(--text-main, #ffffff);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: all var(--transition-fast, 0.2s ease);
+    }
+
+    .blog-search-box input:focus {
+      border-color: var(--primary, #6366f1);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+    }
+
+    .blog-search-box i {
+      position: absolute;
+      left: 1.3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted, #a1a1aa);
+      pointer-events: none;
+    }
+
+    .blog-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .blog-filter-btn {
+      padding: 0.55rem 1.3rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border, #27272a);
+      color: var(--text-muted, #a1a1aa);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast, 0.2s ease);
+    }
+
+    .blog-filter-btn:hover,
+    .blog-filter-btn.active {
+      background: var(--primary, #6366f1);
+      color: #ffffff;
+      border-color: var(--primary, #6366f1);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+
+    .blog-stats-counter {
+      text-align: center;
+      color: var(--text-muted, #a1a1aa);
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* Cards Grid */
+    .blogs-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2.2rem;
+      margin-bottom: 5rem;
+    }
+
+    .blog-card {
+      background: var(--card-bg, #121212);
+      border: 1px solid var(--border, #27272a);
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition-medium, 0.3s ease), border-color var(--transition-medium, 0.3s ease), box-shadow var(--transition-medium, 0.3s ease);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    .blog-card-img {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+      background: #0d0d14;
+    }
+
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .blog-card:hover .blog-card-img img {
+      transform: scale(1.08);
+    }
+
+    .blog-category {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.35rem 0.8rem;
+      background: var(--primary, #6366f1);
+      color: #ffffff;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-card-content {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .blog-date {
+      font-size: 0.85rem;
+      color: var(--primary, #6366f1);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .blog-card-content h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      color: var(--text-main, #ffffff);
+    }
+
+    .blog-card-content p {
+      font-size: 0.95rem;
+      color: var(--text-muted, #a1a1aa);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .blog-card-footer {
+      color: var(--primary, #6366f1);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .blog-card-footer i {
+      transition: transform var(--transition-fast, 0.2s ease);
+    }
+
+    .blog-card:hover .blog-card-footer i {
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 768px) {
+      .blogs-grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Loading Excellence...</div>
+    </div>
+  </div>
+
+  <!-- Standard Navigation Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <a aria-label="AR. Abhinav Ranjan Home" class="logo" href="../../index.html">
+        AR<span class="dot">.</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../../index.html">Home</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="research.html">Research</a></li>
+          <li><a class="nav-link" href="projects.html">Projects</a></li>
+          <li><a class="nav-link active" href="../blogs/index.html">Tech Blogs</a></li>
+          <li><a class="nav-link" href="biography.html">Biography</a></li>
+          <li><a class="nav-link" href="socials.html">Socials</a></li>
+          <li><a class="nav-link" href="winnings.html">Achievements</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="blogs">
+      <div class="container">
+        <h1 class="section-title fade-in-up">Technical Blogs &amp; Insights</h1>
+        <p class="section-subtitle fade-in-up delay-100">Authoritative papers, engineering breakdowns, cybersecurity research, and architectural insights by AR. Abhinav Ranjan.</p>
+
+        <!-- Controls & Search -->
+        <div class="blog-controls-wrapper fade-in-up delay-150">
+          <div class="blog-search-box">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input id="blogSearch" placeholder="Search publications, topics, or keywords..." type="text" aria-label="Search articles"/>
+          </div>
+          <div class="blog-filters">
+            <button class="blog-filter-btn filter-btn active" data-category="all">All Articles</button>
+            <button class="blog-filter-btn filter-btn" data-category="Technology">Technology</button>
+            <button class="blog-filter-btn filter-btn" data-category="Innovation">Innovation</button>
+            <button class="blog-filter-btn filter-btn" data-category="Research">Research</button>
+            <button class="blog-filter-btn filter-btn" data-category="Business">Business</button>
+          </div>
+          <div class="blog-stats-counter" id="blogStats">Showing articles</div>
+        </div>
+
+        <!-- Blog Grid Dynamically Loaded -->
+        <div class="blogs-grid-container" id="blogGrid">
+          <!-- Dynamically populated by blog_library.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="siteFooter"></footer>
+  <script defer src="../logic/footer_v105.js"></script>
+  <script defer src="../logic/script_v105.js"></script>
+  <script src="../logic/blog_library.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('✅ SW registered:', registration))
+          .catch(error => console.log('❌ SW registration failed:', error));
+      });
+    }
+  </script>
+</body>
+</html>

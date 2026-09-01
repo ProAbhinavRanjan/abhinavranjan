@@ -5,15 +5,18 @@
 <!-- Google tag (gtag.js) -->
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-4VR4XZ987L"></script>
 <script>
-   window.dataLayer = window.dataLayer || [];
-   function gtag(){dataLayer.push(arguments);}
-   gtag('js', new Date());
+   window.addEventListener('load', () => {
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
 
-   gtag('config', 'G-4VR4XZ987L');
+     gtag('config', 'G-4VR4XZ987L');
+   });
   </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AR. Abhinav Ranjan | Achievements</title>
+  <link rel="stylesheet" href="../css/outfit-font.css" />
 <meta content="Explore the achievements and winnings of Abhinav Ranjan — recognized by the Guinness World Records and Golden Book of World Records for cybersecurity education and innovation." name="description"/>
 <link href="https://abhinavranjan.qzz.io/frontend/html/winnings.html" rel="canonical"/>
 <meta content="Abhinav Ranjan achievements, Guinness World Records cybersecurity, Golden Book of World Records, VVM State Rank 4, National Science Championship All India Rank 7, Abhinav Ranjan, itzmeabhinavranjan, Luminary Technicals, Muzaffarpur Bihar India" name="keywords"/>
@@ -31,16 +34,12 @@
 <meta content="Explore the achievements of Abhinav Ranjan — recognized by Guinness World Records and Golden Book of World Records." name="twitter:description"/>
 <meta content="https://abhinavranjan.qzz.io/images/og-image.png" name="twitter:image"/>
 
-
 <link rel="icon" type="image/x-icon" href="../../favicon.ico" />
 <link rel="icon" type="image/png" sizes="192x192" href="../../images/favicon-192x192.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="../../images/apple-touch-icon.png" />
 <meta content="#6366f1" name="theme-color"/>
 <link href="../../manifest.json" rel="manifest"/>
 <link href="../css/styles.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="../css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -59,10 +58,12 @@
 <ul class="nav-list">
 <li><a class="nav-link" href="../../index.html">Home</a></li>
 <li><a class="nav-link" href="about.html">About</a></li>
+<li><a class="nav-link" href="research.html">Research</a></li>
 <li><a class="nav-link" href="projects.html">Projects</a></li>
+<li><a class="nav-link" href="../blogs/index.html">Tech Blogs</a></li>
 <li><a class="nav-link" href="biography.html">Biography</a></li>
 <li><a class="nav-link" href="socials.html">Socials</a></li>
-<li><a class="nav-link active" href="winnings.html">Winnings</a></li>
+<li><a class="nav-link active" href="winnings.html">Achievements</a></li>
 <li><a class="nav-link" href="contact.html">Contact</a></li>
 </ul>
 <div class="hamburger" id="hamburger">
@@ -76,8 +77,8 @@
 <main>
 <section class="section winnings" id="winnings">
 <div class="container">
-<h1 class="section-title fade-in-up">Winnings &amp; Details</h1>
-<p class="section-subtitle fade-in-up delay-100">A showcase of his achievements and projects.</p>
+<h1 class="section-title fade-in-up">Achievements &amp; World Records</h1>
+<p class="section-subtitle fade-in-up delay-100">Global recognitions, world records, and academic milestones.</p>
 <!-- Static prerender for search bots (visually hidden) -->
 <div aria-hidden="true" id="staticWinningsPrerender" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
 <div class="grid winnings-grid" id="dynamicWinningsGrid">
@@ -100,6 +101,7 @@
 </div>
 </div>
 </div>
+</main>
 <footer class="footer" id="siteFooter"></footer>
 <script defer src="../logic/footer_v105.js"></script>
 <script defer="" src="../logic/script_v105.js"></script>
@@ -107,10 +109,10 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
-          .then(registration => console.log('SW registered:', registration))
-          .catch(error => console.log('SW registration failed:', error));
+          .then(registration => console.log('✅ SW registered:', registration))
+          .catch(error => console.log('❌ SW registration failed:', error));
       });
     }
-  </script>
+</script>
 </body>
 </html>

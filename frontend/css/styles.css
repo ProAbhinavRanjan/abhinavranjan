@@ -1,3 +1,6 @@
+/* Local Outfit font — replaces Google Fonts CDN dependency */
+@import url('outfit-font.css');
+
 :root {
     /* Colors */
     --bg-color: #050505;
@@ -64,14 +67,15 @@ main {
 
 /* Image Protection */
 img {
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
+    -webkit-user-drag: none;    /* Safari/Chrome */
+    -khtml-user-drag: none;     /* Konqueror */
+    -moz-user-drag: none;       /* Firefox (legacy) */
+    -o-user-drag: none;         /* Opera (legacy) */
+    /* Note: `user-drag` is NOT a standard CSS property — vendor prefixes above cover all browsers */
     -webkit-touch-callout: none; /* Disable iOS long-press popup */
     user-select: none;
     -webkit-user-select: none;
+    pointer-events: none;        /* Prevents drag in modern browsers */
 }
 
 /* Utilities */
@@ -86,16 +90,28 @@ img {
     gap: 2rem;
 }
 
+.hero-btns {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .btn {
-    display: inline-block;
-    padding: 0.8rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.8rem;
     border-radius: 50px;
     font-weight: 600;
     text-decoration: none;
     transition: all var(--transition-medium);
     cursor: pointer;
     border: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.2;
 }
 
 .btn-primary {
@@ -121,7 +137,7 @@ img {
 }
 
 .btn-block {
-    display: block;
+    display: flex;
     width: 100%;
 }
 
@@ -4491,4 +4507,250 @@ img {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
+}
+
+/* ================================================
+   NEW ENTITY ARCHITECTURE & RESEARCH STYLES
+   ================================================ */
+
+/* Core Areas Grid */
+.core-areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.core-area-card {
+    background: rgba(18, 18, 28, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.core-area-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.12);
+}
+
+.core-area-card .card-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.core-area-card h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.core-area-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* Research Domains Grid */
+.research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.research-card {
+    background: rgba(15, 15, 25, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.research-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.7;
+}
+
+.research-card:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.research-card h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.research-card h3 i {
+    color: var(--primary);
+}
+
+.research-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Security-First Engineering Pipeline */
+.secsdlc-pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(99, 102, 241, 0.03);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 20px;
+}
+
+.secsdlc-step {
+    background: rgba(18, 18, 30, 0.9);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.4rem;
+    text-align: center;
+    min-width: 140px;
+    transition: all 0.3s ease;
+}
+
+.secsdlc-step:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    transform: scale(1.04);
+}
+
+.secsdlc-step .step-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.secsdlc-step .step-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.secsdlc-arrow {
+    color: var(--primary);
+    font-size: 1.2rem;
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .secsdlc-pipeline {
+        flex-direction: column;
+    }
+    .secsdlc-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+/* Cybersecurity Framework Tree Layout */
+.framework-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.framework-block {
+    background: rgba(18, 18, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.8rem;
+}
+
+.framework-block h3 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.framework-tree-list {
+    list-style: none;
+    padding-left: 0.5rem;
+}
+
+.framework-tree-list li {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.framework-tree-list li i {
+    color: var(--primary);
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Directory Enhanced Metadata Badge & Grid */
+.directory-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.meta-chip {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.meta-chip strong {
+    color: var(--primary);
+}
+
+/* Archive Grid & Header */
+.archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }

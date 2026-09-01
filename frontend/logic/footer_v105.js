@@ -36,7 +36,7 @@
           <div class="footer-col footer-brand-col">
             <a href="${prefix}index.html" class="footer-logo">AR<span class="dot">.</span></a>
             <p class="footer-desc">
-              Building resilient cloud systems, cybersecurity frameworks, and digital architecture.
+              Cybersecurity researcher, technologist, educator and founder working across digital security, infrastructure, emerging technology, and research.
             </p>
             <div class="footer-socials">
               <a href="https://github.com/DeveloperAbhinav" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -51,6 +51,7 @@
             <ul class="footer-links">
               <li><a href="${prefix}index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
               <li><a href="${prefix}frontend/html/about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+              <li><a href="${prefix}frontend/html/research.html"><i class="fas fa-chevron-right"></i> Research</a></li>
               <li><a href="${prefix}frontend/html/projects.html"><i class="fas fa-chevron-right"></i> Projects</a></li>
               <li><a href="${prefix}frontend/html/biography.html"><i class="fas fa-chevron-right"></i> Biography</a></li>
               <li><a href="${prefix}frontend/html/contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
@@ -59,8 +60,9 @@
 
           <!-- Col 3: Ecosystem -->
           <div class="footer-col">
-            <h4 class="footer-title">Ecosystem</h4>
+            <h4 class="footer-title">Ecosystem & Archive</h4>
             <ul class="footer-links">
+              <li><a href="${prefix}frontend/html/archive.html"><i class="fas fa-chevron-right"></i> Digital Archive</a></li>
               <li><a href="${prefix}frontend/gallery/index.html"><i class="fas fa-chevron-right"></i> Gallery Archive</a></li>
               <li><a href="${prefix}frontend/lts/index.html"><i class="fas fa-chevron-right"></i> Live Telecast (LTS)</a></li>
               <li><a href="${prefix}frontend/blogs/index.html"><i class="fas fa-chevron-right"></i> Tech Stories Blog</a></li>

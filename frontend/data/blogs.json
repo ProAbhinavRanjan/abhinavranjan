@@ -1,38 +1,88 @@
 [
     {
+        "id": "past-life-biography",
+        "title": "AR. Abhinav Ranjan — Complete Biography, Early Journey, Cybersecurity, Technology, Education, Entrepreneurship and Vision",
+        "excerpt": "A comprehensive biographical look at AR. Abhinav Ranjan's early beginnings in Muzaffarpur, cybersecurity education, founding Luminary Technicals, Guinness World Record recognition, and cyber jurisprudence vision.",
+        "date": "April 02, 2026",
+        "dateModified": "2026-04-02",
+        "category": "Research",
+        "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
+        "author": "AR. Abhinav Ranjan & Luminary Developers",
+        "tags": ["Biography", "Cybersecurity", "Luminary Technicals", "Guinness World Record", "Cyber Jurisprudence"],
+        "content_path": "frontend/blogs/content/past-life.html"
+    },
+    {
         "id": "future-of-cybersecurity-2026",
-        "title": "The Future of Cybersecurity in 2026",
-        "excerpt": "Exploring the shift from traditional defense to AI-driven proactive security measures in the modern age.",
+        "title": "The Future of Cybersecurity in 2026: AI Defense & Proactive SecSDLC",
+        "excerpt": "An in-depth analysis of machine-scale threat models, adversarial machine learning vulnerabilities, and how proactive SecSDLC pipelines safeguard digital sovereignty.",
         "date": "March 15, 2026",
         "dateModified": "2026-03-15",
         "category": "Technology",
-        "image": "https://img.freepik.com/free-photo/standard-quality-control-concept-m_23-2150041848.jpg",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
         "author": "AR. Abhinav Ranjan & Luminary Developers",
-        "tags": ["AI", "Cybersecurity", "Ethics"],
+        "tags": ["AI", "Cybersecurity", "Ethics", "SecSDLC", "Adversarial ML"],
         "content_path": "frontend/blogs/content/future-cyber.html"
     },
     {
         "id": "innovating-with-lts",
-        "title": "Innovating with LTS: Behind the Scenes",
-        "excerpt": "A deep dive into how the Live Telecast Server (LTS) was built to handle real-time tech discussions.",
+        "title": "Innovating with LTS: Real-Time WebRTC Architecture & Distributed Telecasting",
+        "excerpt": "Behind-the-scenes architectural teardown of the Live Telecast Server (LTS), exploring peer connection mesh network topologies and RTC Q&A room telemetry.",
         "date": "February 28, 2026",
         "dateModified": "2026-02-28",
         "category": "Innovation",
-        "image": "https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
         "author": "AR. Abhinav Ranjan & Luminary Developers",
-        "tags": ["LTS", "WebRTC", "Backend"],
+        "tags": ["LTS", "WebRTC", "Backend", "Distributed Systems", "Infrastructure"],
         "content_path": "frontend/blogs/content/innovating-lts.html"
     },
     {
+        "id": "digital-sovereignty-cyber-jurisprudence",
+        "title": "Digital Sovereignty & Cyber Jurisprudence in Modern Infrastructure",
+        "excerpt": "Examining the critical intersection of legal regulatory frameworks, open-source security models, and self-reliant cloud architecture in national cyber defense.",
+        "date": "February 12, 2026",
+        "dateModified": "2026-02-12",
+        "category": "Research",
+        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+        "author": "AR. Abhinav Ranjan & Luminary Developers",
+        "tags": ["Digital Sovereignty", "Cyber Law", "Infrastructure", "Policy"],
+        "content_path": "frontend/blogs/content/cyber-jurisprudence.html"
+    },
+    {
+        "id": "agroscan-ai-computer-vision",
+        "title": "AgroScan AI: Computer Vision & Deep Learning in Agritech Defense",
+        "excerpt": "Technical breakdown of training convolutional networks for instant crop disease diagnosis in low-bandwidth rural agricultural regions.",
+        "date": "January 24, 2026",
+        "dateModified": "2026-01-24",
+        "category": "Innovation",
+        "image": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=1200&q=80",
+        "author": "AR. Abhinav Ranjan & Luminary Developers",
+        "tags": ["AgroScan", "AI / ML", "Computer Vision", "Agritech"],
+        "content_path": "frontend/blogs/content/agroscan-ai-cv.html"
+    },
+    {
         "id": "young-entrepreneurship-tips",
-        "title": "5 Tips for Young Tech Entrepreneurs",
-        "excerpt": "My journey from learning to building systems and how you can start your own tech venture early.",
+        "title": "5 Principles for Building Early-Stage Multidisciplinary Tech Ventures",
+        "excerpt": "Key engineering and leadership lessons learned from founding Luminary Technicals and scaling open tech ecosystems early in life.",
         "date": "January 10, 2026",
         "dateModified": "2026-01-10",
         "category": "Business",
-        "image": "https://img.freepik.com/free-photo/young-successful-businessman-sitting-office_176420-534.jpg",
+        "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
         "author": "AR. Abhinav Ranjan & Luminary Developers",
-        "tags": ["Entrepreneurship", "Youth", "Tech"],
+        "tags": ["Entrepreneurship", "Leadership", "Systems", "Luminary"],
         "content_path": "frontend/blogs/content/entrepreneur-tips.html"
     }
+    ,
+    {
+        "id": "james-web-telescope",
+        "title": "James Webb Telescope: Unveiling the Cosmos – First Images & Discoveries",
+        "excerpt": "A deep dive into the groundbreaking observations from JWST, exploring distant galaxies, exoplanet atmospheres, and the early universe.",
+        "date": "May 01, 2026",
+        "dateModified": "2026-05-01",
+        "category": "Science",
+        "image": "https://images.unsplash.com/photo-1595433707802-7b57d6a2c5c9?auto=format&fit=crop&w=1200&q=80",
+        "author": "AR. Abhinav Ranjan & Luminary Developers",
+        "tags": ["James Webb","Astronomy","Cosmology","Space"],
+        "content_path": "frontend/blogs/content/james-web.html"
+    }
 ]
+

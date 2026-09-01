@@ -2,7 +2,8 @@
     {
         "id": "portfolio",
         "name": "Personal Portfolio Website",
-        "description": "A modern personal portfolio website showcasing projects, achievements, cybersecurity interests, and the Luminary Technicals ecosystem.",
+        "category": "Technology",
+        "description": "A modern personal portfolio website showcasing projects, achievements, cybersecurity interests, research, and entity structure.",
         "tags": [
             "Web Development",
             "Frontend",
@@ -15,9 +16,10 @@
     {
         "id": "luminary",
         "name": "Luminary Technicals",
-        "description": "A futuristic technology ecosystem focused on digital infrastructure, hosting services, AI projects, and collaborative technology development.",
+        "category": "Technology",
+        "description": "Luminary Technicals is a multidisciplinary organization founded by AR. Abhinav Ranjan, operating across digital infrastructure, technology development, research, cybersecurity, education, public-interest initiatives and an expanding network of projects and ventures.",
         "tags": [
-            "Technology Ecosystem",
+            "Multidisciplinary Organization",
             "Systems",
             "Cloud Infrastructure"
         ],
@@ -28,6 +30,7 @@
     {
         "id": "luminary-servers",
         "name": "Luminary Servers",
+        "category": "Technology",
         "description": "A web platform managing server infrastructure, hosting environments, and deployment systems for projects within the Luminary Technicals ecosystem.",
         "tags": [
             "Server Systems",
@@ -41,6 +44,7 @@
     {
         "id": "agroscan",
         "name": "AgroScan",
+        "category": "Research",
         "description": "An AI-powered agricultural analysis web application designed to help farmers and researchers analyze crop conditions using machine learning and computer vision.",
         "tags": [
             "AI / ML",

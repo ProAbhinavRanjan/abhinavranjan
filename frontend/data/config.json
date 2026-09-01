@@ -2,16 +2,16 @@
   "personal": {
     "name": "AR. Abhinav Ranjan",
     "aka": "ar.abhinavranjan",
-    "tagline": "Cybersecurity Researcher, Infrastructure Architect & Founder of Luminary Technicals",
-    "role": "Cybersecurity Researcher & Developer",
+    "tagline": "Cybersecurity • Technology • Research • Public Impact",
+    "role": "Founder & CEO, Luminary Technicals",
     "dob": "02-05-2012",
     "profile_image": "images/profile.png",
     "location": "Muzaffarpur, Bihar, India"
   },
   "meta": {
-    "title": "AR. Tech |  Home",
-    "site_name": "AR. Tech",
-    "description": "The official identity portal of AR. Abhinav Ranjan (ar.abhinavranjan) — lead researcher at Luminary Technicals, cybersecurity authority, and Guinness World Record holder. Pioneering the future of digital sovereignty.",
+    "title": "AR. Abhinav Ranjan | Cybersecurity • Technology • Research",
+    "site_name": "AR. Abhinav Ranjan",
+    "description": "Cybersecurity researcher, technologist, educator and founder working across digital security, infrastructure, emerging technology, research and public-interest initiatives.",
     "theme_color": "#6366f1",
     "site_url": "https://abhinavranjan.qzz.io",
     "og_image": "https://abhinavranjan.qzz.io/images/arlogo.png",
@@ -19,16 +19,18 @@
   },
   "seo": {
     "keywords": {
-      "global": "Abhinav Ranjan, itzmeabhinavranjan, cybersecurity educator, ethical hacking teacher, Luminary Technicals, Muzaffarpur Bihar India",
-      "home": "Abhinav Ranjan portfolio, cybersecurity developer, youngest ethical hacking teacher, Guinness World Records, web developer Bihar",
-      "about": "about Abhinav Ranjan, cybersecurity educator background, ethical hacking education, penetration testing, network security Bihar",
+      "global": "Abhinav Ranjan, itzmeabhinavranjan, cybersecurity educator, ethical hacking teacher, Luminary Technicals, Muzaffarpur Bihar India, cybersecurity research, digital infrastructure, technology policy, cyber jurisprudence",
+      "home": "Abhinav Ranjan portfolio, cybersecurity developer, youngest ethical hacking teacher, Guinness World Records, web developer Bihar, digital security, ethical AI governance",
+      "about": "about Abhinav Ranjan, cybersecurity educator background, ethical hacking education, penetration testing, network security Bihar, founder Luminary Technicals, digital sovereignty",
       "projects": "Abhinav Ranjan projects, AgroScan AI, Luminary Servers, cybersecurity tools, web development portfolio",
       "biography": "Abhinav Ranjan biography, AR Tech founder, Luminary Technicals history, cybersecurity journey, tech timeline",
       "winnings": "Abhinav Ranjan achievements, Guinness World Records cybersecurity, Golden Book of World Records, VVM State Rank 4, National Science Championship",
       "contact": "contact Abhinav Ranjan, cybersecurity collaboration, tech project inquiry, WhatsApp Telegram email",
       "socials": "Abhinav Ranjan social media, Instagram GitHub Twitter LinkedIn YouTube Telegram handles",
       "faq": "Abhinav Ranjan FAQ, frequently asked questions, cybersecurity questions, age background projects",
-      "blogs": "Abhinav Ranjan tech blog, cybersecurity articles, ethical hacking blog, web development stories"
+      "blogs": "Abhinav Ranjan tech blog, cybersecurity articles, ethical hacking blog, web development stories",
+      "research": "Abhinav Ranjan research, cybersecurity research, adversarial ML, cyber physical systems, cyber jurisprudence, digital sovereignty",
+      "archive": "Abhinav Ranjan digital archive, technical archive, research publications, events media"
     }
   },
   "contact": {
@@ -85,8 +87,8 @@
       "alternateName": "ar.abhinavranjan",
       "url": "https://abhinavranjan.qzz.io/",
       "image": "https://abhinavranjan.qzz.io/images/profile.png",
-      "jobTitle": "Cybersecurity Educator & Developer",
-      "description": "Young cybersecurity enthusiast, ethical hacking educator, and founder of Luminary Technicals from Muzaffarpur, Bihar, India.",
+      "jobTitle": "Founder & CEO, Luminary Technicals",
+      "description": "Cybersecurity researcher, technologist, educator and founder of Luminary Technicals working across digital security, infrastructure, emerging technology, research and public-interest initiatives.",
       "birthDate": "2012-02-05",
       "birthPlace": {
         "@type": "Place",
@@ -101,7 +103,13 @@
         "Digital Forensics",
         "Python",
         "JavaScript",
-        "Cyber Law"
+        "Cyber Law",
+        "Digital Infrastructure",
+        "Adversarial ML Security",
+        "Ethical AI Governance",
+        "Cyber Jurisprudence",
+        "Digital Sovereignty",
+        "Cyber-Physical Systems"
       ],
       "award": [
         "Guinness World Records Recognition 2026",

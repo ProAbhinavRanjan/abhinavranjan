@@ -79,9 +79,38 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/post.html</loc>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/past-life.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/future-of-cybersecurity-2026.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/innovating-with-lts.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/digital-sovereignty-cyber-jurisprudence.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/agroscan-ai-computer-vision.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/young-entrepreneurship-tips.html</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
