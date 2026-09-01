@@ -52,6 +52,13 @@ This document provides a summary of every public-facing HTML page in the Abhinav
 
 
 ---
+## 🖥️ Tech Blogs
+
+- The blog system now uses slug‑based static HTML files instead of query‑parameter URLs.
+- Blog index is served at `frontend/blogs/index.html`.
+- Individual posts are accessed via `frontend/blogs/<slug>.html` (e.g., `past-life.html`).
+- The `blog_library.js` script parses the pathname to load the correct post.
+- All documentation and sitemap entries have been updated to reflect this change.
 
 ## 📄 Informational & Legal
 ### 9. `asked-questions.html` (FAQ Hub)
@@ -83,4 +90,4 @@ This document provides a summary of every public-facing HTML page in the Abhinav
 | `biography.html` | `script_v105.js`, `biography_library.js` | `biography_page.json`, `lts_podcasts.json` |
 | `asked-questions` | `script_v105.js` | `asked_questions_page.json` |
 | `index.html` | `blog_library.js` | `blogs.json` |
-| `post.html` | `blog_library.js` | `blogs.json` & HTML content snippets |
+| `slug-based blog pages (e.g., past-life.html)` | `blog_library.js` | `blogs.json` & HTML content snippets |

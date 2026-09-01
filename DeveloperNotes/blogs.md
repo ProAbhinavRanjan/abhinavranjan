@@ -11,7 +11,7 @@ The blog components are located in `frontend/blogs/` and `frontend/logic/`:
 | Path | Purpose |
 |---|---|
 | `frontend/blogs/index.html` | The main hub for browsing all blog entries. |
-| `frontend/blogs/post.html` | The dynamic template used to render any individual blog post. |
+| `frontend/blogs/*.html` (e.g., `past-life.html`, `innovating-with-lts.html`) | Static slug-based HTML pages for each blog post. |
 | `frontend/blogs/content/*.html` | HTML snippets containing only the raw article body (no headers/footers). |
 | `frontend/data/blogs.json` | The central database (title, author, image, path, tags). |
 | `frontend/logic/blog_library.js` | The JavaScript engine that orchestrates fetching and SEO. |
