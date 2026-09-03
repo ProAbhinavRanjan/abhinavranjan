@@ -7,9 +7,13 @@ https://www.abhinavranjan.qzz.io/* https://abhinavranjan.qzz.io/:splat 301!
 # Serverless API — route /api/* to Netlify Functions
 /api/*  /.netlify/functions/:splat  200
 
+# Clean Blog Routing
+/blogs               /frontend/blogs/index.html            200
+/blogs/              /frontend/blogs/index.html            200
+/blogs/:slug         /frontend/blogs/content/:slug.html    200
+
 # Custom Error Pages
 /offline /offline.html 200
-/403 /403.html 403
-/404 /404.html 404
-/500 /500.html 500
-/* /404.html 404
+/403     /403.html    403
+/404     /404.html    404
+/500     /500.html    500

@@ -34,3 +34,4 @@ Allow: /
 
 Crawl-delay: 1
 Sitemap: https://abhinavranjan.qzz.io/sitemap.xml
+Sitemap: https://abhinavranjan.qzz.io/sitemap-blogs.xml

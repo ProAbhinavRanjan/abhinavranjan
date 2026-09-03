@@ -142,13 +142,11 @@ img {
 }
 
 .section {
-    padding: 4rem 0;
-    /* Standard padding */
-    min-height: 100vh;
-    /* Ensure full height for pages */
+    padding: 4.5rem 0;
+    min-height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .section-title {
@@ -187,6 +185,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 /* ================================================
@@ -198,6 +197,8 @@ img {
     display: flex;
     align-items: center;
     gap: 0;
+    flex-shrink: 0;
+    margin-right: 2rem;
 }
 
 .logo,
@@ -216,22 +217,34 @@ img {
     font-weight: 800;
 }
 
+.nav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
 .nav-list {
     display: flex;
-    gap: 2rem;
+    gap: 0.4rem;
     list-style: none;
+    align-items: center;
 }
 
 .nav-link {
     color: var(--text-muted);
     text-decoration: none;
     font-weight: 500;
-    transition: color var(--transition-fast);
+    font-size: 0.92rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
 }
 
 .nav-link:hover,
 .nav-link.active {
     color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* Hero */
@@ -243,7 +256,7 @@ img {
     padding-top: 0;
     /* Handled by main */
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Do not clip — overflow:hidden creates compositing layer trapping touch events */
 }
 
 .hero-container {
@@ -374,8 +387,7 @@ img {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     overflow: hidden;
-    transform-style: preserve-3d;
-    perspective: 1000px;
+    /* preserve-3d and perspective are only applied on non-touch devices via JS */
 
     /* Flex sizing: grow, shrink, basis */
     flex: 1 1 220px;
@@ -383,14 +395,34 @@ img {
     /* Prevent cards from getting too wide on huge screens if few items */
 }
 
-/* 3D Tilt Effect Classes */
-.tilt-card {
-    transform-style: preserve-3d;
-    transform: perspective(1000px);
+/* 3D Tilt Effect — only on mouse/trackpad devices, NOT on touch screens */
+/* On touch (pointer: coarse), preserve-3d creates a compositing layer that traps swipe gestures */
+@media (pointer: fine) {
+    .tilt-card {
+        transform-style: preserve-3d;
+        transform: perspective(1000px);
+    }
+
+    .tilt-content {
+        transform: translateZ(20px);
+    }
 }
 
-.tilt-content {
-    transform: translateZ(20px);
+/* On touch devices: flat rendering, full swipe freedom */
+@media (pointer: coarse) {
+    .tilt-card {
+        transform: none;
+    }
+
+    .tilt-content {
+        transform: none;
+    }
+
+    .card {
+        touch-action: pan-y;
+        -webkit-touch-callout: none;
+        will-change: auto;
+    }
 }
 
 .card:hover {
@@ -786,7 +818,7 @@ img {
         width 0.3s ease;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .hamburger {
         display: flex;
         flex-direction: column;
@@ -807,19 +839,29 @@ img {
         background-color: var(--bg-color);
         width: 100%;
         height: calc(100vh - var(--header-height));
-        /* Full height menu */
+        height: calc(100dvh - var(--header-height));
+        max-height: calc(100dvh - var(--header-height));
         text-align: center;
         transition: 0.3s;
         border-bottom: 1px solid var(--border);
-        padding-top: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: max(5rem, 15vh);
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        box-sizing: border-box;
     }
 
     .nav-list.active {
         left: 0;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
     }
 
     .nav-list li {
-        margin: 16px 0;
+        margin: 14px 0;
+        flex-shrink: 0;
     }
 
     .nav-link {
@@ -3008,6 +3050,13 @@ img {
    LARGE TABLETS — LANDSCAPE (1024px and below)
 ───────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+    /* Immediately render all content on tablets and mobile without animation delay */
+    .fade-in-up {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
     .container {
         padding: 0 1.5rem;
     }
@@ -3228,20 +3277,43 @@ img {
         top: var(--header-height);
         left: 0;
         right: 0;
-        background: rgba(5, 5, 5, 0.97);
-        backdrop-filter: blur(16px);
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        height: calc(100dvh - var(--header-height));
+        max-height: calc(100dvh - var(--header-height));
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         align-items: center;
-        padding: 1.5rem 0;
-        gap: 1.2rem;
+        justify-content: flex-start;
+        padding: 1.5rem 1rem max(5rem, 15vh) 1rem;
+        gap: 1.1rem;
         transform: translateY(-120%);
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 100;
         border-bottom: 1px solid var(--border);
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        box-sizing: border-box;
     }
 
     .nav-list.active {
         transform: translateY(0);
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+    }
+
+    .nav-list li {
+        width: 100%;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .nav-list li:last-child {
+        margin-bottom: 2.5rem;
     }
 
     /* Hero */
@@ -4460,7 +4532,9 @@ img {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     max-width: 100% !important;
-    overflow-x: hidden !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
     box-sizing: border-box !important;
   }
 
@@ -4753,4 +4827,759 @@ img {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+}
+
+/* ==========================================================
+   ENHANCED RESPONSIVE DESIGN & INNER ELEMENTS SYSTEM
+   Optimized for Desktops, Tablets (iPad / Surface), & Mobile
+   ========================================================== */
+
+/* Hero Modern Elements */
+.greeting-row {
+    margin-bottom: 0.8rem;
+}
+
+.hero-status-row {
+    display: flex;
+    align-items: center;
+    margin-top: 1.8rem;
+}
+
+.hero-founder-tag {
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(99, 102, 241, 0.08);
+    padding: 0.45rem 1.1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+    width: fit-content;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
+}
+
+.hero-founder-tag:hover {
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateX(3px);
+}
+
+.hero-badge-pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.95rem;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.hero-badge-pulse:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateY(-2px);
+}
+
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: #10b981;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulseDot 2s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.hero-founder-tag {
+    font-size: 1.05rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(99, 102, 241, 0.08);
+    padding: 0.45rem 1.2rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+    width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.hero-founder-tag:hover {
+    background: rgba(99, 102, 241, 0.15);
+    transform: translateX(3px);
+}
+
+/* Core Areas Inner Tags */
+.core-area-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.core-area-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 6px;
+    color: #c7d2fe;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.25s ease;
+}
+
+.core-area-card:hover .core-area-tag {
+    background: rgba(99, 102, 241, 0.16);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #ffffff;
+}
+
+/* Digital Archive Section Cards */
+.archive-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.archive-pill-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0.2rem;
+}
+
+.archive-cta-link {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.25s ease, gap 0.25s ease;
+}
+
+.card:hover .archive-cta-link {
+    gap: 0.8rem;
+    color: #818cf8;
+}
+
+/* Contact Methods & Social Buttons */
+.contact-wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.btn-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(18, 18, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-social i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-social:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+    color: #fff;
+}
+
+.btn-social:hover i {
+    transform: scale(1.15);
+}
+
+.btn-social.email:hover { border-color: #ea4335; box-shadow: 0 8px 25px rgba(234, 67, 53, 0.2); }
+.btn-social.discord:hover { border-color: #5865F2; box-shadow: 0 8px 25px rgba(88, 101, 242, 0.2); }
+.btn-social.telegram:hover { border-color: #229ED9; box-shadow: 0 8px 25px rgba(34, 158, 217, 0.2); }
+.btn-social.github:hover { border-color: #ffffff; box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2); }
+
+.contact-action-box {
+    text-align: center;
+    background: rgba(18, 18, 28, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 2.5rem 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.contact-action-box p {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+.btn-pulse-glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-pulse-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-pulse-glow:hover::after {
+    opacity: 1;
+}
+
+/* ==========================================================
+   TABLET RESPONSIVENESS (Screen Width: 769px to 1024px)
+   ========================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .hero-content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-content .tagline {
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .greeting-row {
+        text-align: center;
+        margin-bottom: 0.6rem;
+    }
+
+    .hero-meta-row {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        display: flex;
+        justify-content: center;
+    }
+
+    .glowing-orb {
+        width: 320px;
+        height: 320px;
+    }
+
+    .core-areas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .research-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .socials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .secsdlc-pipeline {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .secsdlc-arrow {
+        display: none;
+    }
+
+    .contact-methods {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.8rem;
+    }
+}
+
+/* ==========================================================
+   MOBILE RESPONSIVENESS (< 768px) - FLUID NATURAL TOUCH
+   ========================================================== */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--header-height) + 15px);
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+        overflow-y: auto;
+        touch-action: pan-y;
+    }
+
+    /* Ensure ALL layout containers pass touch events through to the page scroll */
+    main,
+    section,
+    .section,
+    .container,
+    .hero,
+    .hero-container,
+    .hero-content,
+    .grid,
+    .core-areas-grid,
+    .research-grid,
+    .projects-grid,
+    .socials-grid,
+    .archive-hub-grid,
+    .contact-wrapper,
+    .contact-methods,
+    .secsdlc-pipeline {
+        touch-action: pan-y;
+    }
+
+    main {
+        padding-top: calc(var(--header-height) + 10px);
+    }
+
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    /* Natural Fluid Sections on Mobile */
+    .section {
+        padding: 3rem 0;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-sizing: border-box;
+    }
+
+    .section-title {
+        font-size: 1.85rem !important;
+        margin-bottom: 0.4rem;
+        text-align: center;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem !important;
+        text-align: center;
+    }
+
+    /* Centered Name and Headings on Phones */
+    .biography .name,
+    .biography .section-subtitle,
+    .biography .section-title,
+    .hero-content .name,
+    .hero-content .tagline {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Hero section covers full screen on open */
+    .hero {
+        min-height: calc(100svh - var(--header-height));
+        height: auto;
+        padding-top: 2rem;
+        padding-bottom: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .hero-container {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .greeting-row {
+        text-align: center;
+        margin-bottom: 0.6rem;
+    }
+
+    .name {
+        font-size: clamp(1.85rem, 7vw, 2.4rem) !important;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+    }
+
+    .tagline {
+        font-size: 0.95rem;
+        max-width: 100% !important;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+    }
+
+    .hero-status-row {
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .hero-founder-tag {
+        font-size: 0.88rem;
+        padding: 0.4rem 0.9rem;
+    }
+
+    .hero-badge-pulse {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.85rem;
+    }
+
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .hero-btns .btn {
+        width: 100%;
+        padding: 0.85rem 1.5rem;
+    }
+
+    /* Grids to single column for clean mobile cards */
+    .core-areas-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .core-area-card {
+        padding: 1.4rem;
+        border-radius: 14px;
+    }
+
+    .research-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .research-card {
+        padding: 1.4rem;
+        border-radius: 14px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+        width: 100%;
+    }
+
+    .project-card,
+    .core-area-card,
+    .research-card,
+    .tilt-card,
+    .card {
+        touch-action: pan-y !important;
+        -webkit-touch-callout: none;
+    }
+
+    .socials-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .socials-grid .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding: 1.25rem;
+    }
+
+    /* Library Card on Mobile: Stack Vertically */
+    .library-card {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 1.5rem !important;
+        gap: 1.2rem !important;
+    }
+
+    .library-icon {
+        margin: 0 auto !important;
+    }
+
+    .library-content .btn {
+        width: 100% !important;
+        margin-top: 0.5rem;
+    }
+
+    /* Podcast Player on Mobile: Stack Vertically */
+    .podcast-player-wrapper {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 1.5rem !important;
+        gap: 1.2rem !important;
+    }
+
+    .podcast-cover {
+        margin: 0 auto !important;
+    }
+
+    .podcast-links {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 0.6rem !important;
+    }
+
+    /* Pipeline on Mobile */
+    .secsdlc-pipeline {
+        padding: 1.2rem;
+        gap: 0.6rem;
+        border-radius: 14px;
+    }
+
+    .secsdlc-step {
+        width: 100%;
+        min-width: unset;
+        padding: 0.85rem 1rem;
+    }
+
+    .secsdlc-arrow {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+    }
+
+    /* Contact Methods on Mobile */
+    .contact-methods {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+
+    .btn-social {
+        padding: 0.75rem 0.8rem;
+        font-size: 0.88rem;
+    }
+
+    .contact-action-box {
+        padding: 1.8rem 1.2rem;
+        border-radius: 14px;
+    }
+
+    .contact-action-box p {
+        font-size: 0.95rem;
+    }
+
+    .contact-action-box .btn {
+        width: 100%;
+    }
+
+    /* DevEnd Callout on Mobile */
+    .devend-callout {
+        padding: 2.5rem 0 !important;
+    }
+
+    .devend-callout .btn {
+        width: 100%;
+        padding: 0.9rem 1.5rem !important;
+    }
+}
+
+/* ==========================================================
+   UNIVERSAL PAGE-LEVEL SWIPE RULES - SITE-WIDE
+   No trapped sections, fluid natural document swiping
+   ========================================================== */
+*, *::before, *::after {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    touch-action: pan-y;
+    overscroll-behavior-y: auto;
+    overscroll-behavior-x: none;
+}
+
+main,
+section,
+.section,
+.container,
+.hero,
+.hero-container,
+.hero-content,
+.grid,
+.card,
+.project-card,
+.research-card,
+.winning-card,
+.social-card,
+.archive-card,
+.blog-card,
+.core-card,
+.service-card,
+.entity-card,
+.stat-card,
+.faq-item,
+.faq-question,
+.faq-answer,
+.timeline-container,
+.timeline-item,
+.timeline-content,
+.about-stats-grid,
+.entities-grid,
+.services-grid,
+.skills-grid,
+.achievements-grid,
+.winnings-grid,
+.gallery-grid,
+.blogs-grid-container,
+.podcast-episodes-list,
+.contact-wrapper,
+.contact-methods,
+.contact-card,
+.method-card,
+.post-wrapper,
+.post-body,
+.post-hero,
+.secsdlc-pipeline {
+    touch-action: pan-y !important;
+    -webkit-touch-callout: none;
+    will-change: auto;
+}
+
+/* ==========================================================
+   EXTRA COMPACT SCREENS (< 420px)
+   ========================================================== */
+@media (max-width: 420px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .name {
+        font-size: 1.7rem !important;
+    }
+
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================
+   GLOBAL TOUCH DEVICE OPTIMIZATIONS (pointer: coarse)
+   Strictly ensures only whole pages swipe, no trapped sections
+   ========================================================== */
+@media (pointer: coarse), (hover: none) {
+    html, body {
+        touch-action: pan-y;
+        overscroll-behavior-y: auto;
+        overscroll-behavior-x: none;
+    }
+
+    /* Disable 3D transforms that create isolated GPU compositing layers */
+    .card,
+    .tilt-card,
+    .tilt-content,
+    .project-card,
+    .research-card,
+    .winning-card,
+    .social-card,
+    .blog-card {
+        transform: none !important;
+        perspective: none !important;
+        transform-style: flat !important;
+        will-change: auto !important;
+        touch-action: pan-y !important;
+    }
+
+    /* Prevent any inner card/section from clipping touch propagation or acting as a scroll pane */
+    .section,
+    .container,
+    section,
+    main,
+    .grid,
+    .core-areas-grid,
+    .research-grid,
+    .projects-grid,
+    .socials-grid,
+    .archive-hub-grid {
+        overflow: visible !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        touch-action: pan-y !important;
+        overscroll-behavior: auto;
+    }
 }

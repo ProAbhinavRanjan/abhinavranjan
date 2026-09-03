@@ -1,8 +1,16 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  POPUP RENDERER — Fetches data from popup_index.json
+//  Session-Aware (1-time per session) & Mobile-Responsive
 // ─────────────────────────────────────────────────────────────────────────────
 
 (async function () {
+    const POPUP_SESSION_KEY = 'ar_popup_seen_session';
+
+    // 1. Session Storage Check: If already viewed/dismissed in this session, do not show again on back navigation
+    if (sessionStorage.getItem(POPUP_SESSION_KEY)) {
+        return;
+    }
+
     let POPUP_CONFIG;
 
     try {
@@ -14,10 +22,13 @@
         return;
     }
 
-    if (!POPUP_CONFIG.enabled) return;
+    if (!POPUP_CONFIG || !POPUP_CONFIG.enabled) return;
 
-    const activeSections = POPUP_CONFIG.sections.filter(s => s.active);
+    const activeSections = (POPUP_CONFIG.sections || []).filter(s => s.active);
     if (activeSections.length === 0) return;
+
+    // Mark as shown for the current browser session
+    sessionStorage.setItem(POPUP_SESSION_KEY, 'true');
 
     let currentSection = 0;
     let autoplayTimers = {};
@@ -70,66 +81,124 @@
     }
 
     function buildPopup() {
+        // Double check session in case another event fired
+        if (document.getElementById('piOverlay')) return;
+
         const overlay = document.createElement('div');
         overlay.id = 'piOverlay';
         overlay.style.cssText = `
-            position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);
-            z-index:99999;display:flex;align-items:center;justify-content:center;
-            padding:1rem;animation:piFadeIn .35s ease;
+            position:fixed;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px);z-index:99999;display:flex;align-items:center;
+            justify-content:center;padding:1rem;animation:piFadeIn .35s ease;
         `;
 
         const box = document.createElement('div');
         box.id = 'piBox';
         box.style.cssText = `
-            background:linear-gradient(135deg,rgba(18,18,30,0.97),rgba(12,12,22,0.97));
-            border:1px solid rgba(99,102,241,0.3);border-radius:20px;
+            background:linear-gradient(135deg,rgba(18,18,30,0.98),rgba(12,12,22,0.98));
+            border:1px solid rgba(99,102,241,0.35);border-radius:20px;
             max-width:520px;width:100%;max-height:88vh;overflow-y:auto;
-            box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(99,102,241,0.15);
+            box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(99,102,241,0.2);
             animation:piSlideUp .4s cubic-bezier(.34,1.56,.64,1);
-            font-family:'Outfit',sans-serif;color:#fff;
+            font-family:'Outfit',sans-serif;color:#fff;box-sizing:border-box;
         `;
 
         // Header
         const header = document.createElement('div');
         header.style.cssText = `
             display:flex;justify-content:space-between;align-items:center;
-            padding:1.2rem 1.5rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.06);
+            padding:1.1rem 1.4rem 0.8rem;border-bottom:1px solid rgba(255,255,255,0.08);
+            gap:0.75rem;
         `;
         header.innerHTML = `
-            <div style="display:flex;gap:.5rem;align-items:center;">
+            <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;">
                 ${activeSections.map((s, i) => `
                     <button class="pi-tab" data-tab="${i}" style="
-                        border:none;cursor:pointer;padding:.4rem .9rem;border-radius:30px;font-size:.8rem;
+                        border:none;cursor:pointer;padding:.4rem .85rem;border-radius:30px;font-size:.8rem;
                         font-family:inherit;font-weight:600;transition:all .25s;
-                        background:${i === 0 ? 'var(--gradient-primary,linear-gradient(135deg,#6366f1,#8b5cf6))' : 'rgba(255,255,255,0.07)'};
-                        color:${i === 0 ? '#fff' : 'rgba(255,255,255,0.5)'};
+                        background:${i === 0 ? 'var(--gradient-primary,linear-gradient(135deg,#6366f1,#8b5cf6))' : 'rgba(255,255,255,0.08)'};
+                        color:${i === 0 ? '#fff' : 'rgba(255,255,255,0.6)'};
                     ">${i + 1}</button>
                 `).join('')}
             </div>
-            <button id="piClose" style="
-                border:none;cursor:pointer;background:rgba(255,255,255,0.08);
+            <button id="piClose" aria-label="Close Announcement" style="
+                border:none;cursor:pointer;background:rgba(255,255,255,0.1);
                 color:#fff;width:34px;height:34px;border-radius:50%;font-size:1rem;
-                display:flex;align-items:center;justify-content:center;transition:background .2s;
+                display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;
             ">✕</button>
         `;
 
         // Content area
         const contentArea = document.createElement('div');
         contentArea.id = 'piContent';
-        contentArea.style.cssText = 'padding:1.5rem;';
+        contentArea.style.cssText = 'padding:1.4rem;box-sizing:border-box;';
 
         box.appendChild(header);
         box.appendChild(contentArea);
         overlay.appendChild(box);
         document.body.appendChild(overlay);
 
-        // inject keyframes
+        // inject keyframes & responsive styling
         const style = document.createElement('style');
         style.textContent = `
             @keyframes piFadeIn { from{opacity:0} to{opacity:1} }
-            @keyframes piSlideUp { from{opacity:0;transform:scale(.85) translateY(40px)} to{opacity:1;transform:scale(1) translateY(0)} }
+            @keyframes piSlideUp { from{opacity:0;transform:scale(.9) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
             #piBox::-webkit-scrollbar { width:4px }
             #piBox::-webkit-scrollbar-thumb { background:rgba(99,102,241,.5);border-radius:4px }
+            .pi-header-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.6rem;
+                margin-top: 0.2rem;
+                margin-bottom: 0.25rem;
+                flex-wrap: wrap;
+            }
+            .pi-title {
+                font-size: 1.12rem;
+                font-weight: 700;
+                margin: 0 !important;
+                line-height: 1.35;
+                color: #fff;
+                flex: 1 1 auto;
+            }
+            .pi-date-badge {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #c7d2fe;
+                background: rgba(99,102,241,0.22);
+                border: 1px solid rgba(99,102,241,0.38);
+                padding: 0.2rem 0.65rem;
+                border-radius: 20px;
+                white-space: nowrap;
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                margin: 0 !important;
+                flex-shrink: 0;
+            }
+            .pi-desc {
+                color: rgba(255,255,255,.72);
+                line-height: 1.55;
+                font-size: 0.92rem;
+                margin: 0.35rem 0 1rem 0 !important;
+            }
+            @media (max-width: 480px) {
+                #piBox {
+                    max-width: calc(100vw - 24px) !important;
+                    border-radius: 16px !important;
+                }
+                #piContent {
+                    padding: 1rem !important;
+                }
+                .pi-title {
+                    font-size: 1.02rem !important;
+                }
+                .pi-header-row {
+                    gap: 0.4rem !important;
+                    margin-bottom: 0.2rem !important;
+                }
+            }
         `;
         document.head.appendChild(style);
 
@@ -140,7 +209,7 @@
 
             const buttonsHTML = (section.buttons || []).map(b => `
                 <a href="${b.url}" style="
-                    display:inline-block;padding:.65rem 1.4rem;border-radius:50px;font-size:.9rem;
+                    display:inline-block;padding:.65rem 1.4rem;border-radius:50px;font-size:.88rem;
                     font-family:inherit;font-weight:600;text-decoration:none;margin:.35rem;
                     background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
                     box-shadow:0 4px 15px rgba(99,102,241,.35);transition:transform .2s,box-shadow .2s;
@@ -151,12 +220,14 @@
 
             contentArea.innerHTML = `
                 ${buildCarousel(section, carouselId)}
-                <div style="margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center;">
-                    <h3 style="font-size:1.2rem;font-weight:700;margin:0;">${section.name}</h3>
-                    <span style="font-size:.8rem;color:rgba(255,255,255,0.4);background:rgba(255,255,255,.06);padding:.2rem .7rem;border-radius:20px;">${section.date}</span>
+                <div class="pi-header-row">
+                    <h3 class="pi-title">${section.name}</h3>
+                    <span class="pi-date-badge">
+                        <i class="far fa-calendar-alt" style="font-size:.72rem;opacity:.9;"></i> ${section.date}
+                    </span>
                 </div>
-                <p style="color:rgba(255,255,255,.65);line-height:1.65;font-size:.95rem;margin:.8rem 0 1.2rem;">${section.paragraph}</p>
-                ${buttonsHTML ? `<div style="text-align:center;margin-top:.5rem;">${buttonsHTML}</div>` : ''}
+                <p class="pi-desc">${section.paragraph}</p>
+                ${buttonsHTML ? `<div style="text-align:center;margin-top:.4rem;">${buttonsHTML}</div>` : ''}
             `;
 
             // Wire up dots
@@ -175,8 +246,8 @@
             document.querySelectorAll('.pi-tab').forEach((t, i) => {
                 t.style.background = i === index
                     ? 'linear-gradient(135deg,#6366f1,#8b5cf6)'
-                    : 'rgba(255,255,255,0.07)';
-                t.style.color = i === index ? '#fff' : 'rgba(255,255,255,0.5)';
+                    : 'rgba(255,255,255,0.08)';
+                t.style.color = i === index ? '#fff' : 'rgba(255,255,255,0.6)';
             });
         }
 

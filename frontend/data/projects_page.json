@@ -1,58 +1,128 @@
 [
     {
-        "id": "portfolio",
-        "name": "Personal Portfolio Website",
-        "category": "Technology",
-        "description": "A modern personal portfolio website showcasing projects, achievements, cybersecurity interests, research, and entity structure.",
+        "id": "ar-industries",
+        "name": "AR. Industries",
+        "category": "Entrepreneurship",
+        "description": "An early entrepreneurial identity associated with AR. Abhinav Ranjan and the beginnings of his technology and business journey.",
         "tags": [
-            "Web Development",
-            "Frontend",
-            "Portfolio"
+            "Technology",
+            "Business",
+            "Innovation"
         ],
-        "icon": "fas fa-code",
-        "image": "#",
-        "url": "https://abhinavranjan.qzz.io"
-    },
-    {
-        "id": "luminary",
-        "name": "Luminary Technicals",
-        "category": "Technology",
-        "description": "Luminary Technicals is a multidisciplinary organization founded by AR. Abhinav Ranjan, operating across digital infrastructure, technology development, research, cybersecurity, education, public-interest initiatives and an expanding network of projects and ventures.",
-        "tags": [
-            "Multidisciplinary Organization",
-            "Systems",
-            "Cloud Infrastructure"
-        ],
-        "icon": "fas fa-bolt",
+        "icon": "fas fa-industry",
         "image": "#",
         "url": "#"
     },
     {
-        "id": "luminary-servers",
-        "name": "Luminary Servers",
-        "category": "Technology",
-        "description": "A web platform managing server infrastructure, hosting environments, and deployment systems for projects within the Luminary Technicals ecosystem.",
+        "id": "luminary-technicals",
+        "name": "Luminary Technicals",
+        "category": "Organization",
+        "description": "A multidisciplinary organization founded by AR. Abhinav Ranjan, working across technology, infrastructure, cybersecurity, research, education, and public-interest initiatives.",
         "tags": [
-            "Server Systems",
-            "Hosting",
-            "Cloud"
+            "Technology",
+            "Research",
+            "Innovation"
         ],
-        "icon": "fas fa-server",
+        "icon": "fas fa-bolt",
         "image": "#",
-        "url": "https://luminaryservers.netlify.app"
+        "url": "https://luminarytechnicals.dpdns.org/"
     },
     {
-        "id": "agroscan",
-        "name": "AgroScan",
-        "category": "Research",
-        "description": "An AI-powered agricultural analysis web application designed to help farmers and researchers analyze crop conditions using machine learning and computer vision.",
+        "id": "luminary-federals",
+        "name": "Luminary Federals",
+        "category": "Public Affairs",
+        "description": "A strategic initiative focused on public affairs, institutional engagement, civic technology, policy, and broader strategic initiatives.",
         "tags": [
-            "AI / ML",
-            "Computer Vision",
-            "Web Application"
+            "Public Affairs",
+            "Policy",
+            "Strategy"
         ],
-        "icon": "fas fa-leaf",
+        "icon": "fas fa-landmark",
         "image": "#",
-        "url": "https://agroscan-lumitech.netlify.app"
+        "url": "#"
+    },
+    {
+        "id": "agroscan-ai",
+        "name": "AgroScan AI",
+        "category": "Research",
+        "description": "An AI-powered agricultural analysis project using machine learning and computer vision to analyze crop conditions and identify potential diseases.",
+        "tags": [
+            "AI",
+            "Agriculture",
+            "Research"
+        ],
+        "icon": "fas fa-seedling",
+        "image": "#",
+        "url": "#"
+    },
+    {
+        "id": "luminary-wishes",
+        "name": "Luminary Wishes",
+        "category": "Digital Experiences",
+        "description": "A personalized digital celebration platform creating interactive online experiences for birthdays, anniversaries, milestones, and special occasions.",
+        "tags": [
+            "Web",
+            "Celebrations",
+            "Design"
+        ],
+        "icon": "fas fa-gift",
+        "image": "#",
+        "url": "https://luminarywishes.dpdns.org/"
+    },
+    {
+        "id": "luminary-webs",
+        "name": "Luminary Webs",
+        "category": "Technology",
+        "description": "A web-development project focused on modern websites, digital platforms, interfaces, and online experiences.",
+        "tags": [
+            "Web Development",
+            "UI/UX",
+            "Web"
+        ],
+        "icon": "fas fa-globe",
+        "image": "#",
+        "url": "#"
+    },
+    {
+        "id": "james-web",
+        "name": "James Web",
+        "category": "Cybersecurity",
+        "description": "A cybersecurity education ecosystem focused on ethical hacking, security concepts, network security, and responsible technical learning.",
+        "tags": [
+            "Cybersecurity",
+            "Ethical Hacking",
+            "Education"
+        ],
+        "icon": "fas fa-shield-alt",
+        "image": "#",
+        "url": "https://jamesweb.dpdns.org/"
+    },
+    {
+        "id": "luminary-books",
+        "name": "Luminary Books",
+        "category": "Publishing",
+        "description": "A publishing project supporting technology books, cybersecurity guides, educational resources, and digital knowledge.",
+        "tags": [
+            "Books",
+            "Publishing",
+            "Education"
+        ],
+        "icon": "fas fa-book-open",
+        "image": "#",
+        "url": "#"
+    },
+    {
+        "id": "luminary-ai-engine",
+        "name": "Luminary AI Engine",
+        "category": "Artificial Intelligence",
+        "description": "An AI engine developed within the Luminary ecosystem for intelligent processing, automation, experimentation, and emerging technology applications.",
+        "tags": [
+            "AI",
+            "Automation",
+            "Research"
+        ],
+        "icon": "fas fa-brain",
+        "image": "#",
+        "url": "https://luminaryaiengine.dpdns.org/"
     }
 ]

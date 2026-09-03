@@ -166,7 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         };
 
-        openBtn.addEventListener('click', openPanel);
+        openBtn.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                // On phones, let native link open PDF directly without iframe side panel
+                return;
+            }
+            e.preventDefault();
+            openPanel();
+        });
         closeBtn.addEventListener('click', closePanel);
         overlay.addEventListener('click', closePanel);
 

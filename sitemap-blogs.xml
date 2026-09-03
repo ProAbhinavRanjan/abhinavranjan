@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Blog: Past Life & Biography -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/past-life.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>AR. Abhinav Ranjan Biography &amp; Early Journey</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Future of Cybersecurity 2026 -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/future-cyber.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>The Future of Cybersecurity in 2026</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Innovating with LTS -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/innovating-lts.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>Innovating with LTS: Real-Time WebRTC Architecture</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Digital Sovereignty & Cyber Jurisprudence -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/cyber-jurisprudence.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>Digital Sovereignty &amp; Cyber Jurisprudence in Modern Infrastructure</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: AgroScan AI Computer Vision -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/agroscan-ai.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>AgroScan AI: Computer Vision in Agritech Defense</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Young Entrepreneurship Tips -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/entrepreneur-tips.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>5 Principles for Building Early-Stage Multidisciplinary Tech Ventures</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: James Webb Telescope -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/blogs/content/james-web.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1595433707802-7b57d6a2c5c9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:title>James Webb Telescope: Unveiling the Cosmos</image:title>
+    </image:image>
+  </url>
+
+</urlset>

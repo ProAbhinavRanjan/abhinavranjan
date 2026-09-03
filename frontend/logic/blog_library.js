@@ -45,8 +45,11 @@
             return;
         }
 
-        grid.innerHTML = posts.map(post => `
-            <a href="/frontend/blogs/${post.slug}.html" class="blog-card fade-in-up">
+        grid.innerHTML = posts.map(post => {
+            const slug = post.slug || post.id;
+            const postUrl = `/frontend/blogs/content/${slug}.html`;
+            return `
+            <a href="${postUrl}" class="blog-card fade-in-up">
                 <div class="blog-card-img">
                     <img src="${post.image}" alt="${post.title}" loading="lazy">
                     <span class="blog-category">${post.category}</span>
@@ -60,7 +63,8 @@
                     </div>
                 </div>
             </a>
-        `).join('');
+            `;
+        }).join('');
 
         if (window.observeNewCards) {
             window.observeNewCards();
@@ -90,7 +94,7 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const cat = btn.dataset.category;
-                const filtered = cat === 'all' ? ALL_POSTS : ALL_POSTS.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+                const filtered = cat === 'all' ? ALL_POSTS : ALL_POSTS.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase());
                 renderBlogIndex(filtered);
             });
         });
@@ -99,14 +103,24 @@
     // ── SINGLE POST LOGIC ──────────────────────────────────────────────────
 
     async function renderSinglePost() {
-        // Extract slug from the filename (e.g., past-life.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryId = urlParams.get('id') || urlParams.get('post') || urlParams.get('slug');
+
         const pathSegments = window.location.pathname.split('/');
         const fileName = pathSegments[pathSegments.length - 1];
-        const slug = fileName.replace('.html', '').replace('.htm', '');
-        const post = ALL_POSTS.find(p => p.slug === slug || p.id === slug);
+        const fileSlug = fileName.replace('.html', '').replace('.htm', '');
+
+        const targetSlug = queryId || fileSlug;
+        const post = ALL_POSTS.find(p => 
+            p.id === targetSlug || 
+            p.slug === targetSlug ||
+            (p.content_path && (p.content_path.endsWith(`${targetSlug}.html`) || p.content_path.includes(targetSlug))) ||
+            (targetSlug === 'past-life' && p.id === 'past-life-biography') ||
+            (targetSlug === 'james-web' && p.id === 'james-web-telescope')
+        );
 
         if (!post) {
-            console.warn('⚠️ Blog post not found for slug:', slug, 'Available posts:', ALL_POSTS.length);
+            console.warn('⚠️ Blog post not found for slug:', targetSlug, 'Available posts:', ALL_POSTS.length);
             // Redirect to the index page for graceful fallback
             window.location.href = '/frontend/blogs/index.html';
             return;
@@ -116,27 +130,34 @@
         updateSEO(post);
 
         // 2. Render Header Info
-        document.getElementById('postTitle').innerText = post.title;
-        document.getElementById('postDate').innerText = post.date;
-        document.getElementById('postAuthor').innerText = `By ${post.author}`;
-        document.getElementById('postHero').style.backgroundImage = `url(${post.image})`;
+        const postTitle = document.getElementById('postTitle');
+        const postDate = document.getElementById('postDate');
+        const postAuthor = document.getElementById('postAuthor');
+        const postHero = document.getElementById('postHero');
+
+        if (postTitle) postTitle.innerText = post.title;
+        if (postDate) postDate.innerHTML = `<i class="fas fa-calendar"></i> ${post.date}`;
+        if (postAuthor) postAuthor.innerHTML = `<i class="fas fa-user"></i> By ${post.author}`;
+        if (postHero && post.image) postHero.style.backgroundImage = `url(${post.image})`;
 
         // 3. Fetch and Inject Content
         try {
-            const contentFileName = post.content_path.split('/').pop();
+            const contentFileName = post.content_path ? post.content_path.split('/').pop() : `${post.id}.html`;
             const contentResp = await fetch(`/frontend/blogs/content/${contentFileName}`);
             if (!contentResp.ok) throw new Error('Content file not found');
             const html = await contentResp.text();
-            document.getElementById('postBody').innerHTML = html;
+            const postBody = document.getElementById('postBody');
+            if (postBody) postBody.innerHTML = html;
         } catch (e) {
-            document.getElementById('postBody').innerHTML = '<p class="error">Content is currently unavailable.</p>';
+            const postBody = document.getElementById('postBody');
+            if (postBody) postBody.innerHTML = '<p class="error" style="text-align: center; color: var(--text-muted); padding: 3rem 0;">Content is currently unavailable.</p>';
         }
     }
 
     function updateSEO(post) {
         const siteUrl = "https://abhinavranjan.qzz.io";
-        // Use clean URL structure for SEO
-        const postUrl = `${siteUrl}/frontend/blogs/${post.slug}.html`;
+        const slug = post.slug || post.id;
+        const postUrl = `${siteUrl}/frontend/blogs/content/${slug}.html`;
         
         document.title = `${post.title} | AR. Blogs`;
         

@@ -17,16 +17,16 @@
             "buttons": [
                 {
                     "label": "Read Guide",
-                    "url": "#"
+                    "url": "https://jamesweb.dpdns.org/logical/"
                 }
             ]
         },
         {
             "id": "podcast-iit-m",
             "active": true,
-            "name": "🏆 Podcast IIT-M Recording Coming Soon",
+            "name": "🏆 Podcast IIT-M Recording is Out",
             "date": "2026",
-            "paragraph": "The Recordings will be out witin a time period of 1 month to 3 months based on the time required to finalize the winner and process the World Records.",
+            "paragraph": "The Recordings for IIT Madras Podcast has been sent out to Youtube, X, Reddit and Diffrent Platforms.",
             "images": [
                 "https://images.ctfassets.net/qyg0c6wmz8bn/1tZv5s0UFT4q2QLg3qO5zu/55b00f5680ae64c4e9512ef8df4f184d/start-a-podcast.jpg?w=1200&h=630&fit=thumb&fm=jpg",
                 "https://www.iitm.ac.in/sites/default/files/styles/img_m4/public/happenings/press_release/pressrelease08_05_2025_15_23.jpg?itok=3bz15xVT"
@@ -36,8 +36,8 @@
             "autoplayInterval": 3000,
             "buttons": [
                 {
-                    "label": "Recording - Soon",
-                    "url": "#"
+                    "label": "Recording - Out",
+                    "url": "https://instagram.com/ar.abhinavranjan"
                 }
             ]
         },

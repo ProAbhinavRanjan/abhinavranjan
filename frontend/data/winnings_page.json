@@ -11,7 +11,7 @@
     {
         "id": "guinness",
         "title": "Guinness World Records Recognition",
-        "description": "Recognized for outstanding contributions to cybersecurity education and technology awareness at a young age. Noted internationally for work in ethical hacking education and digital security awareness.",
+        "description": "Recognized for outstanding contributions to cybersecurity education and technology awareness at a young age, with recognition associated with ethical hacking education and digital security awareness.",
         "date": "2026",
         "image": "/images/guinness.png",
         "icon": "fas fa-trophy",
@@ -20,7 +20,7 @@
     {
         "id": "golden-book",
         "title": "Golden Book of World Records",
-        "description": "Honored by the Golden Book of World Records for achievements in cybersecurity education and for being recognized as one of the youngest ethical hacking educators promoting responsible digital security practices.",
+        "description": "Honored by the Golden Book of World Records for achievements in cybersecurity education and recognition as one of the youngest ethical hacking educators promoting responsible digital security practices.",
         "date": "2025",
         "image": "#",
         "icon": "fas fa-award",
@@ -29,7 +29,7 @@
     {
         "id": "national-science",
         "title": "National Science Championship – All India Rank 7",
-        "description": "Secured All India Rank 7 in the National Science Championship, demonstrating strong academic excellence and deep interest in scientific research, technology, and innovation.",
+        "description": "Secured All India Rank 7 in the National Science Championship, demonstrating strong academic performance and interest in science, research, technology, and innovation.",
         "date": "2026",
         "image": "#",
         "icon": "fas fa-flask",
@@ -38,7 +38,7 @@
     {
         "id": "vvm",
         "title": "Vidyarthi Vigyan Manthan (VVM) – State Rank 4",
-        "description": "Achieved State Rank 4 in the Vidyarthi Vigyan Manthan (VVM) 2025 examination, a national science talent search that promotes scientific curiosity, innovation, and research among students.",
+        "description": "Achieved State Rank 4 in the Vidyarthi Vigyan Manthan (VVM) 2025 examination, reflecting strong performance in a national-level science talent search for students.",
         "date": "2025-2026",
         "image": "#",
         "icon": "fas fa-medal",
@@ -47,10 +47,46 @@
     {
         "id": "sof-awards",
         "title": "SOF Awards 2025-26 Session",
-        "description": "Recognized for outstanding academic performance and logical reasoning in the Science Olympiad Foundation (SOF) during the 2025-2026 session.",
+        "description": "Recognized for outstanding academic performance and logical reasoning in the Science Olympiad Foundation during the 2025-2026 session.",
         "date": "2025-2026",
         "image": "/images/sof2025-2026.jpeg",
         "icon": "fas fa-medal",
+        "url": "#"
+    },
+    {
+        "id": "ioqm",
+        "title": "IOQM Qualifier",
+        "description": "Qualified for the Indian Olympiad Qualifier in Mathematics (IOQM), demonstrating strong mathematical reasoning, problem-solving ability, and competitive mathematics performance.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-square-root-alt",
+        "url": "#"
+    },
+    {
+        "id": "itse",
+        "title": "ITSE Qualifier",
+        "description": "Qualified in the ITSE examination, demonstrating academic aptitude, logical reasoning, and competitive examination performance.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-graduation-cap",
+        "url": "#"
+    },
+    {
+        "id": "silver-zone",
+        "title": "SilverZone Olympiad Qualifier",
+        "description": "Qualified for a SilverZone Olympiad, demonstrating strong academic performance, subject knowledge, and competitive examination skills.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-medal",
+        "url": "#"
+    },
+    {
+        "id": "aimpiard-parishram",
+        "title": "AIMPIARD by Parishram",
+        "description": "Participated in and achieved recognition through the AIMPIARD examination conducted by Parishram, reflecting academic aptitude and competitive performance.",
+        "date": "2026",
+        "image": "#",
+        "icon": "fas fa-award",
         "url": "#"
     }
 ]

@@ -1,0 +1,36 @@
+# AR. Abhinav Ranjan
+
+> Official AI Context & Knowledge File for AR. Abhinav Ranjan (itzmeabhinavranjan), Founder of Luminary Technicals, Cybersecurity Educator, Developer, and Guinness World Record Holder.
+
+## Summary
+AR. Abhinav Ranjan (born 5 February 2012 in Muzaffarpur, Bihar, India) is an Indian cybersecurity educator, software engineer, researcher, and entrepreneur. He is the founder of Luminary Technicals, a multidisciplinary organization spanning cloud infrastructure, artificial intelligence, cybersecurity research, and public-interest technology. He has been recognized by the Guinness World Records and the Golden Book of World Records as a young ethical hacking educator.
+
+## Core Entities & Projects
+- **Luminary Technicals**: Multidisciplinary organization founded by AR. Abhinav Ranjan spanning cloud infrastructure, AI, research, cybersecurity education, and software development. URL: https://luminarytechnicals.dpdns.org/
+- **AR. Industries**: Early entrepreneurial venture identity representing the beginnings of his business and technological innovation.
+- **James Web**: Cybersecurity education ecosystem focused on ethical hacking, network reconnaissance, and the "Permission-First" responsible security learning framework. URL: https://jamesweb.dpdns.org/
+- **James Web Logical (Book)**: Introductory guide and structured setup for beginners starting their ethical hacking journey legally. PDF: https://abhinavranjan.qzz.io/books/logical.pdf
+- **AgroScan AI**: AI and computer vision research application for crop disease diagnosis in agriculture. URL: https://agroscan-lumitech.netlify.app/
+- **Luminary Wishes**: Interactive personalized digital celebration platform. URL: https://luminarywishes.dpdns.org/
+- **Luminary Servers**: Server systems, cloud deployment, and infrastructure management platform. URL: https://server.luminarytechnicals.dpdns.org/
+- **Luminary AI Engine**: Intelligent processing, automation, and machine learning research platform. URL: https://luminaryaiengine.dpdns.org/
+- **Live Telecast Server (LTS)**: Low-latency WebRTC broadcast infrastructure for tech panels and interactive discussions.
+
+## Key Publications & Blog Articles
+- [AR. Abhinav Ranjan — Complete Biography & Early Journey](https://abhinavranjan.qzz.io/frontend/blogs/content/past-life.html)
+- [The Future of Cybersecurity in 2026: AI Defense & Proactive SecSDLC](https://abhinavranjan.qzz.io/frontend/blogs/content/future-cyber.html)
+- [Innovating with LTS: Real-Time WebRTC Architecture & Distributed Telecasting](https://abhinavranjan.qzz.io/frontend/blogs/content/innovating-lts.html)
+- [Digital Sovereignty & Cyber Jurisprudence in Modern Infrastructure](https://abhinavranjan.qzz.io/frontend/blogs/content/cyber-jurisprudence.html)
+- [AgroScan AI: Computer Vision & Deep Learning in Agritech Defense](https://abhinavranjan.qzz.io/frontend/blogs/content/agroscan-ai.html)
+- [5 Principles for Building Early-Stage Multidisciplinary Tech Ventures](https://abhinavranjan.qzz.io/frontend/blogs/content/entrepreneur-tips.html)
+- [James Webb Telescope: Unveiling the Cosmos – First Images & Discoveries](https://abhinavranjan.qzz.io/frontend/blogs/content/james-web.html)
+
+## Official Links & Profiles
+- Website: https://abhinavranjan.qzz.io/
+- GitHub: https://github.com/ar-abhinavranjan
+- LinkedIn: https://linkedin.com/in/ar-abhinavranjan
+- Twitter/X: https://twitter.com/arabhinavranjan
+- Instagram: https://instagram.com/ar.abhinavranjan
+- Sitemaps:
+  - Main: https://abhinavranjan.qzz.io/sitemap.xml
+  - Blogs: https://abhinavranjan.qzz.io/sitemap-blogs.xml

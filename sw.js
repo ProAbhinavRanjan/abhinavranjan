@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1.2.0';
+const CACHE_VERSION = 'v2.5.1';
 const CACHE_NAME = `ar-portfolio-${CACHE_VERSION}`;
 
 const ASSETS_TO_CACHE = [

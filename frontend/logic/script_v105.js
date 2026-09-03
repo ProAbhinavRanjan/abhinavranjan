@@ -377,18 +377,28 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => { hamburger.classList.remove('active'); navList.classList.remove('active'); }));
     }
 
-    /* Scroll Animations */
+    /* Scroll Animations & Instant Touch Hydration */
+    if (window.matchMedia('(max-width: 1024px), (pointer: coarse)').matches) {
+        document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+    }
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.01, rootMargin: '150px 0px' });
     document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-    window.observeNewCards = () => { document.querySelectorAll('.fade-in-up:not(.observed)').forEach(el => { el.classList.add('observed'); observer.observe(el); }); };
+    window.observeNewCards = () => { document.querySelectorAll('.fade-in-up:not(.observed)').forEach(el => { el.classList.add('observed', 'visible'); observer.observe(el); }); };
 
-    /* 3D Tilt */
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(); card.style.transform = `perspective(1000px) rotateX(${(((e.clientY-r.top)/r.height)-0.5)*-10}deg) rotateY(${(((e.clientX-r.left)/r.width)-0.5)*10}deg)`; });
-        card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)'; });
-    });
+    /* 3D Tilt - Enabled only for mice/trackpads (pointer: fine) to prevent touch swipe interference */
+    if (window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                card.style.transform = `perspective(1000px) rotateX(${(((e.clientY-r.top)/r.height)-0.5)*-10}deg) rotateY(${(((e.clientX-r.left)/r.width)-0.5)*10}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+    }
 
     /* Contact form logic has been decoupled to contact_handler.js */
 

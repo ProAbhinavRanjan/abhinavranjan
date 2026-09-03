@@ -2,60 +2,84 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- Home Page -->
   <url>
     <loc>https://abhinavranjan.qzz.io/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- About -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/about.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Research -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/html/research.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Projects -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/projects.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Achievements / Winnings -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/winnings.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Biography -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/biography.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <!-- Socials -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/socials.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Contact -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/contact.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- Archive -->
+  <url>
+    <loc>https://abhinavranjan.qzz.io/frontend/html/archive.html</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Gallery — Authority Archive with all achievement photos -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/gallery/index.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://abhinavranjan.qzz.io/images/guinness.png</image:loc>
       <image:title>Guinness World Record Certificate - Abhinav Ranjan</image:title>
@@ -71,89 +95,67 @@
       <image:title>SOF Science Olympiad Foundation Awards 2025-26 Session</image:title>
       <image:caption>Recognized for outstanding academic performance and logical reasoning in the Science Olympiad Foundation (SOF) during the 2025-2026 session.</image:caption>
     </image:image>
+    <image:image>
+      <image:loc>https://abhinavranjan.qzz.io/images/james-web-logical-cover.png</image:loc>
+      <image:title>James Web Logical – Introduction to Ethical Hacking by Abhinav Ranjan</image:title>
+      <image:caption>Cover of James Web Logical, a beginner's guide to ethical hacking and cybersecurity authored under the Luminary Technicals ecosystem.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://abhinavranjan.qzz.io/images/og-image.png</image:loc>
+      <image:title>AR. Abhinav Ranjan – Official Portfolio Banner</image:title>
+      <image:caption>Official Open Graph banner for AR. Abhinav Ranjan's portfolio website.</image:caption>
+    </image:image>
   </url>
 
+  <!-- Blogs Hub -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/blogs/index.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/past-life.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/future-of-cybersecurity-2026.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/innovating-with-lts.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/digital-sovereignty-cyber-jurisprudence.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/agroscan-ai-computer-vision.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://abhinavranjan.qzz.io/frontend/blogs/young-entrepreneurship-tips.html</loc>
-    <lastmod>2026-08-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
 
+  <!-- LTS Live Telecast Server -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/lts/index.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/lts/lts-join.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
+  <!-- FAQs & Glossary -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/moredetails/asked-questions.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/moredetails/glossary.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
+  <!-- Legal & Policies -->
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/moredetails/privacy-policy.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
     <loc>https://abhinavranjan.qzz.io/frontend/html/moredetails/terms-and-conditions.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
